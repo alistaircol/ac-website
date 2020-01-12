@@ -5,10 +5,6 @@ theme = "papercss-hugo-theme"
 
 [menu]
     [[menu.nav]]
-        name = "Welcome"
-        url = "/"
-        weight = 1
-    [[menu.nav]]
         name = "Work"
         url = "/work"
         weight = 2
