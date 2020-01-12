@@ -1,7 +1,7 @@
 ---
 title: "Welcome"
 url: "/"
-kind: home
+type: home
 ---
 
 Alistair Collins is a capable full stack web developer from Scotland, with a broad knowledge of web technologies.
