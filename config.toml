@@ -1,4 +1,4 @@
-baseURL = "http://localhost/"
+baseURL = "https://alistaircol.netlify.com"
 languageCode = "en-us"
 title = "alistaircol"
 theme = "papercss-hugo-theme"
