@@ -110,6 +110,13 @@ Assignments: ([Screenshots](https://imgur.com/a/AJ1aP))
 * A C program for showing the pipeline values in [MIPS](https://en.wikipedia.org/wiki/MIPS_instruction_set)
 * A C program that acts as a simple [shell](https://en.wikipedia.org/wiki/Command-line_interface)
 
+![CS210](/img/course/strath/cs2/CS210-a.png)
+
+![CS210](/img/course/strath/cs2/CS210-b.png)
+
+![CS210](/img/course/strath/cs2/CS210-c.png)
+
+
 {{< alert "primary" >}}CS-211: Professional Issues{{< /alert >}}
 
 Type: {{< color "primary" >}}Professional Development{{< /color >}}
@@ -118,6 +125,8 @@ Assignments:
 
 * Individual essay - topics including "Data Protection and Data Privacy", "Intellectual Property, Copyright; Downloading and Piracy in the Workplace" and "Computer Miususe; Public Computer Access".
 * Group website
+
+![CS211](/img/course/strath/cs2/CS211.png)
 
 {{< alert "warning" >}}CS-214: {{< /alert >}}
 
@@ -128,3 +137,9 @@ Assignments: ([Screenshots](https://imgur.com/a/JQpiR))
 * Python game: Simple number guessing
 * Python game: Square chase
 * Python game: Flappy Doge
+
+![CS214](/img/course/strath/cs2/CS214-a.png)
+
+![CS214](/img/course/strath/cs2/CS214-b.png)
+
+![CS214](/img/course/strath/cs2/CS214-c.png)

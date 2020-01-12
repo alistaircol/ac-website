@@ -5,7 +5,7 @@ weight: 3
 category: ['university']
 ---
 
-{{< alert "warning" >}}CS-408: Individual Project{{< /alert >}}
+{{< alert "warning" >}}CS408: Individual Project{{< /alert >}}
 
 Type: {{< color "warning" >}}Software Construction{{< /color >}}
 
@@ -21,7 +21,7 @@ Overall Aims:
 
 ![CS408](/img/course/strath/cs4/CS408.png)
 
-{{< alert "warning" >}}CS-409: Software Architecture and Design{{< /alert >}}
+{{< alert "warning" >}}CS409: Software Architecture and Design{{< /alert >}}
 
 Type: {{< color "warning" >}}Software Construction{{< /color >}}
 
@@ -30,7 +30,7 @@ Assignments:
 * Java: Reverse engineer class diagrams from source code using javaparser into a format to be used with [nomnoml](https://www.nomnoml.com/).
 * Java: Orrery application in JHotDraw
 
-{{< alert "danger" >}}CS-412: Information Access and Mining{{< /alert >}}
+{{< alert "danger" >}}CS412: Information Access and Mining{{< /alert >}}
 
 Type: {{< color "danger" >}}Information Systems{{< /color >}}
 
@@ -38,7 +38,7 @@ Assignments:
 
 * Java: Application with Lucene. Implementing system for searching email.
 
-{{< alert "secondary" >}}CS-413: Embedded Systems{{< /alert >}}
+{{< alert "secondary" >}}CS413: Embedded Systems{{< /alert >}}
 
 Type: {{< color "secondary" >}}Computer Systems{{< /color >}}
 
@@ -48,7 +48,7 @@ Assignments:
 
 ![CS408](/img/course/strath/cs4/CS413.png)
 
-{{< alert "secondary" >}}CS-414: Digital Forensics{{< /alert >}}
+{{< alert "secondary" >}}CS414: Digital Forensics{{< /alert >}}
 
 Type: {{< color "secondary" >}}Computer Systems{{< /color >}}
 
