@@ -6,26 +6,26 @@ theme = "papercss-hugo-theme"
 [menu]
     [[menu.nav]]
         name = "Work"
-        url = "/work"
+        url = "/work/"
         weight = 1
     [[menu.nav]]
         name = "Articles"
-        url = "/articles"
+        url = "/articles/"
         weight = 2
     [[menu.nav]]
         name = "Projects"
-        url = "/projects"
+        url = "/projects/"
         weight = 3
     [[menu.nav]]
         name = "University"
-        url = "/university"
+        url = "/university/"
         weight = 4
     [[menu.nav]]
         name = "College"
-        url = "/college"
+        url = "/college/"
         weight = 5
     [[menu.nav]]
         name = "Contact"
-        url = "/contact"
+        url = "/contact/"
         weight = 6
 
