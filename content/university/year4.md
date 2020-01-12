@@ -46,8 +46,6 @@ Assignments:
 
 * Python, JS: Remote control car using websockets - involved creation of a gadget which we had to build and production of planning phase with documentation as well as final documentation detailing how the project was undertaken with detailed technical manual and user guides.
 
-![CS408](/img/course/strath/cs4/CS413.png)
-
 {{< alert "secondary" >}}CS414: Digital Forensics{{< /alert >}}
 
 Type: {{< color "secondary" >}}Computer Systems{{< /color >}}

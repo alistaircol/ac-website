@@ -15,17 +15,9 @@ Assignments: ([Screenshots](https://imgur.com/a/yQdXa))
 * Java: Stock folio tracker
 * Java: Pinball simulator with edit mode and solid physics
 
-![CS308](/img/course/strath/cs3/CS308-a.png)
-
 Application takes a directed graph in the form of a text file and this application constructs the directed graph and finds the shortest path between two points.
 
-![CS308](/img/course/strath/cs3/CS308-b.png)
-
 This application allows folios of shares to be bought and sold, tracks changes and loss/gain.
-
-![CS308](/img/course/strath/cs3/CS308-c1.png)
-
-![CS308](/img/course/strath/cs3/CS308-c2.png)
 
 Gizmoball, this pinball simulator has an edit and run mode, you can add gizmos/bumpers to the game board and the ball(s) will go crazy! Application has correct and commended for its customisable physics.
 
@@ -48,8 +40,6 @@ Assignments:
 
 * Java: Add type checking and interpretation layers to create an interactive calculator that can accept our custom designed language as input, and either report a syntax error, or else a correctly-formed program and report its [denotational semantics](https://en.wikipedia.org/wiki/Denotational_semantics). Also had to produce a detailed report of additions and how the project was approached.
 
-![CS311](/img/course/strath/cs3/CS311.png)
-
 {{< alert "danger" >}}CS312: Web Applications Development{{< /alert >}}
 
 Type: {{< color "danger" >}}Information Systems{{< /color >}}
@@ -57,8 +47,6 @@ Type: {{< color "danger" >}}Information Systems{{< /color >}}
 Assignments: ([Screenshots](https://imgur.com/a/gFHCx))
 
 PHP: Adventure Airlines - A simple flight booking system using PHP and [PDO](https://php.net/manual/en/book.pdo.php).
-
-![CS312](/img/course/strath/cs3/CS312.png)
 
 {{< alert "secondary" >}}CS313: Computer Systems and Concurrency{{< /alert >}}
 
@@ -70,14 +58,6 @@ Assignments: ([Screenshots](https://imgur.com/a/ZSOjj))
 * Java: Virtual [memory manager](https://en.wikipedia.org/wiki/Virtual_memory) simulator
 * Java: Caching and forwarding web proxy server
 
-![CS313](/img/course/strath/cs3/CS313-a1.png)
-
-![CS313](/img/course/strath/cs3/CS313-a2.png)
-
-![CS313](/img/course/strath/cs3/CS313-b.png)
-
-![CS313](/img/course/strath/cs3/CS313-c.png)
-
 {{< alert "warning" >}}CS317: Mobile Applications Development{{< /alert >}}
 
 Type: {{< color "warning" >}}Software Construction{{< /color >}}
@@ -86,7 +66,3 @@ Assignments: ([Screenshots](https://imgur.com/a/JfYBK))
 
 * HTML, JS: Currency converter
 * HTML, JS: [Breakout](https://en.wikipedia.org/wiki/Breakout_(video_game)) game
-
-![CS317](/img/course/strath/cs3/CS317-a.png)
-
-![CS317](/img/course/strath/cs3/CS317-b.png)

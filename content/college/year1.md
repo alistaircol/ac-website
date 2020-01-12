@@ -11,7 +11,6 @@ Type: {{< color "primary" >}}HNC Award{{< /color >}}
 
 ![HNC](/img/cert/hnc.jpg)
 
-
 Multiple choice questions on many aspects of computing and software development.
 
 {{< alert "secondary" >}}FK8A 34: Troubleshooting a Desktop OS{{< /alert >}}
