@@ -1,6 +1,6 @@
-+++
-title = "Projects"
-+++
+---
+title: "Projects"
+---
 
 {{< alert "secondary" >}}Networking{{< /alert >}}
 

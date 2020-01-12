@@ -1,6 +1,6 @@
-+++
-title = "Articles"
-+++
+---
+title: "Articles"
+---
 
 I plan on writing some articles.
 
