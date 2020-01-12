@@ -35,8 +35,8 @@ Assignments:
 Assignment 1: ([Screenshots](https://imgur.com/a/9OXXZ))
 
 * [Caeser](https://en.wikipedia.org/wiki/Caesar_cipher) (ROT) Cipher
-* [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) implementations using arrays and `java.util.`[`ArrayList`](https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html)
-* Stack and [Queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) implementations using `java.util.Stack` and `java.util.`[`LinkedList`](https://en.wikipedia.org/wiki/Linked_list)
+* [Stack](https://en.wikipedia.org/wiki/Stack_(abstract_data_type)) implementations using arrays and `java.util.` [`ArrayList`](https://docs.oracle.com/javase/7/docs/api/java/util/ArrayList.html)
+* Stack and [Queue](https://en.wikipedia.org/wiki/Queue_(abstract_data_type)) implementations using `java.util.Stack` and `java.util.` [`LinkedList`](https://en.wikipedia.org/wiki/Linked_list)
 * [Circular Queue](https://en.wikipedia.org/wiki/Circular_buffer) array implementation
 * Simple stock and shares application
 
