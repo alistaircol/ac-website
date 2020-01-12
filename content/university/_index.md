@@ -1,6 +1,5 @@
 ---
 title: "University"
-series: "University"
 ---
 
 I joined the University of Strathclyde in 2013 into the second year of the four year Computer Science degree.

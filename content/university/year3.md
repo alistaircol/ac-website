@@ -2,6 +2,7 @@
 title: "University: Year 3 (BSc)"
 show_summary: false
 weight: 2
+category: ['university']
 ---
 
 {{< alert "warning" >}}CS-308: Building Software Systems{{< /alert >}}

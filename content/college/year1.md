@@ -2,6 +2,7 @@
 title: "College: HNC"
 show_summary: false
 weight: 1
+category: ['college']
 ---
 
 {{< alert "primary" >}}DH36 34: Graded Unit{{< /alert >}}

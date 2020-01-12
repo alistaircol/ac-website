@@ -2,6 +2,7 @@
 title: "University: Year 4 (BSc Hons)"
 show_summary: false
 weight: 3
+category: ['university']
 ---
 
 {{< alert "warning" >}}CS-408: Individual Project{{< /alert >}}

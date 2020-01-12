@@ -2,6 +2,7 @@
 title: "University: Year 2 (Dip HE)"
 show_summary: false
 weight: 1
+category: ['university']
 ---
 
 {{< alert "success" >}}CS-203: Topics in Computing 2{{< /alert >}}

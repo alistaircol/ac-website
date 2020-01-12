@@ -2,6 +2,7 @@
 title: "College: HND"
 show_summary: false
 weight: 0
+category: ['college']
 ---
 
 {{< alert "primary" >}}DN4N 35: Graded Unit{{< /alert >}}
