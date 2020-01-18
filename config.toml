@@ -29,3 +29,7 @@ theme = "papercss-hugo-theme"
         url = "/contact/"
         weight = 6
 
+[markup]
+    [markup.goldmark]
+        [markup.goldmark.renderer]
+            unsafe = true
