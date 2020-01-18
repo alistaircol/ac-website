@@ -23,6 +23,7 @@ Exposure and experience working with, but not limited to include:
     * WebSocket
     * SweetAlert
     * toastr
+    * ui-grid
 * MySQL
 * HTML
 * Git
