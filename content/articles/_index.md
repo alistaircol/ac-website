@@ -4,12 +4,12 @@ title: "Articles"
 
 I plan on writing some articles.
 
-* Docker: one ingress `nginx` reverse proxy to multiple `php-apache` containers with different `xDebug` configurations.
+* Misc: Very basic Google Chrome extension to list dev sites, show which branch is on there, time of last remote push, etc.
 * Bash: quick tools using `zenity` and `pdftk` to manipulate PDF files:
     * `cut`
     * `append`
     * `convert`
-* Bash: server checklist with questions in `whiptail` and answers logged to syslog with `logger`
 * MySQL: Read replicas
-* PHP: Nicer use of `tcpdf`
+* PHP: Nicer use of `tcpdf` with [`call_user_func_array`](https://www.php.net/manual/en/function.call-user-func-array.php)
 * Bash: Some `pv` scripts
+* JS & PHP: some [`ui-grid`](http://ui-grid.info/docs/#!/tutorial) things.
