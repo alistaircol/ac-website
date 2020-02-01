@@ -17,17 +17,13 @@ theme = "papercss-hugo-theme"
         url = "/projects/"
         weight = 3
     [[menu.nav]]
-        name = "University"
-        url = "/university/"
+        name = "Education"
+        url = "/education/"
         weight = 4
-    [[menu.nav]]
-        name = "College"
-        url = "/college/"
-        weight = 5
     [[menu.nav]]
         name = "Contact"
         url = "/contact/"
-        weight = 6
+        weight = 5
 
 [markup]
     [markup.goldmark]

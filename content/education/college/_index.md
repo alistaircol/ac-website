@@ -1,5 +1,6 @@
 ---
 title: "College"
+summary: "I joined Kilmarnock College in 2011 to study Computing (specialising in Software Development) to a high enough level to gain entry to university. I passed both steps with distinction."
 ---
 
 I joined Kilmarnock College (now Ayrshire College) in 2011 to study Computing (specialising in Software Development) to a high enough level to gain entry to university.
