@@ -20,14 +20,28 @@ We have three dev sites setup for some of our projects to allow QA to test.
 * dev1
 * dev2
 
-Some of our projects have a multisite configuration. So project `members` is live at `members.ac93.uk`, the staging setups are `stage.members.ac93.uk`, `dev1.members.ac93.uk`, etc. If this project is a multisite setup then we also have things like `vip-members.ac93.uk`, these are setup to do different things like skip certain steps, show different style/layout, etc. Some projects have a few of these variants, so there's quite alot of links to remember and tweak if you need to go test something on there.
+Some of our projects have a multisite configuration. So project `members` is live at `members.ac93.uk`, the staging setups are `stage.members.ac93.uk`, `dev1.members.ac93.uk`, `dev2.members.ac93.uk` etc. If this project is a multisite setup then we also have things like `vip-members.ac93.uk`, these are setup to do different things like skip certain steps, show different style/layout, etc. Some projects have a few of these variants, so there's quite alot of links to remember and tweak if you need to go test something on there.
 
 So we have a fairly basic page built by a simple PHP script by a cron on our staging server which, for each project does a few things:
 
-**Get current `git` branch`:**
+**Get current `git` branch:**
 
 ```php
 git branch --no-color | awk '/*/ {print $2}'
+```
+
+Explanation: `git branch` lists all local branches, with an `*` next to the current branch.
+
+```
+$ git branch --no-color
+* master
+```
+
+We'll look for the `*` and print the second word.
+
+```
+$ git branch --no-color | awk '/*/ {print $2}'
+master
 ```
 
 Our branch names usually contain a ticket ID from Jira, so easy to see what feature/fix is on there.
@@ -38,11 +52,36 @@ Our branch names usually contain a ticket ID from Jira, so easy to see what feat
 git log -1 --format=%cd | cut -d "+" -f 1
 ```
 
+`git log -1` will get the last `1` commits.
+
+```
+$ git log -1
+commit 87ac8f8a4a5efb9eac3bebf1da06a8b0409f1452 .....
+Author: alistaircol <alistaircol@redacted>
+Date:   Mon Jan 20 23:11:09 2020 +0000
+
+    started chrome extension article
+```
+
+We can change the format of this output with `--format`. I chose `'%cd'` which is `committer date (format respects --date= option)`, you can see all possible formats in the [git log format specifiers](https://git-scm.com/docs/pretty-formats#Documentation/pretty-formats.txt-cd) documentation.
+
+```
+$ git log -1 --format='%cd'
+Mon Jan 20 23:11:09 2020 +0000
+```
+
+Then `cut -d "+" -f 1` basically removes the timezone part.
+
+```
+$ git log -1 --format='%cd' | cut -d "+" -f 1
+Mon Jan 20 23:11:09 2020
+```
+
 Just from a quick glance we can see if the code is old and needs a pull on stage server.
 
 **Get (Laravel) framework version:**
 
-```php
+```bash
 php artisan --version
 ```
 
@@ -101,17 +140,17 @@ $sites = [
   'crm' => [
     'crm' => [
       'urls' => [
-        'Core' => 'https://stage.crm.ac93.uk',
+        'CRM' => 'https://stage.crm.ac93.uk',
       ],
     ],
     'dev1-crm' => [
       'urls' => [
-        'Core' => 'https://dev1.crm.ac93.uk',
+        'CRM' => 'https://dev1.crm.ac93.uk',
       ],
     ],
     'dev2-crm' => [
       'urls' => [
-        'Core' => 'https://dev2.crm.ac93.uk',
+        'CRM' => 'https://dev2.crm.ac93.uk',
       ],
     ],
   ],
@@ -244,7 +283,7 @@ php /var/tasks/stage-sites.php > /var/www/html/members/public/stage-sites.html
 
 ## Chrome Extension Stuff
 
-The main attraction.
+The main attraction. For more info see [Develop Extensions Developer Guide](https://developer.chrome.com/extensions/devguide).
 
 Each Chrome extension starts with a `manifest.json`, it'll look something like this:
 
@@ -258,12 +297,12 @@ Each Chrome extension starts with a `manifest.json`, it'll look something like t
         "default_title": "Development Sites"
     },
     "permissions": [
-        "https://stage-members.ac93.uk/"
+        "https://stage.members.ac93.uk/"
     ],
     "icons": {
-        "16": "img/kinnell-logo-16.png",
-        "48": "img/kinnell-logo-48.png",
-        "128": "img/kinnell-logo-128.png"
+        "16": "img/logo-16.png",
+        "48": "img/logo-48.png",
+        "128": "img/logo-128.png"
     },
     "manifest_version": 2
 }
@@ -303,7 +342,7 @@ Our `js/extension.js` does the rest of the work.
 var manifest = undefined;
 
 var xhr = new XMLHttpRequest();
-xhr.open('GET', 'https://stage-members.ac93.uk/stage-sites.html');
+xhr.open('GET', 'https://stage.members.ac93.uk/stage-sites.html');
 xhr.onload = function () {
   if (xhr.status === 200) {
     $('.manifest').html(xhr.response); // load in dom
@@ -333,7 +372,7 @@ That's it really! It's just including some html in the page at the end of the da
 
 I find it really handy to have this accessible at a seconds notice, just next to the URL bar. Instead, previously this would be a pinned tab and it didn't include any links.
 
-I haven't deployed to the Chrome store (it's $5 and I'm cheap..) but here are some straightforward instructions to install and develop.
+I haven't deployed to the Chrome store (it's $5 and I'm cheap..) but here are some straightforward instructions to install and develop. Maybe I'll get around to this at some point.
 
 Local:
 
