@@ -16,7 +16,7 @@ This can't go on, I need xDebug to work properly!
 
 * Make a base image for all apps to use, isolating each application into its own container.
 * Make an `nginx` reverse proxy to route requests to the relevant container.
-* For each application, from the base image make a new service with bespoke configuration.
+* For each application, from the base image make a new service with a bespoke configuration.
 
 Ahh, debugging is nicer now!* [repo](https://github.com/alistaircol/docker-nginx-ingress-httpd-php)
 
@@ -46,22 +46,22 @@ It's all bundled into a `php:7-apache` container with some extra things. It work
 
 Debugging Core CRM System was fine, it's where we spend most of our development time, and somewhere around 70% of the time it's not a problem to debug because it's standalone.
 
-If we want to debug something where we use the our Members platform which goes through the API and ultimately to the CRM it plays havoc.
+If we want to debug something where we use the Members platform which goes through the API and ultimately to the CRM it plays havoc.
 
-I've spent alot of time searching but the requests just hang. Yes I know Postman, etc. exist, no, I don't want to mock requests, etc. everything I tried in PHPStorm, VS Code didn't seem to work nicely. I had to change the setup because I can't go back to `var_dump` and `echo` debugging!
+I've spent a lot of time searching, but the requests just hang. Yes I know Postman, etc. exist, no, I don't want to mock requests, etc. everything I tried in PHPStorm, VS Code didn't seem to work nicely. I had to change the setup because I can't go back to `var_dump` and `echo` debugging!
 
 # nginx
 
 We'll start with `nginx`. This will act as the only ingress point (on port 8080) for our applications. It will act as a reverse proxy to the relevant (isolated) container where the app lives. We can do this based on the server name, e.g.:
 
-* `local-crm.ac93.uk` requests are handled by app in `ac_crm` container.
-* `local-api.ac93.uk` requests are handled by app in `ac_api` container.
-* `local-mem.ac93.uk` requests are handled by app in `ac_mem` container.
+* `local-crm.ac93.uk` requests are handled by the app in `ac_crm` container.
+* `local-api.ac93.uk` requests are handled by the app in `ac_api` container.
+* `local-mem.ac93.uk` requests are handled by the app in `ac_mem` container.
 * everything else in `ac_misc` container.
 
 We'll have a config:
 
-* `containers/ingress/sites.conf:/etc/nginx/conf.d/site.conf` 
+`containers/ingress/sites.conf:/etc/nginx/conf.d/site.conf`: 
 
 ```nginx
 server {
@@ -161,7 +161,7 @@ Our applications have multisite configuration, so certain things need to change 
 </VirtualHost>
 ```
 
-We could do this in `nginx` but I'm not familiar with it's configuration. My brief research led me to [if is evil](https://www.nginx.com/resources/wiki/start/topics/depth/ifisevil/) and pretty sure setting environment variables as elegant.
+We could do this in `nginx` but I'm not familiar with its configuration. My brief research led me to [if is evil](https://www.nginx.com/resources/wiki/start/topics/depth/ifisevil/) and pretty sure setting environment variables isn't as elegant.
 
 # Base Image
 
@@ -259,8 +259,8 @@ ac-crm:
 `volumes`: 
 
 * The first in is for Docker in Docker, this is not essential.
-* The second entry in is bespoke configuration for apache virtual host.
-* The third entry in is bespoke configuration for PHP (mostly XDebug).
+* The second entry in is the bespoke configuration for `httpd` virtual host.
+* The third entry in is the bespoke configuration for PHP (mostly XDebug).
 * The fourth entry is our code.
 
 ## Apache Config
@@ -380,7 +380,7 @@ xdebug.remote_host=192.168.1.6
 
 # Members Area
 
-Last piece of the puzzle and nothing much changes here.
+Last piece of the puzzle and there are not many changes here compared to the previous services.
 
 The service in `docker-compose.yml`:
 
