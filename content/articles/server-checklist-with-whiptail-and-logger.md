@@ -11,14 +11,14 @@ As part of my morning routine I carry out some checks for our systems.
 
 These include things like:
 
-* Checking that email templates have all the mandatory variable placeholders, e.g. we expect to replace `{{ surname }}` - so if this isn't in the template we need to fix it. This is checked daily by a cron and a summary is emailed.
+* Checking that email templates have all the mandatory variable placeholders, e.g. we expect to replace `{{ surname }}` - so if this isn't in the template we need to fix it. This is checked daily by a cron, and a summary is emailed.
 * Checking API requests and investigate if there are any taking longer than usual.
 * Checking previous day app logs to see if anything needs action.
-* Checking EC2 and RDS backups were created.
+* Checking EC2 and RDS backups have been created.
 * Checking `apt` and other various logs.
 * Running software updates.
 
-I setup a bunch of [`whiptail`](https://en.wikibooks.org/wiki/Bash_Shell_Scripting/Whiptail) questions and log the answers to `syslog` with [`logger`](https://linux.die.net/man/1/logger). Our `syslog` messages go to papertrail so we can have a history of these checks. This is also handy for other devs to easily see any notes.
+I setup a bunch of [`whiptail`](https://en.wikibooks.org/wiki/Bash_Shell_Scripting/Whiptail) questions and log the answers to `syslog` with [`logger`](https://linux.die.net/man/1/logger). Our `syslog` messages go to papertrail, so we can have a history of these checks. This is also handy for other developers to easily see any notes.
 
 ![server-checks](/img/articles/server-checks/server-checks.png)
 
@@ -39,7 +39,8 @@ whiptail --title "Perform Check" \
   8 78 && developer_alerts
 ```
 
-I do this because some of the checks are to do with emails and AWS things, so once these have been done once (I start on production server) we don't need to do these checks on the next server.
+I do this because some checks are to do with emails and AWS things, so once these have been done once (I start on production server)
+we don't need to do these checks on the next server.
 
 ![Server Check Question](/img/articles/server-checks/screens/01.png)
 
@@ -77,7 +78,8 @@ function developer_alerts
 }
 ```
 
-In `email_more_info` when asking for input we need to get the exit code from `whiptail` to see whether we selected `Ok` or `Cancel`. If `Ok`, the input goes to `stderr` so need to swap `stderr` to `stdout` to set `INFO` to be what the user input.
+In `email_more_info` when asking for input we need to get the exit code from `whiptail` to see whether we selected `Ok` or `Cancel`.
+If `Ok`, the input goes to `stderr` so need to swap `stderr` to `stdout` to set `INFO` to be what the user input.
 
 ![Server Check Question](/img/articles/server-checks/screens/04.png)
 
@@ -137,6 +139,4 @@ function server_check
 }
 ```
 
-It's fairly primitive and possibly overengineered, but I like it!
-
-<link rel="stylesheet" href="/css/ac.css" />
+It's fairly primitive and possibly over-engineered, but I like it!
