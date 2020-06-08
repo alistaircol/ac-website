@@ -2,16 +2,23 @@
 title: "Intergating Some PHP QA Tools"
 author: "Ally"
 summary: "How I integrated some PHP QA tools into my work process."
-publishDate: 2020-12-01T12:00:00+01:00
+publishDate: 2020-06-07T12:00:00+01:00
 tags: ['php', 'docker', 'bash', 'git', 'make']
-draft: true
+draft: false
+---
+
+**TL;DR**:
+
+* As the title says.
+* Git repo [here](https://github.com/alistaircol/php-qa-tools-hook-integration).
+
 ---
 
 We use the excellent bunch of PHP QA tools from the [`jakzal/phpqa`](https://hub.docker.com/r/jakzal/phpqa/) Docker image. 
 We're only using a small subset of these tools for now, but decided to use the container option to save having to
 install all these tools per project in `composer`.
 
-To run some of these tools, we'll create a shortcut ([recipe](https://www.gnu.org/software/make/manual/html_node/Recipe-Syntax.html)) in a `Makefile` per project.
+To run some of these tools, we'll create a shortcut for them, in a `Makefile` per project.
 
 Will create a `qa_docker` variable at the top of the `Makefile` to save typing this out for each QA check.
 Used verbose `docker run` options for clarity.
@@ -21,7 +28,6 @@ Used verbose `docker run` options for clarity.
 ```makefile
 qa_docker = docker run \
     --init \
-    --interactive \
     --tty \
     --rm \
     --user=$$(id -u) \
@@ -29,10 +35,6 @@ qa_docker = docker run \
     --workdir "/project" \
     jakzal/phpqa:php7.3
 ```
-
-TODO: reverse this
-
-![pooh](/img/articles/php-qa/docker-meme.jpg)
 
 ## [`phplint`](https://github.com/overtrue/phplint/blob/master/README.md)
 
@@ -110,7 +112,7 @@ find app/ -type f \
 
 ## [`phpcs`](https://github.com/squizlabs/PHP_CodeSniffer/blob/master/README.md)
 
-Some of our code base is fairly old, so over time trying to polish it up.
+Some of our code base is fairly old, so over time trying to polish it up (with `phpcbf`).
 
 We're going to follow [PSR-12](https://www.php-fig.org/psr/psr-12/) (Mostly! base [`phpcs.xml`](https://github.com/squizlabs/PHP_CodeSniffer/blob/master/src/Standards/PSR12/ruleset.xml) for that).
 
@@ -129,6 +131,8 @@ The `-s` flag:
 
 Handy if your code is impossible to comply with *all* PSR-12 rules, you now know the code to add to an exemption list,
 or tweak some rules parameters to suit.
+
+Quick example on linting from `stdin`, but obviously can pass a path to a file, or a list (more on that later).
 
 ```bash
 docker run -i jakzal/phpqa:php7.3 phpcs --standard=PSR12 -s - <<"PHP"
@@ -171,12 +175,56 @@ You can see the output looks like this. Lines removed in diff are when run witho
  ----------------------------------------------------------------------
 ```
 
-Integrating with IDE: TODO.
-
 ## `phpcbf`
 
-My best friend. Uses the same config as `phpcs` but will try its best to fix these violations for you.
+Uses the same config as `phpcs` but will try its best to fix these violations for you.
 
+I haven't figured out how to integrate this into a workflow **yet**.
+
+There is an easy access recipe.
+
+`Makefile`:
+
+```makefile
+phpcbf:
+    ${qa_docker} phpcbf $(args)
+```
+
+When I need to work in a file, I tend to follow this process:
+
+* `make phpcbf args=src/Reader.php`
+* `git commit -m '(phpcbf) Reader'`
+* any additional tidy up (split long lines, replace magic numbers with `const` if applicable, other improvements, etc.) and `git commit`
+* whatever I need to do and `git commit`
+
+Some exceptions in our setup:
+
+`phpcs.xml`:
+
+```xml
+    <!-- Kinnell Core Exceptions -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <rule ref="PSR1">
+        <!-- Warning -->
+        <!-- A file should declare new symbols (classes, functions, constants, etc.) -->
+        <!-- and cause no other side effects, or it should execute logic with side -->
+        <!-- effects, but should not do both. -->
+        <!-- Rationale: We exclude this because Cake 2 isn't namespaced, -->
+        <!-- so we need to use App::uses before class definitions -->
+        <exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />
+
+        <!-- Error -->
+        <!-- Each class must be in a namespace of at least one level -->
+        <!-- (a top-level vendor name) -->
+        <!-- Rationale: CakePHP 2.x models, etc. aren't namespaced -->
+        <exclude name="PSR1.Classes.ClassDeclaration.MissingNamespace" />
+    </rule>
+    
+    <!-- converts array() to [], etc. -->
+    <rule ref="Generic.Arrays.DisallowLongArraySyntax.Found">
+        <type>error</type>
+    </rule>
+```
 
 ## Violation Prevention (`git hooks`)
 
@@ -201,32 +249,26 @@ They usually live in `.git/hooks` so normally aren't part of a project in source
 - ├── [<i class="fa fa-info-circle"></i>](https://git-scm.com/docs/githooks#pre-receive) [`pre-receive.sample`](https://github.com/git/git/blob/master/templates/hooks--pre-receive.sample)
 - └── [<i class="fa fa-info-circle"></i>](https://git-scm.com/docs/githooks#update) [`update.sample`](https://github.com/git/git/blob/master/templates/hooks--update.sample)
 
-Now having the custom logic for your project *not* in source control is a bad idea, thankfully, however, there is
+Having the custom logic for your project *not* in source control is a bad idea, thankfully, however, there is
 [`git config core.hookspath`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-corehooksPath).
 
-With this you can, for example, have a `.hooks` folder in your project with your custom hooks/logic and then tell `git` about it.
+With this you can, for example, have a `.githooks` folder in your project with your custom hooks/logic and then tell `git` about it.
 
 ```bash
-git config core.hookspath "$(pwd)/.hooks"
+git config core.hookspath "$(pwd)/.githooks"
 ```
 
-Now to get the hooks to work, give them the relevant name (i.e without `.sample` suffix) in `.hooks/` and make them
+Now to get the hooks to work, give them the relevant name (i.e without `.sample` suffix) in `.githooks/` and make them
 executable, i.e. `chmod +x`.
 
 ---
-
-`make phplint args=$(make phpdiff)` does actually give error codes. Weird.
-
-Unfortunately some tools don't give exit codes when they fail, which is a bit shit!
-
-No worries, there's always a way to solve a problem.
 
 If we want to prevent a `git` action from happening, e.g. `git commit` when there are parse errors, then
 we would likely want to add a `pre-commit` hook.
 
 It might look something like this!
 
-`.hooks/pre-commit`:
+`.githooks/pre-commit`:
 
 ```bash
 #!/usr/bin/env bash
@@ -234,9 +276,7 @@ It might look something like this!
 ROOT_MAKE="make --file=$(git rev-parse --show-toplevel)/Makefile"
 LINT_RESULT=$($ROOT_MAKE phplint)
 
-# Only time the word 'FAILURES!' appears is when there are parse errors.
-# If there is 1 or more occurrences then we will assume there are errors.
-if [ "$(echo $LINT_RESULT | grep 'FAILURES!' | wc -l)" -eq "0" ]; then
+if [ $? -eq "0" ]; then
   exit 0
 else
   echo "There were some errors."
@@ -248,9 +288,10 @@ fi
 ```
 
 Now this *probably* isn't really the logic you want to apply. We'll only want to lint files actually in the commit.
-This if there's an error elsewhere in the local file system, but the change isn't being committed then it's fine!
+Think of the case if there's an error elsewhere in the local file system within the repository, but the change isn't
+for something that's being committed, then this will be a false positive.
 
-Read more on [`--diff-filter`](https://git-scm.com/docs/git-diff#Documentation/git-diff.txt---diff-filterACDMRTUXB82308203).
+To get smarter results, add the following:
 
 `Makefile`:
 
@@ -262,19 +303,26 @@ files_in_git_diff = git \
     --staged
 
 php_files_in_git_diff = ${files_in_git_diff} \
-    --diff-filter=MRC \
+    --diff-filter=AMRC \
     -- '*.php'
 ```
 
-Before committing, `make phpdiff` will give:
+Read more on:
+
+* [`--name-only`](https://git-scm.com/docs/git-diff#Documentation/git-diff.txt---name-only)
+* `--cached` it shows all staged changes. `--staged` is a synonym of `--cached`.
+* [`--diff-filter`](https://git-scm.com/docs/git-diff#Documentation/git-diff.txt---diff-filterACDMRTUXB82308203).
+
+Staging a file will then give something like below:
 
 ```text
 $ make phpdiff
 Reader.php
 ```
 
-Now with a small tweak to the `phplint` recipe, we can make it more flexible, so we can then just pass a list of files
-included in the diff to be linted.
+Now with a small tweak to the `phplint` recipe, we can make it more flexible.
+
+We will allow `args` to be passed to `phplint`.
 
 `Makefile`:
 
@@ -284,38 +332,39 @@ included in the diff to be linted.
 +       @${qa_docker} phplint $(args)
 ```
 
-Read more on [passing arguments to `make`](https://stackoverflow.com/q/2214575/5873008).
+Example:
+
+```text
+$ make phplint args=--help
+Description:
+  Lint something
+
+Usage:
+  phplint [options] [--] [<path>...]
+
+Arguments:
+  path                               Path to file or directory to lint.
+
+[truncated]
+```
 
 We can now combine `make phpdiff` with `make phplint` to lint only the relevant files to a commit.
 
 Just another issue, `make phpdiff` will print one file per line, so we need to put them all on one line for `phpcs` args.
 
-`Makefile`:
-
 ```diff
-+phpdiff-one-line
+ phpcs:
+-    @${qa_docker} phpcbs -s
++    @${qa_docker} phpcbs -s $(args)
+
++phpdiff-one-line:
 +    @${php_files_in_git_diff} \
 +        | paste --serial --delimiters=' '
 ```
 
-```text
-$ make phplint args=$(make phpdiff)  
-phplint 2.0.2 by overtrue and contributors.
+Now to update the `pre-commit` hook to lint only relevant files. Might look something like this:
 
-Loaded config from "/project/.phplint.yml"
-
-
-
-Time: < 1 sec	Memory: 0 B	Cache: Yes
-
-OK! (Files: 1, Success: 1)
-```
-
-You can see there was only one file checked.
-
-Now to update the `pre-commit` hook to lint only relevant files:
-
-`.hooks/pre-commit`:
+`.githooks/pre-commit`:
 
 ```diff
  #!/usr/bin/env bash
@@ -328,7 +377,7 @@ Now to update the `pre-commit` hook to lint only relevant files:
 
 A complete check might look something like this:
 
-`.hooks/pre-commit`:
+`.githooks/pre-commit`:
 
 ```bash
 #!/usr/bin/env bash
