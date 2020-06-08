@@ -144,7 +144,7 @@ Why do you need to go proxy to `httpd` instances I hear you cry? Why don't you u
 
 Our applications have multisite configuration, so certain things need to change depending on the URLs. In `httpd` virtual host configs we are setting environment variable depending on the URL, e.g.:
 
-```
+```text
 <VirtualHost *:80>
     ServerName local-mem.ac93.uk
     ServerAlias local-vip-mem.ac93.co.uk
@@ -271,7 +271,7 @@ Note that [`ProxyPreserveHost`](https://httpd.apache.org/docs/2.4/mod/mod_proxy.
 
 The file `containers/crm/httpd/crm.conf` will look something like this:
 
-```
+```text
 <VirtualHost *:80>
     ServerName local-crm.ac93.uk
     DocumentRoot /var/www/html/crm
@@ -342,7 +342,7 @@ Main thing to note here is that there is an extra section; `extra_hosts`. We nee
 
 The virtual host setup is much the same, `containers/api/httpd/api.conf`:
 
-```
+```text
 <VirtualHost *:80>
     ServerName local-api.ac93.uk
     DocumentRoot /var/www/html/api
@@ -409,7 +409,7 @@ Like how the API needs to know how to find the CRM, the Members Area needs to kn
 
 Apache config is very similar `containers/mem/httpd/mem.conf`:
 
-```
+```text
 <VirtualHost *:80>
     ServerName local-mem.ac93.uk
     ServerAlias local-vip-mem.ac93.uk
