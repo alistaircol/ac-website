@@ -7,6 +7,8 @@ tags: ['bash', 'whiptail', 'logger']
 draft: false
 ---
 
+![whiptail](/img/articles/server-checks/screens/whiptail.png)
+
 As part of my morning routine I carry out some checks for our systems.
 
 These include things like:
