@@ -179,7 +179,14 @@ You can see the output looks like this. Lines removed in diff are when run witho
 
 Uses the same config as `phpcs` but will try its best to fix these violations for you.
 
-I haven't figured out how to integrate this into a workflow **yet**.
+I haven't figured out how to integrate this (automatically) into a workflow **yet**.
+However, when I need to work in a file (e.g. `src/Reader.php`), I tend to follow this process:
+
+* `make phpcbf args=src/Reader.php`
+* `git add src/Reader.php`
+* `git commit -m '(phpcbf) Reader'`
+* any additional tidy up (split long lines, replace magic numbers with `const` if applicable, other improvements, etc.) and `git add; git commit`
+* whatever I need to do and `git add; git commit`
 
 There is an easy access recipe.
 
@@ -190,26 +197,19 @@ phpcbf:
     ${qa_docker} phpcbf $(args)
 ```
 
-When I need to work in a file, I tend to follow this process:
-
-* `make phpcbf args=src/Reader.php`
-* `git commit -m '(phpcbf) Reader'`
-* any additional tidy up (split long lines, replace magic numbers with `const` if applicable, other improvements, etc.) and `git commit`
-* whatever I need to do and `git commit`
-
 Some exceptions in our setup:
 
 `phpcs.xml`:
 
 ```xml
-    <!-- Kinnell Core Exceptions -->
+    <!-- Some Exemptions -->
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
     <rule ref="PSR1">
         <!-- Warning -->
         <!-- A file should declare new symbols (classes, functions, constants, etc.) -->
         <!-- and cause no other side effects, or it should execute logic with side -->
         <!-- effects, but should not do both. -->
-        <!-- Rationale: We exclude this because Cake 2 isn't namespaced, -->
+        <!-- Rationale: We exclude this because CakePHP 2.x isn't namespaced, -->
         <!-- so we need to use App::uses before class definitions -->
         <exclude name="PSR1.Files.SideEffects.FoundWithSymbols" />
 
