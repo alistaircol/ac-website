@@ -1,10 +1,10 @@
 ---
-title: "HTTPD Server Configuration Hardening"
+title: "Apache httpd Server Configuration Hardening"
 author: "Ally"
-summary: "Some tips I picked up to make sites hosted on `httpd` servers more secure."
-publishDate: 2020-06-10T12:00:00+01:00
+summary: "Some tips I picked up to make sites hosted on Apache `httpd` servers more secure."
+publishDate: 2020-06-09T12:00:00+01:00
 tags: ['httpd']
-draft: true
+draft: false
 ---
 
 Some things from a security audit that were brought up and can effect many sites by default.
@@ -18,6 +18,8 @@ nmap --script ssl-enum-ciphers \
     -p 443 \
     website.com 
 ```
+
+Alternatively, and more in-depth: https://www.ssllabs.com/ssltest/
 
 **Result**:
 
@@ -93,7 +95,7 @@ The cryptographic protocols and ciphers supported by some applications can under
 
 The easy way, following https://httpsiseasy.com/
  
-- Disable the use of TLS v1.0 encryption protocol
+- Disable the use of TLS v1.0, TLS v1.1 encryption protocol
 - Disable the use of DES encryption cipher.
 
 Basically enabling TLS 3, and setting minimum TLS version to TLS 1.2. (TLS 1.3 support is [good](https://caniuse.com/#feat=tls1-3) but not massive).
@@ -147,8 +149,6 @@ PORT    STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 1.96 seconds
 ```
 
-Alternatively: https://www.ssllabs.com/ssltest/
-
 ## Information Disclosure
 
 **Reason**:
@@ -173,19 +173,13 @@ Add to top of a config file, e.g.:
 
 ```text
 ServerTokens Prod
-ServerSignature Off
+ServeSignature Off
 ```
 
 More info on:
 
 * [`ServerTokens`](https://httpd.apache.org/docs/2.4/mod/core.html#servertokens)
-* [`ServersSignature`](https://httpd.apache.org/docs/2.4/mod/core.html#serversignature)
-
-TODO: screenshots with each of these options enabled.
-
-| `ServerTokens Full` (default) | `ServerTokens Prod` |
-|-------------------------------|---------------------|
-| TODO                          | TODO                |
+* [`ServerSignature`](https://httpd.apache.org/docs/2.4/mod/core.html#serversignature)
 
 `apache2ctl configtest` and `systemctl reload apache2` if all good.
 
@@ -256,7 +250,7 @@ Harder to see, but can try and come up with some screenshots for this.
 
 ---
 
-Some `nmap` things.
+Some `nmap` things that might be interesting.
 
 > yq: Command-line YAML/XML processor - jq wrapper for YAML and XML documents
 
