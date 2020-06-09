@@ -1,7 +1,7 @@
 ---
-title: "Intergating Some PHP QA Tools"
+title: "Integrating Some PHP QA Tools"
 author: "Ally"
-summary: "How I integrated some PHP QA tools into my work process."
+summary: "How you can integrate some PHP QA tools in your project, and guard your project with `git` hooks."
 publishDate: 2020-06-07T12:00:00+01:00
 tags: ['php', 'docker', 'bash', 'git', 'make']
 draft: false
