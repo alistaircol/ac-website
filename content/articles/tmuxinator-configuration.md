@@ -1,15 +1,31 @@
 ---
-title: "tmux"
+title: "A nicer, more efficient terminal experience with tmux and tmuxinator."
 author: "Ally"
-summary: "tmux setup"
-publishDate: 2020-12-29T12:00:00+01:00
+summary: "Friendship ended with `terminator`, now `tmux` is my best friend."
+publishDate: 2020-06-09T12:00:00+01:00
 tags: ['tmux']
-draft: true
+draft: false
 ---
 
-TODO: screenshot.
+![tmuxinator screenshot](/img/articles/tmuxinator/tmux-screenshot.png)
 
-Install tmux plugin manager ([`tpm`](https://github.com/tmux-plugins/tpm)) for plugins (obviously) and themes.
+> Screenshot from Iterm 2 using [JetBrains Mono Regular](https://www.jetbrains.com/lp/mono/) font.
+
+I used [terminator](https://terminator-gtk3.readthedocs.io/en/latest/) for the longest time when developing, the main
+appeal was the ability to split terminals. I would work on many sites (distinct git repositories) - one per tab, and
+within the tab it'd be split horizontally, top being host machine and bottom being inside the docker container at the
+same location (i.e. project root). This was configurable, but it was kinda nasty.
+
+Ultimately decided to jump to tmux, because moving the mouse is difficult! I haven't looked back since.
+
+To follow this tutorial, you should install the following:
+
+* [`tmuxinator`](https://github.com/tmuxinator/tmuxinator) - load tmux session from a config file.
+* [`tpm`](https://github.com/tmux-plugins/tpm) - plugins and themes.
+
+The [tmux cheatsheet](https://tmuxcheatsheet.com/) is a great introduction.
+
+---
 
 My tmux config file is pretty simple, change a couple bindings and load some plugins.
 
@@ -19,7 +35,7 @@ My tmux config file is pretty simple, change a couple bindings and load some plu
 # https://superuser.com/a/388243
 # set default shell as zsh 
 # didn't need in plain ubuntu, but required for my regolith instal
-set-option -g default-shell /bin/zsh
+# set-option -g default-shell /bin/zsh
 
 # CTRL + A for prefix
 set-option -g prefix ^a
@@ -47,6 +63,17 @@ export DISABLE_AUTO_TITLE=true
 ```
 
 Then reload terminal or `source ~/.zshrc` (or equivalent).
+
+Then `tmux source ~/.tmux.conf`
+
+Start up tmux for first time and install the packages in `~/.tmux.conf`:
+
+>  Press prefix + I (capital i, as in Install) to fetch the plugin.
+
+Prefix is usually `CTRL + B`, but it's been changes to `CTRL + A` in config above, to be closer together.
+
+I use a config similar to this. The main projects with two terminals, top is host machine and bottom is inside the container.
+A couple tabs/windows for monitoring app logs and database query logs.
 
 `work.yml`:
 
@@ -120,6 +147,8 @@ windows:
                 - docker-compose logs --follow
 ```
 
+If `tmuxinator start -p /home/ally/development/work.yaml` is too verbose for you (it is), lets make a shortcut.
+
 `~/.zshrc` or equivalent:
 
 ```shell script
@@ -127,4 +156,19 @@ function work
 {
     tmuxinator start -p /home/ally/development/work.yaml
 }
+```
+
+Then when you want to get to work, just type `work` in terminal, and boom - all your projects terminals will be there
+just after `docker-compose up -d` has done its thing.
+
+You can read more about the tmuxinator [hooks](https://www.rubydoc.info/gems/tmuxinator/Tmuxinator/Hooks/Project) here.
+Before I knew about this my alias used to look something like this:
+
+```bash
+docker-compose \
+    -f /home/ally/development/docker-compose.yml \
+    up -d
+
+tmux kill-session -t work
+tmuxp load /home/ally/development/work.yaml
 ```
