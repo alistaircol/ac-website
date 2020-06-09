@@ -2,9 +2,9 @@
 title: "API & Database Migration Strategy"
 author: "Ally"
 summary: "MySQL database replication where a new application becomes single source of truth but a legacy application still needs access to database. Or simply a strategy to allow 'cross-database' joins."
-publishDate: 2020-06-08T12:00:00+01:00
+publishDate: 2020-12-29T12:00:00+01:00
 tags: ['mysql']
-draft: false
+draft: true
 ---
 
 **TL;DR**:
