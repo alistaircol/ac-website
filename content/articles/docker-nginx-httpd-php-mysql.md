@@ -20,6 +20,8 @@ This can't go on, I need xDebug to work properly!
 
 Ahh, debugging is nicer now!* [repo](https://github.com/alistaircol/docker-nginx-ingress-httpd-php)
 
+![overview](/img/articles/docker-nginx-apache/nginx-httpd-php.png)
+
 ---
 
 # Motivation
