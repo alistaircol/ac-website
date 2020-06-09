@@ -1,148 +1,39 @@
 ---
-title: "Database Migration Strategy: Replication"
+title: "API & Database Migration Strategy"
 author: "Ally"
 summary: "MySQL database replication where a new application becomes single source of truth but a legacy application still needs access to database. Or simply a strategy to allow 'cross-database' joins."
-publishDate: 2020-06-01T12:00:00+01:00
+publishDate: 2020-06-08T12:00:00+01:00
 tags: ['mysql']
-draft: true
+draft: false
 ---
 
-Migrating codebase and tidying up database as we go.
+**TL;DR**:
+
+* Incremental migration of features from legacy system to new platform.
+* New platform will be the single source of truth, however legacy application still needs direct database access (read-only) to function while the long migration process is in progress.
+* Legacy system has lots of data dependencies, so it's hard to identify them all and fix accordingly. Cross-database joins aren't really a thing.
+* Set up database replication so legacy system has access to new platform data within same legacy system database.
+
+---
 
 We are developing a new (Symfony) codebase, incrementally migrating features from the old codebase (CakePHP 2.x).
 Old project will still have dependencies which aren't going to be migrated since it's incremental instead of a big switchover.
 
-* https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReadRepl.html
+* `New`: MariaDB 10
+* `Old`: MySQL 8
 
-`docker-composer.yml`:
+Docker setup preamble is at the end of the article since it isn't the entire focus of this article.
 
-```yaml
-version: '3'
-volumes:
-  db-main-data:
-    driver: local
-  # yup, this sucks
-  db-main-logs:
-    driver: local
-    driver_opts:
-      type: tmpfs
-      device: tmpfs
-      o: size=100m,rw
-  db-new-data:
-    driver: local
-  db-new-logs:
-    driver: local
+This is covering local development as a proof of concept. For stage/production instructions, too bad! Maybe later.
 
-services:
-  web:
-    build:
-      context: .
-    image: ac_web
-    container_name: ac_web
-    env_file: '.web.env'
-    volumes:
-      - './:/var/www/html'
-    ports:
-      - '9090:80'
-    depends_on:
-      - db
-      - db_new
+---
 
-  # Main repository of data is in here.
-  # Code in web base uses this database.
-  # Incremental upgrades will move functionality to db-new.
-  # Some models still might have dependencies on db-new.
-  # Will setup a data replication in here from db-new.
-  db:
-    image: mysql:8
-    container_name: ac_db
-    env_file: '.db.main.env'
-    volumes:
-      # trailing / is seriously important
-      - 'db-main-data:/var/lib/mysql/'
-      - 'db-main-logs:/var/log/mysql/'
-      - '.db.main.cnf:/etc/mysql/my.cnf'
-    ports:
-      - '9393:3306'
-
-  db_new:
-    image: mariadb:10.4.12
-    container_name: ac_new_db
-    env_file: '.db.main.env'
-    volumes:
-      - 'db-new-data:/var/lib/mysql'
-      - 'db-new-logs:/var/log/mysql'
-      - '.db.new.cnf:/etc/mysql/my.cnf'
-    ports:
-      - '9394:3306'
-```
-
-A `php:apache` image base with a few utilities for quality of life.
-
-`Dockerfile`:
-
-```dockerfile
-FROM php:7.4-apache
-RUN apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y \
-        apt-utils \
-        pv \
-        jq \
-        zip \
-        git \
-        curl \
-        nano \
-        unzip \
-        zlibc \
-        zlib1g \
-        libzip-dev \
-    && docker-php-ext-install \
-        zip \
-        pdo \
-        pdo_mysql \
-    && a2enmod rewrite \
-    && usermod -u 1000 www-data
-
-COPY --from=composer:latest \
-    /usr/bin/composer \
-    /usr/bin/composer
-
-WORKDIR /var/www/html
-
-```
-
-Start of a `Makefile`:
-
-```makefile
-.PHONY: install
-
-install:
-	docker-compose up \
-		--build \
-		--detach
-	docker exec -it -u $(id -u) ac_web composer install
-
-start:
-	docker-compose up --remove-orphans
-
-down:
-	docker-compose down --remove-orphans
-	docker volume rm --force mysql-cross-database-replication-cakephp_db-main-data
-	docker volume rm --force mysql-cross-database-replication-cakephp_db-new-data
-	docker volume rm --force mysql-cross-database-replication-cakephp_db-main-logs
-	docker volume rm --force mysql-cross-database-replication-cakephp_db-new-logs
-
-shell:
-	docker exec -it -u $$(id -u) ac_web bash
-	
-```
 
 `.db.main.cnf`:
 
-```mysql based
+```diff
 [mysqld]
-
+# These couple of options are just for docker stuff
 # https://github.com/docker-library/mysql/issues/69#issuecomment-412177146
 # https://github.com/docker-library/mysql/issues/541#issuecomment-463320181
 # alternatively can be put in docker-compose like this:
@@ -402,4 +293,133 @@ See the slave's status:
 
 ```
 docker exec -i db_slave mysql --user=root --password=password --execute="SHOW SLAVE STATUS\G;"
+```
+
+
+---
+
+## Docker 'preamble'
+
+`docker-composer.yml`:
+
+```yaml
+version: '3'
+volumes:
+  db-main-data:
+    driver: local
+  # yup, this sucks
+  db-main-logs:
+    driver: local
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: size=100m,rw
+  db-new-data:
+    driver: local
+  db-new-logs:
+    driver: local
+
+services:
+  web:
+    build:
+      context: .
+    image: ac_web
+    container_name: ac_web
+    env_file: '.web.env'
+    volumes:
+      - './:/var/www/html'
+    ports:
+      - '9090:80'
+    depends_on:
+      - db
+      - db_new
+
+  # Main repository of data is in here.
+  # Code in web base uses this database.
+  # Incremental upgrades will move functionality to db-new.
+  # Some models still might have dependencies on db-new.
+  # Will setup a data replication in here from db-new.
+  db:
+    image: mysql:8
+    container_name: ac_db
+    env_file: '.db.main.env'
+    volumes:
+      # trailing / is seriously important
+      - 'db-main-data:/var/lib/mysql/'
+      - 'db-main-logs:/var/log/mysql/'
+      - '.db.main.cnf:/etc/mysql/my.cnf'
+    ports:
+      - '9393:3306'
+
+  db_new:
+    image: mariadb:10.4.12
+    container_name: ac_new_db
+    env_file: '.db.main.env'
+    volumes:
+      - 'db-new-data:/var/lib/mysql'
+      - 'db-new-logs:/var/log/mysql'
+      - '.db.new.cnf:/etc/mysql/my.cnf'
+    ports:
+      - '9394:3306'
+```
+
+A `php:apache` image base with a few utilities for quality of life.
+
+`Dockerfile`:
+
+```dockerfile
+FROM php:7.4-apache
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y \
+        apt-utils \
+        pv \
+        jq \
+        zip \
+        git \
+        curl \
+        nano \
+        unzip \
+        zlibc \
+        zlib1g \
+        libzip-dev \
+    && docker-php-ext-install \
+        zip \
+        pdo \
+        pdo_mysql \
+    && a2enmod rewrite \
+    && usermod -u 1000 www-data
+
+COPY --from=composer:latest \
+    /usr/bin/composer \
+    /usr/bin/composer
+
+WORKDIR /var/www/html
+
+```
+
+Start of a `Makefile`:
+
+```makefile
+.PHONY: install
+
+install:
+	docker-compose up \
+		--build \
+		--detach
+	docker exec -it -u $(id -u) ac_web composer install
+
+start:
+	docker-compose up --remove-orphans
+
+down:
+	docker-compose down --remove-orphans
+	docker volume rm --force mysql-cross-database-replication-cakephp_db-main-data
+	docker volume rm --force mysql-cross-database-replication-cakephp_db-new-data
+	docker volume rm --force mysql-cross-database-replication-cakephp_db-main-logs
+	docker volume rm --force mysql-cross-database-replication-cakephp_db-new-logs
+
+shell:
+	docker exec -it -u $$(id -u) ac_web bash
+	
 ```
