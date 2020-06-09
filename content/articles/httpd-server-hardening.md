@@ -1,10 +1,10 @@
 ---
 title: "HTTPD Server Configuration Hardening"
 author: "Ally"
-summary: "Some tips I picked up to make sites hosted on httpd servers more secure."
-publishDate: 2020-06-08T12:00:00+01:00
+summary: "Some tips I picked up to make sites hosted on `httpd` servers more secure."
+publishDate: 2020-06-10T12:00:00+01:00
 tags: ['httpd']
-draft: false
+draft: true
 ---
 
 Some things from a security audit that were brought up and can effect many sites by default.
@@ -147,6 +147,8 @@ PORT    STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 1.96 seconds
 ```
 
+Alternatively: https://www.ssllabs.com/ssltest/
+
 ## Information Disclosure
 
 **Reason**:
@@ -178,6 +180,12 @@ More info on:
 
 * [`ServerTokens`](https://httpd.apache.org/docs/2.4/mod/core.html#servertokens)
 * [`ServersSignature`](https://httpd.apache.org/docs/2.4/mod/core.html#serversignature)
+
+TODO: screenshots with each of these options enabled.
+
+| `ServerTokens Full` (default) | `ServerTokens Prod` |
+|-------------------------------|---------------------|
+| TODO                          | TODO                |
 
 `apache2ctl configtest` and `systemctl reload apache2` if all good.
 
@@ -243,6 +251,9 @@ expect-ct: max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi
 server: cloudflare
 cf-ray: [redacted]
 ```
+
+Harder to see, but can try and come up with some screenshots for this.
+
 ---
 
 Some `nmap` things.
