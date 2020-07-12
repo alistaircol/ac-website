@@ -47,6 +47,10 @@ Ally has exposure and experience working with, but not limited to include:
 * Raspberry Pi
     * Samba (smb)
     * Pihole
+    
+> I use Arch, btw.
+
+I actually use Manjaro so I think that counts. Also `i3wm` is kinda cool, except when you have to use MS teams, ugh, the notifications are awful.
 
 {{< alert "secondary" >}}
 Things on my list to learn or implement into daily work:
