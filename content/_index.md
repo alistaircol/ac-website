@@ -34,6 +34,8 @@ Ally has exposure and experience working with, but not limited to include:
     * zenity (some actual GUI)
     * whiptail (some CLI GUI)
     * pv (you can see how far your shit has been processed)
+* Makefile
+    * Kinda have a thing for `make shit` right now, even though they're just bash shortcuts and probably nothing to do with `make`'s genuine intentions.
 * Docker (docker is love, docker is life!)
 * AWS (lol, of course, what else? although, I use DO and OVH. Fuck cPanel shite.)
     * EC2
