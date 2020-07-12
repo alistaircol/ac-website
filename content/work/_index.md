@@ -6,12 +6,14 @@ title: "Work"
 Warranty Services Limited
 {{< /alert >}}
 
-I am a full stack web developer for Warranty Services.
+I am apparently a "Team Development Team Lead" for Warranty Services, whatever the fuck that means.
 
 Responsible for many sites built in PHP and angularjs.
 
 * Dec 2016 - Dec 2019: Web Developer
-* Dec 2019 - Present: Senior Web Developer
+* Dec 2019 - Feb 2020: Senior Web Developer
+* Feb 2020 - Jun 2020: Team Development Team Lead
+* Jun 2020 - Present: useless
 
 {{< alert "warning" >}}
 Kana (Verint) {{< badge "warning">}}Internship{{< /badge >}}
