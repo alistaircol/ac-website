@@ -7,7 +7,7 @@ tags: ['pdf', 'bash', 'zenity', 'pdftk', 'gs']
 draft: false
 ---
 
-Just a collection of handy bash scripts for working with PDFs.
+Just a collection of handy bash scripts for working with PDFs. https://github.com/alistaircol/pdf-sh
 
 There's nothing that these scripts do that can't be done inside browsers PDF print utilities (maybe except `cat` or other PDF viewers, but this way for me is a little less cluttered.
 
@@ -21,9 +21,13 @@ I use the following tools in these scripts:
 * [`pdftk`](https://linuxhint.com/install_pdftk_ubuntu/)
 * `gs`
 
-### `cat.sh`
+---
+
+### `pdf-cat.sh`
 
 Append multiple documents to a new file.
+
+![pdf-cat.png](/img/articles/pdf-sh/pdf-cat.png)
 
 ```bash
 #!/usr/bin/env bash
@@ -107,51 +111,17 @@ else
 fi
 ```
 
-`pdftk "${FILES[@]}" cat output ${PDF_TARGET}` is the main thing, and can pass list of files from `stdin` which is probably the better option, but not as fun when you need this very infrequently.
+`pdftk "${FILES[@]}" cat output ${PDF_TARGET}` is the main thing, and can pass list of files from `stdin` which is probably the better option, but not as fun when you need this very infrequently. Might add this as an aside later, since I think it would be a good thing for me to learn.
 
-### `convert.sh`
+---
 
-Converts to PDF version 1.4 - this is because when working with TCPDF/FPDI/etc. don't support later versions, like 1.7.
-
-```bash
-#!/usr/bin/env bash
-# https://askubuntu.com/a/488354/762631
-echo "Please select the PDF file you wish to convert to PDF Version 1.4"
-PDF_SOURCE=$(zenity \
-  --file-selection \
-  --file-filter='PDF files (pdf) | *.pdf' \
-  --title="Select a PDF file to convert to PDF Version 1.4" \
-  2> /dev/null
-)
-PDF_SOURCE_VERSION=$(pdfinfo $PDF_SOURCE | grep 'PDF version')
-echo "Source PDF: ${PDF_SOURCE}"
-echo "Source PDF: ${PDF_SOURCE_VERSION}"
-
-PDF_TARGET=$(zenity \
-  --file-selection \
-  --file-filter='PDF files (pdf) | *.pdf' \
-  --title="Select a file to save source PDF to PDF Version 1.4" \
-  --save \
-  --confirm-overwrite \
-  2> /dev/null
-)
-PDF_TARGET_VERSION="1.4"
-
-echo "Target PDF: ${PDF_TARGET}"
-echo "Target PDF: PDF version:    ${PDF_TARGET_VERSION}"
-echo ""
-echo "Converting!"
-gs \
-  -sDEVICE=pdfwrite \
-  -dCompatibilityLevel=$PDF_TARGET_VERSION \
-  -o "${PDF_TARGET}" \
-  "${PDF_SOURCE}"
-
-echo "Done!"
-```
-### `cut.sh`
+### `pdf-cut.sh`
 
 Cut/extract pages from a document to a new file.
+
+This is one of the things most easily accomplishable and more versatile from the print to file system dialogs from browser/pdf viewer. I got carried away one day with this.
+
+![pdf-cut.png](/img/articles/pdf-sh/pdf-cut.png)
 
 ```bash
 #!/usr/bin/env bash
@@ -208,3 +178,54 @@ pdftk "${PDF_SOURCE}" cat $PDF_SOURCE_PAGE_START-$PDF_SOURCE_PAGE_END output $PD
 xdg-open $PDF_TARGET
 echo "Done!"
 ```
+
+---
+
+### `pdf-convert.sh`
+
+Converts to PDF version 1.4 - this is because when working with TCPDF/FPDI/etc. don't support later versions, like 1.7.
+
+Don't think this really merits a diagram or any screenshots. It's just a couple of file selectors - one to select source file, and a second for the target (converted) file.
+
+Maybe I'll add option for there to be flags (or just args) to specify the source and target rather than a GUI. Not terribly practical because the underlying command is fairly simple. 
+
+```bash
+#!/usr/bin/env bash
+# https://askubuntu.com/a/488354/762631
+echo "Please select the PDF file you wish to convert to PDF Version 1.4"
+PDF_SOURCE=$(zenity \
+  --file-selection \
+  --file-filter='PDF files (pdf) | *.pdf' \
+  --title="Select a PDF file to convert to PDF Version 1.4" \
+  2> /dev/null
+)
+PDF_SOURCE_VERSION=$(pdfinfo $PDF_SOURCE | grep 'PDF version')
+echo "Source PDF: ${PDF_SOURCE}"
+echo "Source PDF: ${PDF_SOURCE_VERSION}"
+
+PDF_TARGET=$(zenity \
+  --file-selection \
+  --file-filter='PDF files (pdf) | *.pdf' \
+  --title="Select a file to save source PDF to PDF Version 1.4" \
+  --save \
+  --confirm-overwrite \
+  2> /dev/null
+)
+PDF_TARGET_VERSION="1.4"
+
+echo "Target PDF: ${PDF_TARGET}"
+echo "Target PDF: PDF version:    ${PDF_TARGET_VERSION}"
+echo ""
+echo "Converting!"
+gs \
+  -sDEVICE=pdfwrite \
+  -dCompatibilityLevel=$PDF_TARGET_VERSION \
+  -o "${PDF_TARGET}" \
+  "${PDF_SOURCE}"
+
+echo "Done!"
+```
+
+### Aside
+
+Adapting to read from stdin. TODO.
