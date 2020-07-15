@@ -4,4 +4,4 @@ title: "Contact"
 
 ![TODO](/img/misc/doge-original.jpg)
 
-## TODO
+Please don't contact me.
