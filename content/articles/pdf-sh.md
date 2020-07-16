@@ -1,7 +1,7 @@
 ---
 title: "Basic PDF manipulation tools with zenity, pdftk, and gs"
 author: "Ally"
-summary: "Basic scripts for dealing with PDF in my job - converting, cutting and catting."
+summary: "Basic scripts for dealing with PDF in my job - converting, cutting and catting - throwing some `zenity` around `gs` and `pdftk`."
 publishDate: 2020-07-13T12:00:00+01:00
 tags: ['pdf', 'bash', 'zenity', 'pdftk', 'gs']
 draft: false

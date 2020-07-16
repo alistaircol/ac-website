@@ -1,7 +1,7 @@
 ---
-title: "Scraping legacy static sites, hosting (yuck!)"
+title: "Scraping legacy static sites and hosting them (yuck!)"
 author: "Ally"
-summary: "This was hell. Just an excuse to save some handy commands honestly."
+summary: "This was hell. Just an excuse to save some handy `wget`, `ssh`, `find`, `csvtool`, `xargs`, commands and other occasionally useful things, honestly."
 publishDate: 2020-07-14T12:00:00+01:00
 tags: ['php', 'wget', 'csv', 'httpd', 'cloudflare']
 draft: false
@@ -29,6 +29,8 @@ csvtool drop 1 sites.csv \
 *  `-np, --no-parent                don't ascend to the parent directory`
 
 With all sites downloaded locally, you might need to do some `sed` things. I know I did. For example: replacing hardcoded protocols, i.e. upgrading `http` -> `https` references (which Cloudflare might not rewrite for you), or domains which may be renamed, disabling certain URLs on sites, etc.
+
+Ideally I wanted to use some `dom` manipulation in PHP, but argh! the source markup was a dog's dinner.
 
 A freebie for zipping up all the folders in the current directory:
 
