@@ -1,10 +1,10 @@
 ---
-title: "Scraping legacy static sites, hosting, and reverse-engineering forms (yuck!)"
+title: "Scraping legacy static sites, hosting (yuck!)"
 author: "Ally"
 summary: "This was hell. Just an excuse to save some handy commands honestly."
 publishDate: 2020-07-14T12:00:00+01:00
 tags: ['php', 'wget', 'csv', 'httpd', 'cloudflare']
-draft: true
+draft: false
 ---
 
 For this, there is a list of subdomains in `sites.csv` 3rd column (counting from 1), not too important but just to explain the format for `csvtool`.
@@ -95,6 +95,8 @@ chown -R ubuntu:ubuntu /var/www
 
 #### Email
 
+Had to reverse-engineer the legacy sites backend contact form. Won't bore you with that code because it's super simple.
+
 Ugh I hate emails, but is a necessary evil. Testing `mail()` call gave this (`tail -f /var/log/apache2/error.log`):
 
 ```text
@@ -168,24 +170,25 @@ Similar to the first command, we take the `sites.csv` and create the virtual hos
 ```shell script
 #!/usr/bin/env bash
 csvtool drop 1 sites.csv | csvtool format '%(3)\n' - | while read domain; do
-    cat <<EOF > /etc/apache2/sites-available/$domain.conf
-    <VirtualHost *:80>
-        ServerAdmin webmaster@ac93.org
-        ServerName $domain
-        DocumentRoot /var/www/html/$domain/
-    
-        ErrorLog \${APACHE_LOG_DIR}/error.log
-        CustomLog \${APACHE_LOG_DIR}/access.log combined
-    
-        <Directory /var/www/html/$domain>
-            Options -Indexes
-            RewriteEngine On
-            AllowOverride None
-        </Directory>
-    </VirtualHost>
-    EOF
+cat <<EOF > /etc/apache2/sites-available/$domain.conf
+<VirtualHost *:80>
+    ServerAdmin webmaster@ac93.org
+    ServerName $domain
+    DocumentRoot /var/www/html/$domain/
 
-    sudo a2ensite $domain
+    ErrorLog \${APACHE_LOG_DIR}/error.log
+    CustomLog \${APACHE_LOG_DIR}/access.log combined
+
+    <Directory /var/www/html/$domain>
+        Options -Indexes
+        RewriteEngine On
+        AllowOverride None
+    </Directory>
+</VirtualHost>
+EOF
+
+sudo a2ensite $domain
+
 done
 
 sudo systemctl reload apache2
@@ -210,8 +213,6 @@ Clone the repo in `/var/www/html`.
 
 ## Cloudflare
 
-The subdomains are routed to a server using a wildcard subdomain, unfortunately these can not be proxied through Cloudflare and we do not see many benefits.
+The subdomains are routed to a server using a wildcard subdomain, unfortunately these cannot be proxied through Cloudflare, and we do not see many benefits.
 
-Going to use cloudflare cli and post result here.
-
-https://developers.cloudflare.com/access/cli/connecting-from-cli/
+I found the easiest way to do this was to export the DNS records and update the file manually, and import it again.
