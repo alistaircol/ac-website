@@ -451,6 +451,18 @@ That's all for now! I didn't go into detail about the `ac_misc` container becaus
 
 To see a complete example, see the associated github repo [https://github.com/alistaircol/docker-nginx-ingress-httpd-php](https://github.com/alistaircol/docker-nginx-ingress-httpd-php).
 
+---
+
+# Logging
+
+Adventure in logging:
+
+```shell script
+cat >> /etc/hosts <<<EOF
+127.0.0.1 graylog
+EOF
+```
+
 # Setting Up Debugger
 
 ## (PHPStorm)
