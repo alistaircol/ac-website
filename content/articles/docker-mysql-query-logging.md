@@ -1,7 +1,7 @@
 ---
-title: "Getting MySQL's Docker container* query logging to be ingested into a logging service"
+title: "Getting MySQL's Docker container* query logging to go to stdout and take advantage of Docker's logging"
 author: "Ally"
-summary: "A tedious adventure for a pointless exercise. Basically, this is a `bash` script to `tail` MySQL's `general_log` output into a local `graylog` stack."
+summary: "A tedious adventure for what others see as a pointless exercise. Basically, this will walk you through an approach to throw `general_log` to `stdout` and then you can configure the logging engine for your needs. This wasn't enough pain for me, so I set up `bash` script to `tail` MySQL's `general_log` to construct custom GELF messages to add extra context (such as the correct source container) into a local `graylog` stack, or any other `GELF` thingie."
 publishDate: 2020-07-19T00:00:00+01:00
 tags: ['docker', 'mysql', 'bash', 'graylog']
 draft: true
@@ -191,6 +191,10 @@ services:
             - "/var/run/docker.sock:/var/run/docker.sock"
 ```
 
+* **TODO**: show `db_logging` output with it to `stdout`.
+* **TODO**: show `db_logging` output with `gelf` in `graylog`.
+
+
 ---
 
 Just copy `docker`, the `logger.sh` script and make it executable.
@@ -289,6 +293,29 @@ while read -r line ; do
 done < <(docker exec -t ac_db bash -c "tail -Fqn0 /var/log/mysql/mysql.log")
 ```
 
+Possible `jq` way to make the GELF message:
+
+```shell script
+jq -R 
+    <<"JSON" \
+    --arg host "ac_db" \
+    --arg message "abcdefg" \
+    --arg timestamp "timestamp" \
+    --arg transaction "transaction" \
+    --arg command "command" \
+    > sites.json
+    {
+        "version": "1.1",
+        "host": "$host",
+        "short_message": "$message",
+        "timestamp": "$timestamp",
+        "_transaction": $transaction,
+        "_command": "$command"
+    }
+JSON
+
+# kinda like this but it didn't work :dumb: the string shit at end needs to be arg and not from stdin
+```
 
 ### Better logger
 
