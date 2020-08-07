@@ -281,6 +281,32 @@ Script is run from cron and manifest put to some public location for the extensi
 php /var/tasks/stage-sites.php > /var/www/html/members/public/stage-sites.html
 ```
 
+## `jq` - building manifest a better way
+
+Truncated, but better.
+
+```shell script
+#!/usr/bin/env bash
+jq  -n \
+    --arg stage_crm_branch "$(git -C /var/www/html/crm/ symbolic-ref --short HEAD)" \
+    --arg stage_crm_commit "$(git -C /var/www/html/crm log -1 --pretty='%cd %B' --date=format:'%d/%m/%Y %H:%M:%S')" \
+    --arg stage_crm_version "$(php /var/www/html/crm/artisan --version)" \
+    "$(
+    cat <<"EOF"
+{
+    core: {
+        stage: {
+            branch:  $stage_core_branch,
+            commit:  $stage_core_commit,
+            version: $stage_core_version,
+        },
+    }
+}
+EOF
+    )"
+
+```
+
 ## Chrome Extension Stuff
 
 The main attraction. For more info see [Develop Extensions Developer Guide](https://developer.chrome.com/extensions/devguide).
@@ -373,6 +399,10 @@ That's it really! It's just including some html in the page at the end of the da
 I find it really handy to have this accessible at a seconds notice, just next to the URL bar. Instead, previously this would be a pinned tab and it didn't include any links.
 
 I haven't deployed to the Chrome store (it's $5 and I'm cheap..) but here are some straightforward instructions to install and develop. Maybe I'll get around to this at some point.
+
+## Nuxt/Vue in extension
+
+This would be ideal, better than jquery for me, but can't included that in extension (with nuxt) because of unsafe inline or something.
 
 Local:
 
