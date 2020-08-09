@@ -402,7 +402,7 @@ I haven't deployed to the Chrome store (it's $5 and I'm cheap..) but here are so
 
 ## Nuxt/Vue in extension
 
-This would be ideal, better than jquery for me, but can't included that in extension (with nuxt) because of unsafe inline or something.
+This would be ideal, better than jquery for me, but can't include that in extension (with nuxt) because of unsafe inline or something.
 
 Local:
 
