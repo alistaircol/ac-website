@@ -4,10 +4,10 @@ author: "Ally"
 summary: "A tedious adventure for what others see as a pointless exercise. Basically, this will walk you through an approach to throw `general_log` to `stdout` and then you can configure the logging engine for your needs. This wasn't enough pain for me, so I set up `bash` script to `tail` MySQL's `general_log` to construct custom GELF messages to add extra context (such as the correct source container) into a local `graylog` stack, or any other `GELF` thingie."
 publishDate: 2020-07-19T00:00:00+01:00
 tags: ['docker', 'mysql', 'bash', 'graylog']
-draft: true
+draft: false
 ---
 
-**Rationale:** Having MySQL's `general_log` enabled is excellent for debugging queries made by an application or ORM.
+Having MySQL's `general_log` enabled is excellent for debugging queries made by an application or ORM.
 Some frameworks might not have the ability to log this raw query, etc. so this is solution that should apply to all applications.
 
 Currently, I have it configured to log inside the container at `/var/log/mysql/mysql.log`.
@@ -27,21 +27,23 @@ general_log = 1
 general_log_file = /var/log/mysql/mysql.log
 ```
 
-This works fine, **but** it can sometimes be a bit of a pain. In my work environment with `tmux` I'd need to jump to the correct pane and enter scroll mode. First world problems, I know.
+This works fine, **but** it can sometimes be a bit of a pain. In my work environment with `tmux` I'd need to jump to the correct pane and enter scroll mode to have a look for the query. First world problems, I know.
 
 ---
 
 Having it in a proper log search tool, like `graylog` or some other ELK thing, is the next step.
 
-Unfortunately, there are so many issues, and I ultimately found it not to be possible to just have it log to `stdout` or `stderr` like Docker recommends, for the logs to show in the `docker logs` or `docker-compose logs` commands.
+Unfortunately, there are so many issues having `general_log`, etc. to go directly to `stdout`, and I ultimately found it not to be possible to just have it log to either `stdout` or `stderr` like Docker recommends, for the logs to show in the `docker logs` or `docker-compose logs` commands.
 
-This is the command I've been using for a long time in one of my `tmux` panes.
+This is the command I've been using for a long time in one of my `tmux` panes, which works fine.
 
 ```shell script
 docker exec -it ac_db bash -c "tail -fn10 /var/log/mysql/mysql.log"
 ```
 
-### Setting up Graylog
+### Setting up graylog
+
+If you have a graylog instance already then you can skip this part.
 
 The `docker-compose.yml` is virtually the same as given in the graylog [docs](https://docs.graylog.org/en/3.3/pages/installation/docker.html). 
 
@@ -65,10 +67,6 @@ services:
             - transport.host=localhost
             - network.host=0.0.0.0
             - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-        ulimits:
-            memlock:
-                soft: -1
-                hard: -1
         networks:
             - graylog
 
@@ -109,8 +107,6 @@ networks:
         driver: bridge
 ```
 
-I am going to use [GELF](https://docs.graylog.org/en/3.3/pages/gelf.html#gelf-payload-specification) (Graylog Extended Log Format) to feed all logs into my local graylog stack. This is a natively logging engine supported by `docker` so any other containers, such as our `apache`/`php` containers will go into this effortlessly.
-
 First thing to do:
 
 * Log in to graylog, default URL is [`127.0.0.1:9000`](http://127.0.0.1:9000)
@@ -120,12 +116,19 @@ First thing to do:
     * Go to `Inputs`, this is from the `System / Inputs` menu
     * Select `GELF UDP` from the `Select input` dropdown menu
     * Click `Launch new input`
-    * Select your node
+    * Select your node (I went for `global`, the node `id` kept changing for me when `docker` restarts, therefore next time it would start, the input was not started and listening for messages)
     * Give a title
     * Click save
     * Start the input if not already started
     
 The graylog instance should now be able to receive logs.
+
+---
+
+Testing with `nc`?:
+
+Later, I am going to use [GELF](https://docs.graylog.org/en/3.3/pages/gelf.html#gelf-payload-specification) (Graylog Extended Log Format) messages to feed all logs into my local graylog stack. This is a natively logging engine supported by `docker` so any other containers, such as our `apache`/`php` containers will go into this effortlessly.
+
 
 ### Feeding `graylog` Some Logs
 
@@ -235,8 +238,6 @@ Some typical output from `general_log` to give some context to some of the comma
 
 ```shell script
 #!/usr/bin/env bash
-# this should be passed as arg, but for hardcoded for now
-host="ac_db"
 function send_to_graylog
 {
     input=$(</dev/stdin)
@@ -258,17 +259,14 @@ function send_to_graylog
     # remove the first 3 words, i.e. timestamp, transaction number and command
     # and then remove leading spaces
     # https://www.cyberciti.biz/faq/unix-linux-bsd-appleosx-skip-fields-command/
-    message=$(echo "$input" \
-        | awk '{$1="";$2="";$3=""; print}' \
-        | sed -e 's/^[[:space:]]*//'
-    )
+    message=$(echo "$input" | awk '{$1="";$2="";$3=""; print}' | sed -e 's/^[[:space:]]*//')
 
     # https://docs.graylog.org/en/3.3/pages/gelf.html#gelf-payload-specification
     # maybe replace this with jq
     read -r -d '' output <<EOF
 {
     "version": "1.1",
-    "host": "$host",
+    "host": "ac_db",
     "short_message": "$message",
     "timestamp": "$timestamp",
     "_transaction": $transaction,
@@ -278,46 +276,33 @@ EOF
 
     echo "$output" | nc -u -w1 127.0.0.1 12201
 }
-
-# for when multiple lines come from 'stdin', run line by line
-# TODO: improve this for multiline support
+# mariadb annoyingly chooses less superior date format for this.
+mysql_ts_regex=^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{6}Z
+graylog_line=''
 while read -r line ; do
-    # naive check, if there are 27 characters (i.e. timestamp) and it's valid,
-    # consume the lines and pass to send_to_graylog
-    # unsure on how to actually do thisf
-    
-    # grep -E "^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{6}Z"
+    # if the line is a timestamp and the graylog_line is > 1
+    # then send the current message and reset it
+    if [[ $line =~ $mysql_ts_regex && ! -z "$graylog_line" ]]; then
+        # TODO: need to convert to GELF before sending on
+        echo "$graylog_line" | send_to_graylog
+        graylog_line=''
+    fi
 
-
-    echo "$line" | send_to_graylog
+    # if line starts with timestamp, then start graylog_line
+    # else, i.e. it's a continuation, concat
+    if [[ $line =~ $mysql_ts_regex ]]; then
+        graylog_line=$line
+    else
+        graylog_line=$(echo -e "$graylog_line\n$line")
+    fi
 done < <(docker exec -t ac_db bash -c "tail -Fqn0 /var/log/mysql/mysql.log")
 ```
 
-Possible `jq` way to make the GELF message:
+The above works as intended, but messages were trickling into server pretty slowly.
 
-```shell script
-jq -R 
-    <<"JSON" \
-    --arg host "ac_db" \
-    --arg message "abcdefg" \
-    --arg timestamp "timestamp" \
-    --arg transaction "transaction" \
-    --arg command "command" \
-    > sites.json
-    {
-        "version": "1.1",
-        "host": "$host",
-        "short_message": "$message",
-        "timestamp": "$timestamp",
-        "_transaction": $transaction,
-        "_command": "$command"
-    }
-JSON
+TODO: figure out this slowness.
 
-# kinda like this but it didn't work :dumb: the string shit at end needs to be arg and not from stdin
-```
-
-### Better logger
+### Debugging
 
 Start a `nc` server to clearly see the data that would be sent. Running the script with `-x` is handy but quite difficult to see what is going on.
 
@@ -334,28 +319,14 @@ This is a long message
 EOF
 ```
 
----
+Test message:
 
 ```shell script
-#!/usr/bin/env bash
-graylog_line=''
-while read -r line ; do
-    # if the line is a timestamp and the graylog_line is > 1 then send the current message and reset it
-    if [[ $line =~ ^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{6}Z && ! -z "$graylog_line" ]]; then
-        # TODO: need to convert to GELF before sending on
-        echo "$graylog_line" | nc -u -w1 127.0.01 5000
-        graylog_line=''
-    fi
-
-    # if line starts with timestamp, then start graylog_line
-    # else, i.e. it's a continuation, concat
-    if [[ $line =~ ^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{6}Z ]]; then
-        graylog_line=$line
-    else
-        graylog_line=$(echo -e "$graylog_line\n$line")
-    fi
-done < <(docker exec -t ac_db bash -c "tail -Fqn0 /var/log/mysql/mysql.log")
-
+cat <<"EOF" | nc -u -w1 127.0.01 12201
+{
+    "version": "1.1",
+    "host": "test",
+    "short_message": "this is a manual GELF message from cli"
+}
+EOF
 ```
-
-The above works as intended, but messages were trickling into server pretty slowly.
