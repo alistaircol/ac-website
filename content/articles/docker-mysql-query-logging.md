@@ -4,7 +4,7 @@ author: "Ally"
 summary: "A tedious adventure for what others see as a pointless exercise. Basically, this will walk you through an approach to throw `general_log` to `stdout` and then you can configure the logging engine for your needs. This wasn't enough pain for me, so I set up `bash` script to `tail` MySQL's `general_log` to construct custom GELF messages to add extra context (such as the correct source container) into a local `graylog` stack, or any other `GELF` thingie."
 publishDate: 2020-07-19T00:00:00+01:00
 tags: ['docker', 'mysql', 'bash', 'graylog']
-draft: false
+draft: true
 ---
 
 Having MySQL's `general_log` enabled is excellent for debugging queries made by an application or ORM.
@@ -276,7 +276,7 @@ EOF
 
     echo "$output" | nc -u -w1 127.0.0.1 12201
 }
-# mariadb annoyingly chooses less superior date format for this.
+# mariadb annoyingly chooses less superior date format for this. format: 200812 18:49:19
 mysql_ts_regex=^[0-9]{4}\-[0-9]{2}\-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}\.[0-9]{6}Z
 graylog_line=''
 while read -r line ; do
