@@ -2,6 +2,12 @@
 title: "Projects"
 ---
 
+No real projects on the go. Just work projects and anything I write an article/prototype about.
+
+[![codewars](https://www.codewars.com/users/alistaircol/badges/large)](https://www.codewars.com/users/alistaircol)
+
+---
+
 {{< alert "secondary" >}}Networking{{< /alert >}}
 
 I have set up a NAS which runs a few (samba/[SMB](https://en.wikipedia.org/wiki/Server_Message_Block)) file shares for Plex and Steam libraries and others.
