@@ -48,19 +48,8 @@ Ally has exposure and experience working with, but not limited to include:
     * `postfix`
     * `samba` (smb)
     * `pihole`
-    
-> I use Arch, btw.
 
-I actually use Manjaro so I think that counts.
-Also `i3wm` is kinda cool, except when you have to use MS teams, ugh, the notifications are awful.
-
-{{< alert "secondary" >}}
-Things on my list to learn or implement into daily work:
-{{< /alert >}}
-
-* Leave it better than when I found it.
-
-Lots of fun!
+> Leave things better than when you find it.
 
 Founder of [DAFED](https://dafedteam.com/), an exclusive, invite only, like-minded bunch of ambitious developers, and experts in their respective areas who drive each member to become their best self. We are multi-disciplinary professionals: electrical engineers, cyber security professionals, software & binary reverse engineers, game developers and computer scientists.
 

@@ -6,13 +6,13 @@ title: "Work"
 Warranty Services Limited
 {{< /alert >}}
 
-I am a "Team Development Team Lead" for Warranty Services, so basically means I do everything.
+I am the "Business Development Team Lead" for Warranty Services, so basically means I do everything when it comes to tech.
 
 Responsible for many sites built in PHP and angularjs.
 
 * Dec 2016 - Dec 2019: Web Developer
 * Dec 2019 - Feb 2020: Senior Web Developer
-* Feb 2020: Team Development Team Lead
+* Feb 2020: Business Development Team Lead
 
 {{< alert "warning" >}}
 Kana (Verint) {{< badge "warning">}}Internship{{< /badge >}}
