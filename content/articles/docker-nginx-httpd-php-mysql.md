@@ -465,6 +465,8 @@ EOF
 
 # Setting Up Debugger
 
+![breakpoints](/img/misc/stop-signs.jpg)
+
 ## (PHPStorm)
 
 Each project will need to be configured.

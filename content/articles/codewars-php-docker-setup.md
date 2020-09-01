@@ -78,6 +78,8 @@ For `zend_extension`, you might want to run `$(find /usr/local/lib/php/extension
 
 Update `xdebug.remote_host` using your LAN IP, `ip addr show` or similar.
 
+![gonna-stop-you-there](/img/misc/gonna-stop-you-there.jpg)
+
 `99-xdebug.ini`:
 
 ```ini
