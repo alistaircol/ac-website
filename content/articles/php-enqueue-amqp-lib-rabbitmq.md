@@ -80,6 +80,14 @@ Alternatively, you could do this via the API: [`http://localhost:15672/api/index
 Imagine this configuration is for your production instance, and you want to get the same environment locally, or for a staging environment - we can do that!
 
 ```bash
+docker exec -t ac_rabbitmq bash -c \
+    'rabbitmqctl export_definitions - --format=json' \
+    > definitions.json
+```
+
+Or a more ghetto way I hacked when first learning:
+
+```bash
 curl --user guest:guest \
     http://localhost:15672/api/definitions \
     | jq . > definitions.json
@@ -194,6 +202,17 @@ The configuration described above, will give the following json:
 
 We might want to have these definitions in version control, so we will need to tell our instance to load definitions from this file.
 
+`rabbitmqctl import_definitions` will read `json` from `stdin`, so, for `definitions.json`, something like this:
+
+```bash
+cat definitions.json | \
+    docker exec -i \
+    trading_rabbitmq \
+    bash -c 'rabbitmqctl import_definitions'
+```
+
+Or another ghetto way:
+
 We will place a new file in `/etc/rabbitmq/conf.d`, all `*.conf` files are loaded.
 
 `/etc/rabbitmq/conf.d/load_definitions.conf`:
@@ -224,7 +243,7 @@ That's enough of RabbitMQ instance for now.
 
 ---
 
-### Pub/Sub App
+### Publisher/Producer & Subscriber/Consumer Apps
 
 Will add a `ac_worker` container for producer/publisher and consumer/subscriber code.
 
@@ -316,6 +335,9 @@ class MessageBroker
 ### Publisher
 
 Will use a `symfony/console` command for publishing an example message. This is an interactive demo for illustration purposes only.
+
+![a dank meme](/img/articles/rabbitmq-php/producer-messages-rabbitmq.jpg)
+
 
 `src/Command/JobsFileValidationProducerCommand.php`:
 
