@@ -11,7 +11,7 @@ I have some code to generate a binary file (pdf). Generating locally is fine, bu
 
 So I will use some Github CI to build for me!
 
-The code is not important to this article, but basically it's got some `composer` dependencies, mostly `tcpdf` which builds a file `output.pdf` into the repository root.
+The code is not important to this article, but basically it's a `php` script with some `composer` dependencies, mostly `tcpdf` which builds a file `output.pdf` into the repository root.
 
 ---
 
@@ -32,8 +32,8 @@ build:
         --volume="$$(pwd):/app" \
         --workdir=/app \
         --env-file=".env" \
-        php:7.4-cli php \
-        src/index.php
+        php:7.4-cli \
+        php src/index.php
 
 open:
     xdg-open "output.pdf"

@@ -7,17 +7,18 @@ tags: ['nuxt', 's3', 'bitbucket', 'ci', 'cloudflare']
 draft: false
 ---
 
-**Rationale**: We have various, mostly brochureware sites which are hosted on an EC2 instance. This server needs regular
-checks and maintenance, but as these are fairly simple we should look to move them into a static site generator
-(I will use `nuxt` in this tutorial) and have some CI/CD setup to build and deploy the site. This means atleast
-one server fewer to check and maintain, plus effortless deployments! A bit of effort to set up, but well worth it.
+**Rationale**: I maintain various, mostly brochureware sites which are hosted on an EC2 instance. This server needs regular
+checks and maintenance, but as these are fairly simple websites, we should look to move them into a static site generator
+(I will use `nuxt` in this tutorial, although that's not too important) and have some CI/CD setup to build and deploy the site.
+This means at least one server fewer to check, maintain and pay for, plus effortless deployments!
+A bit of effort to set up, but well worth it.
 
 I will cover:
 
 * Setting up S3 buckets, users, policies
 * Setting up Bitbucket Pipeline environments to hold our S3 API secrets
 * Setting up Bitbucket Pipeline for staging and production branches
-* Setting up Cloudlfare
+* Setting up `CNAME` Cloudlfare
 
 ## AWS
 
@@ -165,7 +166,8 @@ Click Review All when you are satisfied it has been configured correctly.
 
 Give the policy a name.
 
-I tend to follow a similar pattern to the user name. Create policy and close the tab. Go back to the user creation tab, where we will add this policy (might require a refresh).
+I tend to follow a similar pattern to the user name. Create policy and close the tab.
+Go back to the user creation tab, where we will add this policy (might require a refresh).
 
 ![create-policy](/img/articles/s3-ci/iam-policy-06.png)
 
@@ -181,7 +183,7 @@ Review, and create if configured correctly.
 
 ![review](/img/articles/s3-ci/iam-05.png)
 
-Now you have access keys **save** them safely now, you won't be able to retrieve *secret access key* afterwards, so will have to re-do all this work.
+Now you have access keys **save** them safely **now**, you won't be able to retrieve *secret access key* afterwards, so will have to re-do all this work.
  
 ![summary](/img/articles/s3-ci/iam-06.png)
 
@@ -199,9 +201,9 @@ Now you have access keys **save** them safely now, you won't be able to retrieve
 
 A couple things to cover in this section:
 
-* Configuring repository settings (i.e. AWS region, default build folder (as configured by `nuxt.config.js`))
-* Configuring deployment secrets (i.e. AWS access key, AWS secret access key, etc.)
-* Configuring branches
+* Configuring **repository** settings (i.e. AWS region, default build folder (as configured by `nuxt.config.js`))
+* Configuring **deployment** secrets (i.e. AWS access key, AWS secret access key, etc.)
+* Configuring branches (i.e. origin and destination for features/PRs)
 * Adding `bitbucket-pipelines.yml`
 
 #### Setting Repository & Pipeline Configuration
