@@ -1,4 +1,6 @@
-# alistaircol
+# My Website
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0a56f7df-cacd-4f46-9f40-45c16e62fd31/deploy-status)](https://app.netlify.com/sites/alistaircol/deploys)
 
 Site built with `hugo` and [papercss](https://themes.gohugo.io//theme/papercss-hugo-theme/) theme.
 
