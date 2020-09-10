@@ -577,3 +577,8 @@ class GhostBlog
 }
 
 ```
+
+
+### Other Considerations
+
+If configuring the site URL is difficult, you might need to scrape the content and replace the internal links to that of the site you want to host on.
