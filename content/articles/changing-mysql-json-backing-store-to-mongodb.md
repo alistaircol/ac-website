@@ -98,7 +98,7 @@ volumes:
     mongodb_data:
 ```
 
-If you want to use something like [MongoDB Compass](https://www.mongodb.com/products/compass) (like `mongo-express` but miles better) you will need to open expose `27017` on `mongodb` service. The connection string would be `mongodb://root:example@localhost:27017/?authSource=admin`. It's quite neat for a newbie like me!
+If you want to use something like [MongoDB Compass](https://www.mongodb.com/products/compass) (like `mongo-express` but miles better) you will need to expose `27017` on `mongodb` service. The connection string would be `mongodb://root:example@localhost:27017/?authSource=admin`. It's quite neat for a newbie like me!
 
 ![mongo-express](/img/articles/mongodb-php/compass.png)
 
