@@ -47,3 +47,11 @@ File → Settings → Proxy → Add a Custom Proxy Configuration
 ![postman](/img/articles/postman-proxy/postman-proxy.png)
 
 Good luck.
+
+---
+
+<center>
+
+![meme](/img/articles/postman-proxy/meme.jpg)
+
+</center>

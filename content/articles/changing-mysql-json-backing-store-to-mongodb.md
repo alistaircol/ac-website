@@ -2,9 +2,8 @@
 title: "Changing semi-unstructured JSON data in a MySQL backing store to MongoDB"
 author: "Ally"
 summary: "Moving our semi-unstructured data from a `mysql` database, stored in a `json` column to a `mongodb` instance for better performance."
-publishDate: 2020-09-11T00:00:00+01:00
-draft: true
-tags: ['mongodb', 'mysql', 'csv', 'solr']
+publishDate: 2020-09-12T00:00:00+01:00
+tags: ['mongodb', 'mysql', 'csv']
 ---
 
 **Rationale** Querying our semi-unstructured data which is currently in JSON column in a MySQL database gives quite poor performance, so looking to use something else. I tried Solr earlier, but MongoDB has been much easier to get up and running.
@@ -38,8 +37,8 @@ class ExportUnstructuredDataCommand
     ]);
 
     $header_set = 0;
-    foreach ($records as $alpha_policy) {
-      $record = json_decode($alpha_policy['SemiUnstructuredData']['data'], true);
+    foreach ($records as $row) {
+      $record = json_decode($row['SemiUnstructuredData']['data'], true);
       // this amazing dataset has a blank key and value...
       // causes issues when doing update/replace in mongodb later on
       if (array_key_exists('', $record)) {
@@ -81,7 +80,7 @@ services:
             MONGO_INITDB_DATABASE: alistaircol
         volumes:
             - "mongodb_data:/data/db"
-
+    # optional
     mongo-express:
         image: mongo-express
         container_name: ac_mongodb_express
@@ -98,6 +97,10 @@ services:
 volumes:
     mongodb_data:
 ```
+
+If you want to use something like [MongoDB Compass](https://www.mongodb.com/products/compass) (like `mongo-express` but miles better) you will need to open expose `27017` on `mongodb` service. The connection string would be `mongodb://root:example@localhost:27017/?authSource=admin`. It's quite neat for a newbie like me!
+
+![mongo-express](/img/articles/mongodb-php/compass.png)
 
 ### `mongodb`
  
@@ -118,33 +121,87 @@ mongoimport \
     data.csv
 ```
 
-**Exporting** the collection will be important too. Will need this for local development/staging environment sync as well as for backup restoration if something bad happens.
+Will give you something like this:
 
-Binary export of `policy_data` collection in `alistaircol` database.
-
-```bash
-docker exec ac_mongodb bash -c 'mongodump \
-    --db=alistaircol \
-    --collection=policy_data \
-    --archive \
-    --authenticationDatabase admin \
-    --username=root \
-    --password=example' \
-    > policy_data.archive
+```text
+connected to: mongodb://localhost/
+dropping: alistaircol.policy_data
+[#.......................] alistaircol.policy_data      22.5MB/284MB (7.9%)
+[###.....................] alistaircol.policy_data      44.9MB/284MB (15.8%)
+[#####...................] alistaircol.policy_data      67.0MB/284MB (23.6%)
+[#######.................] alistaircol.policy_data      89.6MB/284MB (31.6%)
+[#########...............] alistaircol.policy_data      112MB/284MB (39.6%)
+[###########.............] alistaircol.policy_data      135MB/284MB (47.5%)
+[#############...........] alistaircol.policy_data      157MB/284MB (55.4%)
+[##############..........] alistaircol.policy_data      176MB/284MB (62.2%)
+[################........] alistaircol.policy_data      198MB/284MB (69.8%)
+[##################......] alistaircol.policy_data      222MB/284MB (78.4%)
+[####################....] alistaircol.policy_data      245MB/284MB (86.3%)
+[######################..] alistaircol.policy_data      267MB/284MB (94.0%)
+[########################] alistaircol.policy_data      284MB/284MB (100.0%)
+xxxxxxx document(s) imported successfully. 0 document(s) failed to import.
 ```
 
-Binary import of `policy_data.archive`:
+#### Backup & Restore Strategy (Binary)
+
+Exporting the collection will be important too. Will need this for local development/staging environment sync as well as for backup restoration if something bad happens.
+
+##### Backup
+
+
+Binary export/backup of `policy_data` collection in `alistaircol` database.
 
 ```bash
-docker exec qa_mongodb bash -c 'mongorestore \
+mongodump \
+    --db=alistaircol \
+    --collection=policy_data \
+    --authenticationDatabase admin \
+    --username=root \
+    --password=example \
+    --out=- \
+    > policy_data.bson
+```
+
+Will give you something like this:
+
+```text
+writing alistaircol.policy_data to archive on stdout
+[##################......]  alistaircol.policy_data  xxxxxx/xxxxxx  (77.1%)
+[########################]  alistaircol.policy_data  xxxxxx/xxxxxx  (100.0%)
+done dumping alistaircol.policy_data (xxxxxx documents)
+```
+
+##### Restore
+
+Binary import/restore of `policy_data.archive`:
+
+```bash
+mongorestore \
     --authenticationDatabase admin \
     --username=root \
     --password=example \
     --db=alistaircol \
-    --collection=policy_data \
-    - ' \
-    < policy_data.archive
+    --drop \
+    --nsInclude alistaircol.policy_data \
+    --batchSize=100 \
+    policy_data.bson
 ```
+
+I [found](https://stackoverflow.com/a/33656155/5873008) adding `batchSize=100` fixes errors like `Failed: test.policy_data: error restoring from policy_data.bson: reading bson input: invalid BSONSize: -2120621459 bytes`
+
+Will give you:
+
+```text
+checking for collection data in policy_data.bson
+restoring alistaircol.policy_data from policy_data.bson
+[############............]  alistaircol.policy_data  582MB/1.11GB  (51.3%)
+[########################]  alistaircol.policy_data  1.11GB/1.11GB  (100.0%)
+no indexes to restore
+finished restoring alistaircol.policy_data (xxxxxx documents, 0 failures)
+xxxxxx document(s) restored successfully. 0 document(s) failed to restore.
+```
+
+This isn't strictly recommended, it's best to read more on backup and restore tools [here](https://docs.mongodb.com/manual/tutorial/backup-and-restore-tools/).
 
 ### `mongodb-express`
 
@@ -152,7 +209,9 @@ Just after starting the container after login:
 
 ![mongo-express](/img/articles/mongodb-php/mongo-express.png)
 
-### `php`
+You are able to view all collections and records, plus do queries. As mentioned earlier, it is not recommended to use this in production. Using [Compass](https://www.mongodb.com/products/compass) might be better. 
+
+### Integrating into a `php` app
 
 I use a bespoke `docker` image, but it's ultimately based on `php:7.3-apache`.
 
@@ -187,7 +246,7 @@ This seems to be all I needed to do for `pdo`, `pdo_mysql`, `sockets`.
 
 ### Connection (or an interface to the Collection)
 
-I just need to do simple reads and updates for now on a single collection, so `$collection` is going to be the starting point for all other samples.
+I just need to do simple reads and updates for now, on a single collection, so `$collection` is going to be the starting point for all other samples.
 
 ```php
 <?php
@@ -217,17 +276,17 @@ $collection = $client
 
 ### **C**reate
 
-I don't have a need to create right now, any future will come in csv.
+I don't have a need to create right now, any future things will come in csv, so will just use `mongoimport`.
 
 However, it will just be a case of (with better error handling):
 
 ```php
 <?php
 $document = [
-  'k' => 'v',
+    'k' => 'v',
 ];
 $options = [
-  //
+    //
 ];
 $collection->insertOne($document, $options);
 ```
@@ -243,7 +302,7 @@ There are a few things we need to read:
 * A subset of documents/results with subset of fields (projection), i.e. for efficient pagination results
 * An individual document to view and update
 
-**All distinct values in column/document key**:
+#### All distinct values in column/document key
 
 ```php
 <?php
@@ -283,7 +342,7 @@ As the name suggests, this could be used for getting all users/authors or produc
 
 ---
 
-**The number of documents/results** matching criteria:
+#### The number of documents/results matching criteria:
 
 ```php
 <?php
@@ -307,11 +366,15 @@ function queryCollectionCount(MongoDB\Collection $collection, array $filter): in
 }
 ```
 
+Straightforward.
+
 ---
 
-**A subset of documents/results** with projection and other options:
+#### Get a subset of documents/results, with projection and other options
 
-Imagine this is the search page controller logic. From the ui-grid screenshot above, it sets pagination and filter [options](https://docs.mongodb.com/manual/reference/operator/query/regex/#op._S_options).
+Imagine this is the search page controller logic.
+
+From the ui-grid screenshot above, it sets pagination and filter [options](https://docs.mongodb.com/manual/reference/operator/query/regex/#op._S_options).
 
 ```php
 <?php
@@ -326,7 +389,7 @@ $filters = [
 ];
 ```
 
-We will set `projected` to only return what we can display, and set the pagination options.
+We will set `projected` to only return what we can display, and set the pagination options. This basically works just like selecting fields in a SQL query rather than just `*`. The `limit` and `skip` are just like `limit` and `offset` too.
 
 ```php
 <?php
@@ -376,9 +439,9 @@ $documents = queryDocuments($collection, $filter, $options);
 
 ---
 
-**An individual document to view and update**:
+#### An individual document to view and update
 
-Converted to an `array` instead of an `object` through mostly preference, and I find easier to debug. 
+Converted to an `array` instead of an `object` through mostly preference, and I find easier to debug.
 
 ```php
 <?php
@@ -481,3 +544,15 @@ function deleteDocument(Collection $collection, string $object_id): bool
 Yep, it works.
 
 ![app](/img/articles/mongodb-php/mongo-express-deleted.png)
+
+---
+
+Good luck.
+
+<center>
+
+![app](/img/articles/mongodb-php/mysql-vs-mongodb.jpg)
+
+</center>
+
+Entire sample [`gist`](https://gist.github.com/alistaircol/227b7d3768e559b944fb65265a6c6179)
