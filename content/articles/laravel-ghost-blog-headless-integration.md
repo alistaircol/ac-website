@@ -360,9 +360,10 @@ public static function post(string $slug)
         throw new NotFoundResourceException('Post ' . $slug . ' does not exist.');
     }
 
-    Cache::put($cache_key, $response['posts'][0], 60);
+    $post = $response['posts'][0];
+    Cache::put($cache_key, $post, 60);
 
-    return $response;
+    return $post;
 }
 ```
 
@@ -521,27 +522,28 @@ class GhostBlog
     public static function post(string $slug)
     {
         $cache_key = 'ghost_posts_' . $slug;
-
+    
         if (Cache::has($cache_key)) {
             return Cache::get($cache_key);
         }
-
+    
         $ghost = new self();
         // https://ghost.org/docs/api/v3/content/#parameters
         $filter = sprintf('slug:%s', $slug);
         $response = $ghost->api->getPosts('', '', $filter, '1');
-
+    
         if (!array_key_exists('posts', $response)) {
             throw new \Exception('Could not find posts.');
         }
-
+    
         if (empty($response['posts'])) {
             throw new NotFoundResourceException('Post ' . $slug . ' does not exist.');
         }
-
-        Cache::put($cache_key, $response['posts'][0], 60);
-
-        return $response;
+    
+        $post = $response['posts'][0];
+        Cache::put($cache_key, $post, 60);
+    
+        return $post;
     }
 
     /**
