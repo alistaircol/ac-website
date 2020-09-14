@@ -207,7 +207,7 @@ We might want to have these definitions in version control, so we will need to t
 ```bash
 cat definitions.json | \
     docker exec -i \
-    trading_rabbitmq \
+    ac_rabbitmq \
     bash -c 'rabbitmqctl import_definitions'
 ```
 
