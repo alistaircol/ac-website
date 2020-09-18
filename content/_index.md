@@ -48,8 +48,10 @@ Ally has exposure and experience working with, but not limited to include:
     * `postfix`
     * `samba` (smb)
     * `pihole`
+    
+![skills](https://static.ac93.uk/resume/skills.png)
 
-> Leave things better than when you find it.
+**Leave things better than when you find it.**
 
 Founder of [DAFED](https://dafedteam.com/), an exclusive, invite only, like-minded bunch of ambitious developers, and experts in their respective areas who drive each member to become their best self. We are multi-disciplinary professionals: electrical engineers, cyber security professionals, software & binary reverse engineers, game developers and computer scientists.
 
