@@ -1,6 +1,6 @@
 PHONY: develop
 
-image_name = klakegg/hugo
+image_name = klakegg/hugo:0.75.1-ext
 docker_run = docker run --rm --interactive --tty --user=$$(id -u) --volume="$$(pwd):/src"
 
 develop:
