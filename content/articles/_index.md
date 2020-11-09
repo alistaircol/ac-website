@@ -17,5 +17,6 @@ Some things I want to learn and write about (even if it's just for myself) in th
 * **misc**: sonarqube code analysis.
 * **js**: nuxt config from CD pipeline/repository variables.
 * **git**: tags, configs, signing commits.
+* **docker/k8s**: rancher, heimdall.
 
 Mostly the articles below are just a place to dump what I think are some pretty neat, or exotic commands for my future reference.
