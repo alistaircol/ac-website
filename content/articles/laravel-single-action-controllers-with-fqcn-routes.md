@@ -2,7 +2,7 @@
 title: "Single action Laravel controllers and FQCN in route definitions"
 author: "Ally"
 summary: "Slim single action controllers and IDE friendly FQCN route definitions in Laravel."
-publishDate: 2020-11-08T00:00:00+01:00
+publishDate: 2020-11-09T00:00:00+01:00
 tags: ['php', 'laravel']
 draft: false
 ---
@@ -103,9 +103,9 @@ Route::middleware(['auth:api'])->prefix('v1')->group(function () {
 
 However, we can do better!
 
-Open up `app/Providers/RouteServiceProvider.php` and remove the namespace in the relevant route map, for this example it is line 80.
+Open up `app/Providers/RouteServiceProvider.php` and remove the namespace in the relevant route map, for this example it is line 79.
 
-```php {linenos=true}
+```php {linenos=true, linenostart=1, hl_lines=[79]}
 <?php
 
 namespace App\Providers;
