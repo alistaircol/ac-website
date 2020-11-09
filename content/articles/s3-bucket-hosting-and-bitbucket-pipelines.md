@@ -311,6 +311,93 @@ Commit this file to your repository and good luck, it should go through the step
 
 ![build](/img/articles/s3-ci/bb-build.png)
 
+### Nuxt
+
+Our static site will be configured something like this (fictional URLs):
+
+`nuxt.config.js`:
+
+```js
+export default {
+    // Target (https://go.nuxtjs.dev/config-target)
+    target: 'static',
+
+    // ...
+
+    publicRuntimeConfig: {
+        contactApiUrl: (() => {
+            // local build
+            if (!process.env.hasOwnProperty('BITBUCKET_BRANCH')) {
+                return 'http://local-api.ac93.uk/contact/general';
+            }
+            // CI build
+            return process.env.BITBUCKET_BRANCH === 'master'
+                ? 'https://api.ac93.uk/contact/general'
+                : 'https://stage.api.ac93.uk/contact/general'
+        })(),
+    }
+}
+```
+
+For accessing these config values in a component/page:
+
+`pages/contact.vue`:
+
+```vue {linenos=true, linenostart=1, hl_lines=[23]}
+<template>
+  <div>
+    Truncated
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      form: {
+        name: "",
+        enquiry: "",
+        email: ""
+      },
+    };
+  },
+  methods: {
+    submitForm: function (e) {
+      e.preventDefault();
+      
+      fetch(
+        this.$config.contactApiUrl,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(data)
+        }
+      )
+      .then(response => {
+        if (response.status !== 200) {
+          // handle gracefully
+        }
+        return response.json();
+      })
+      .then(data => {
+        if (!failed) {
+          // good stuff!
+        } else {
+        	// something went wrong, handle gracefully
+        }
+      })
+      .catch(() => {
+        // handle gracefully
+      })
+    }
+  },
+};
+</script>
+```
+
 ### Cloudflare
 
 It's just a case of adding a `CNAME` with the URL from the Static website hosting section in the bucket properties.
