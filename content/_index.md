@@ -3,7 +3,7 @@ title: "Welcome"
 url: "/"
 ---
 
-Alistair Collins is a capable full stack web developer from Scotland, with a broad knowledge of web technologies.
+[Alistair Collins](https://github.com/alistaircol) is a capable full stack web developer from Scotland, with a broad knowledge of web technologies.
 
 Ally has exposure and experience working with, but not limited to include:
 
