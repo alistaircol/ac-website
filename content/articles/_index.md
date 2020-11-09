@@ -14,10 +14,9 @@ Some things I want to learn and write about (even if it's just for myself) in th
 * **sh**: random `graphviz` and `dot` things. *WIP*
 * **php**: doxygen documentation generation.
 * **misc**: ansible and other server maintenance things, i.e. `motd` and `unattended-upgrades`.
-* **misc**: sonarqube code analysis.
 * **js**: nuxt config from CD pipeline/repository variables.
 * **git**: tags, configs, signing commits.
-* **docker/k8s**: rancher, heimdall.
-* **laravel** single action controllers and fully qualified name routes.
+* **docker/k8s**: [rancher](https://rancher.com), [heimdall](https://heimdall.site).
+* **composer** custom packagist package.
 
 Mostly the articles below are just a place to dump what I think are some pretty neat, or exotic commands for my future reference.
