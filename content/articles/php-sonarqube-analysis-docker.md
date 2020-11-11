@@ -91,7 +91,7 @@ Copy this token - we will need it when running the scanner on the code.
 
 Running analysis:
 
-```shell script {linenos=true}
+```shell script {linenos=true, hl_lines=[6,7,13,15]}
 docker rm --force sonar_scanner; \
   docker run \
     --tty \
@@ -109,8 +109,9 @@ docker rm --force sonar_scanner; \
     -Dsonar.scm.disabled=true
 ```
 
-* Line number 5 will change the network mode, adding `network=sonarnet` does not hook into that network. Instead, the `host` option for `network` acts like you would imagine given the name.
-* Line number 6 is important. Without this, the scanner is unable to send its analysis to the server.
+* Line number 6 will change the network mode, adding `network=sonarnet` does not hook into that network. Instead, the `host` option for `network` acts like you would imagine given the name.
+* Line number 7 is important. Without this, the scanner is unable to send its analysis to the server.
+* Line number 13 will need to be changed to use your token generated.
 * Line number 15 is also important. Without this, I was unable to run the scanner.
 
 Read more about the options for sonar scanner [here](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/).

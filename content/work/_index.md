@@ -12,7 +12,7 @@ Responsible for many sites built in PHP and angularjs.
 
 * Dec 2016 - Dec 2019: Web Developer
 * Dec 2019 - Feb 2020: Senior Web Developer
-* Feb 2020: Business Development Team Lead
+* Feb 2020 - Feb 2021: Business Development Team Lead
 
 {{< alert "warning" >}}
 Kana (Verint) {{< badge "warning">}}Internship{{< /badge >}}
