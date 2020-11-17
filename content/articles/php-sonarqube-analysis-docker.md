@@ -61,6 +61,32 @@ volumes:
   postgresql_data:
 ```
 
+Run the stack with
+
+```shell script
+docker-compose up -d
+
+# or alternative docker-compose.yml file name
+docker-compose -f alternative-name.yml up -d
+```
+
+If you get the error:
+
+```text
+ max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
+```
+
+[Solution](https://stackoverflow.com/a/51448773/5873008), run on host machine:
+
+```shell script
+sudo sysctl -w vm.max_map_count=262144
+sudo sysctl --system
+```
+
+and then run `docker-compose up` again.
+
+---
+
 Go to `http://localhost:9000` and get started.
 
 ![Starting](/img/articles/sonarqube/01-starting.png)
@@ -106,13 +132,16 @@ docker rm --force sonar_scanner; \
     -Dsonar.host.url=http://127.0.0.1:9000 \
     -Dsonar.login=43c74d57f41b288b1227ec144406ce39f2cf7122 \
     -Dsonar.verbose=true \
-    -Dsonar.scm.disabled=true
+    -Dsonar.scm.disabled=true \
+    -Dsonar.exclusions='Vendor/**, app/Vendor/**, build/**, node_modules/**' \
+    -Dsonar.inclusions='**/*.php'
 ```
 
 * Line number 6 will change the network mode, adding `network=sonarnet` does not hook into that network. Instead, the `host` option for `network` acts like you would imagine given the name.
 * Line number 7 is important. Without this, the scanner is unable to send its analysis to the server.
 * Line number 13 will need to be changed to use your token generated.
 * Line number 15 is also important. Without this, I was unable to run the scanner.
+* Line numbers 16 and 17 are important to exclude any vendor files you have no real control over, and exclude other files that might not be relevant to reduce clutter and speed up scanning.
 
 Read more about the options for sonar scanner [here](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner/).
 
