@@ -1,7 +1,7 @@
 ---
-title: "Request (Validation) Hooks in Laravel"
+title: "Standard JSON validation response in Laravel"
 author: "Ally"
-summary: "Request lifecycle and handling the request validation classes."
+summary: "Using `failedValidation` for standard JSON responses on validation error(s)."
 publishDate: 2020-11-17T00:00:00+01:00
 tags: ['php', 'laravel']
 draft: false
