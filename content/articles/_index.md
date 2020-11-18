@@ -16,7 +16,8 @@ Some things I want to learn and write about (even if it's just for myself) in th
 * **misc**: ansible and other server maintenance things, i.e. `motd` and `unattended-upgrades`.
 * **js**: nuxt config from CD pipeline/repository variables.
 * **git**: tags, configs, signing commits.
-* **docker/k8s**: [rancher](https://rancher.com), [heimdall](https://heimdall.site).
-* **composer** custom packagist package.
+* **docker/k8s**: [rancher](https://rancher.com), [heimdall](https://heimdall.site), [helm](https://helm.sh/)
+* **composer** composer v2, custom packagist package.
+* **misc**: [ceph](https://ceph.io/), [minio](https://min.io/), [airflow](https://airflow.apache.org/), [kafka](https://kafka.apache.org/), [grafana](https://grafana.com/), [prometheus](https://prometheus.io/), more.. 
 
 Mostly the articles below are just a place to dump what I think are some pretty neat, or exotic commands for my future reference.
