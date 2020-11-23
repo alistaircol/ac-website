@@ -330,3 +330,5 @@ cat <<"EOF" | nc -u -w1 127.0.01 12201
 }
 EOF
 ```
+
+Maybe can in dockerfile copy `/docker.stdout`, `/docker.stderr` from `webdevops/apache-php` and it gets the stdout/stderr query logging and saves complicated af bash script to feed graylog. 
