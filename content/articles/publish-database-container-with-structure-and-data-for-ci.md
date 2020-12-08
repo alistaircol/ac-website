@@ -1,20 +1,20 @@
 ---
-title: "Creating a private Docker container with database structure and data for CI"
+title: "Building a database as private Docker image with structure and data for CI"
 author: "Ally"
-summary: "Building a private Docker container with custom structure and data for legacy apps for a slightly easier CI pipeline"
+summary: "Building a private Docker image with custom structure and data, for a legacy app for a slightly easier CI pipeline"
 publishDate: 2020-12-08T12:00:00+01:00
 tags: ['mysql', 'docker', 'ci']
-draft: true
+draft: false
 ---
 
-**Rationale**: Application is quite old and is *very* database heavy in its testing and is unfeasible for it to be changed.
+**Rationale**: A major application is quite old and is *very* database heavy in its testing, and is unfeasible for it to be changed.
 This has made the testing of this application quite cumbersome - involving a script to pull the structure of all tables,
-and certain other data tables where it's too much for fixture data. Extracting this data to sqlite database too is a
+and certain other data tables (where it's too tricky for it to be a static fixture data file) prior to running the test suite. Extracting this data to `sqlite` database too is a
 possibility but might cause different issues.
 
-The applications framework has a [plugin](https://github.com/lorenzo/cakephp-fixturize) which can load [fixture](https://phpunit.readthedocs.io/en/9.3/fixtures.html) data from a database table, which is ideal for the applications use-case. Though others will load fixture data from a CSV.
+The framework has a [plugin](https://github.com/lorenzo/cakephp-fixturize) which can load [fixture](https://phpunit.readthedocs.io/en/9.3/fixtures.html) data from a database table, which is ideal for the applications use-case.
 
-The framework does all its testing in a schema predictably called `testing`.
+The framework does all its testing in a schema called `testing`.
  
 The test cases `setUpBeforeClass` will behind-the-scenes copy any structure from fixtures (from the `testing_fixtures` schema) and populate from `testing_fixtures` if configured, else from a csv, or no data.
 
@@ -26,17 +26,17 @@ The test cases `setUpBeforeClass` will behind-the-scenes copy any structure from
 
 ---
 
-A script, possibly something like [this](https://gist.github.com/alistaircol/7dac533f056cec38cd19b2571a52e4a0) which will use `mysqldump` to dump structure of schemas, and certain tables data for import later, to help test suite run, will create an output file, `crm.sql`.
+A script, possibly something like [this](https://gist.github.com/alistaircol/7dac533f056cec38cd19b2571a52e4a0) which will use `mysqldump` to dump structure of schemas, and certain tables data for import later. This will create an output file, `crm.sql`.
 
 This whole process of building the `crm.sql` file and the `docker image` might be best done inside a lambda/serverless part of infrastructure where the database is being hosted, but that's too out of scope for this humble tutorial.
-
-Creation of this file is a pre-requisite to building the new image.
 
 ---
 
 Building the new image with the structure is pretty easy once this file has been generated.
 
 The `Dockerfile` could look something like below.
+
+`DockerfileDbCi`:
 
 ```dockerfile {hl_lines=[4,5,6,7]}
 FROM mysql:5.7
@@ -52,7 +52,11 @@ RUN touch /tmp/crm-header.sql \
 * `testing_fixtures` is pretty much a read-only holding area, the frameworks testing runner will use this as a reference for structure and data for each test case 
 * `use testing_fixtures;` since the dump script doesn't have any awareness of that
 
+I found this [answer](https://serverfault.com/a/915845/530593) helpful for loading the `crm.sql` into the image.
+
 ### Building the image
+
+Don't do this.
 
 ```bash
 docker build -f DockerfileDbCi -t alistaircol/db-ci .
@@ -89,11 +93,11 @@ docker run --rm -d -p 3333:3306 --name db_ci -e MYSQL_ROOT_PASSWORD=password db_
 
 Open Datagrip or MySQL workbench, etc. for a quick sanity check to see the schema structure.
 
-### Publishing the image
+### Creating a repository in registry for the image
 
 The easiest way I think without messing with alternative registries is to publish onto [dockerhub](https://hub.docker.com), where most things are.
 
-You will need to create an account for this, and you are allowed one private repository.
+You will need to create an account for this, and you are allowed one private repository. You only need to follow these steps once.
 
 ![repos](/img/articles/docker-db-ci/01-dockerhub-repos.png)
 
@@ -105,11 +109,13 @@ Fill out the repository name, i.e. the image name and optionally the description
 
 ![view new repo](/img/articles/docker-db-ci/03-view-empty-repo.png)
 
-You're now ready to push your built image to the registry.
+You're now almost ready to push your built image to the registry.
+
+### Publishing the image
 
 First you will need to authenticate yourself prior to `docker push`.
 
-This simple command will ask for your password (same as one used to login to dockerhub account) interactively, see `man docker-login` if you do not want this to be interactive.
+This simple command will ask for your password (this is the same one you use to login to dockerhub account) interactively, see `man docker-login` if you do not want this to be interactive.
 
 ```bash
 docker login --username=alistaircol
@@ -127,19 +133,29 @@ Now we will be able to push.
 docker push alistaircol/db-ci
 ```
 
+It might take some time.
+
 ![view new repo](/img/articles/docker-db-ci/04-docker-push.png)
 
 The image with its tags will be pushed, so no need to push twice with as many tags as you had to build.
 
 ![view new repo](/img/articles/docker-db-ci/05-dockerhub-tags.png)
 
+Where you are building the image where it's not ephemeral, I would recommend running the following command prior to build and push steps outlined above:
 
+```bash
+docker container rm -f $(docker container ls -a -q --filter name=db_ci) 2>/dev/null
+```
 
 ### Pulling the private image
 
-It's easy enough to pull it down, we're already authenticated from the earlier `docker login`. This won't work when pulling down in a CI pipeline from bitbucket pipeline, github actions, etc.
+If you're on the same host that built and pushed the image, it's easy enough to pull it down, we're already authenticated from the earlier `docker login`.
+
+This won't work when pulling down in a CI pipeline from bitbucket pipeline, github actions, etc. though.
 
 The process will be similar. Authenticate with the username and password for dockerhub, using the secret manager for those platforms CI pipeline.
+
+#### Bitbucket
 
 [`bitbucket-pipelines.yml`](https://support.atlassian.com/bitbucket-cloud/docs/use-docker-images-as-build-environments/) example:
 
@@ -153,5 +169,21 @@ image:
   email: $DOCKER_HUB_EMAIL
 ```
 
-Github Action will be very similar, see example from Github [blog](https://github.blog/changelog/2020-09-24-github-actions-private-registry-support-for-job-and-service-containers/):
+#### Github
+
+Github Action will be very similar, see example from Github [blog](https://github.blog/changelog/2020-09-24-github-actions-private-registry-support-for-job-and-service-containers/).
+
+#### Gitlab
+
+Again this should be very similar, documentation [here](https://docs.gitlab.com/ee/ci/docker/using_docker_images.html#define-an-image-from-a-private-container-registry)
+
+---
+
+I don't have any authority or claim to be any sort of expert on this, it's more of a reference to myself, but if it's helpful to more than just myself, then great (dopamine stonks).
+
+<center>
+
+![fin](/img/articles/docker-db-ci/00-fin.jpg)
+
+</center>
 
