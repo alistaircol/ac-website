@@ -88,7 +88,7 @@ Testing the image contains fixture data, etc.:
 
 ```bash
 docker container rm -f $(docker container ls -a -q --filter name=db_ci) 2>/dev/null
-docker run --rm -d -p 3333:3306 --name db_ci -e MYSQL_ROOT_PASSWORD=password db_ci:latest
+docker run --rm -p 3333:3306 --name db_ci -e MYSQL_ROOT_PASSWORD=password alistaircol/db-ci:latest
 ```
 
 Open Datagrip or MySQL workbench, etc. for a quick sanity check to see the schema structure.
