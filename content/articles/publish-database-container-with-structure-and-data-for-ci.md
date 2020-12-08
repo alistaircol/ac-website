@@ -14,116 +14,60 @@ possibility but might cause different issues.
 
 The applications framework has a [plugin](https://github.com/lorenzo/cakephp-fixturize) which can load [fixture](https://phpunit.readthedocs.io/en/9.3/fixtures.html) data from a database table, which is ideal for the applications use-case. Though others will load fixture data from a CSV.
 
+The framework does all its testing in a schema predictably called `testing`.
+ 
+The test cases `setUpBeforeClass` will behind-the-scenes copy any structure from fixtures (from the `testing_fixtures` schema) and populate from `testing_fixtures` if configured, else from a csv, or no data.
+
+<center>
+
+![fixtures](/img/articles/docker-db-ci/fixtures.png)
+
+</center>
+
 ---
 
-Need to `mysqldump` structure of schemas, and certain tables data.
+A script, possibly something like [this](https://gist.github.com/alistaircol/7dac533f056cec38cd19b2571a52e4a0) which will use `mysqldump` to dump structure of schemas, and certain tables data for import later, to help test suite run, will create an output file, `crm.sql`.
 
-```bash
-#!/usr/bin/env bash
+This whole process of building the `crm.sql` file and the `docker image` might be best done inside a lambda/serverless part of infrastructure where the database is being hosted, but that's too out of scope for this humble tutorial.
 
-# --column-statistics=0: https://serverfault.com/a/912677/530593
-DUMP_COMMAND="mysqldump \
-    --column-statistics=0
-    --host=db.ac93.uk \
-    --user=user \
-    --password=password"
+Creation of this file is a pre-requisite to building the new image.
 
-function dump_crm_structure()
-{
-    # when dumping crm structure, ignore this table
-    IGNORE_CRM_TABLES=(
-        "ignore_1"
-    )
-    CRM_STRUCTURE="$DUMP_COMMAND \
-        ac_crm \
-        --no-data \
-        --skip-triggers"
+---
 
-    for table in ${IGNORE_CRM_TABLES[*]}; do
-        CRM_STRUCTURE+="\
-        --ignore-table=ac93_crm.$table"
-    done
+Building the new image with the structure is pretty easy once this file has been generated.
 
-    $CRM_STRUCTURE >> crm.sql
-}
+The `Dockerfile` could look something like below.
 
-function dump_crm_data()
-{
-    # when dumping data, only use these tables
-    DATA_CRM_TABLES=(
-        "allow_1"
-    )
-    CRM_DATA="$DUMP_COMMAND \
-        ac_crm \
-        --no-create-info \
-        --skip-triggers \
-        ${DATA_CRM_TABLES[*]}"
-
-    $CRM_DATA >> crm.sql
-}
-
-# dump only these internal tables and data
-DATA_INTERNAL_TABLES=(
-    "allow_1"
-)
-
-function dump_internal_structure
-{
-    INTERNAL_STRUCTURE="$DUMP_COMMAND \
-        --no-data \
-        ac93_internal \
-        ${DATA_INTERNAL_TABLES[*]}"
-
-    $INTERNAL_STRUCTURE >> crm.sql
-}
-
-function dump_internal_data
-{
-    INTERNAL_DATA="$DUMP_COMMAND \
-        --no-create-info \
-        --skip-triggers \
-        ac93_internal \
-        ${DATA_INTERNAL_TABLES[*]}"
-
-    $INTERNAL_DATA >> crm.sql
-}
-
-rm crm.sql
-dump_crm_structure
-dump_crm_data
-dump_internal_structure
-dump_internal_data
-echo "Done!"
-```
-
-Will create `crm.sql` - a pre-requisite to building the new image.
-
-```dockerfile
+```dockerfile {hl_lines=[4,5,6,7]}
 FROM mysql:5.7
-# run cpt.sh prior to this - it's required to be ran from the host machine!
 COPY crm.sql /tmp/crm.sql
 RUN touch /tmp/crm-header.sql \
  && echo 'create schema if not exists testing;' > /tmp/crm-header.sql \
- && echo 'use testing;' >> /tmp/crm-header.sql \
+ && echo 'create schema if not exists testing_fixtures;' > /tmp/crm-header.sql \
+ && echo 'use testing_fixtures;' >> /tmp/crm-header.sql \
  && cat /tmp/crm-header.sql /tmp/crm.sql > /docker-entrypoint-initdb.d/crm.sql
 ```
 
+* `testing` is `drop`ped and `create`d in the frameworks testing runner
+* `testing_fixtures` is pretty much a read-only holding area, the frameworks testing runner will use this as a reference for structure and data for each test case 
+* `use testing_fixtures;` since the dump script doesn't have any awareness of that
+
 Building the image:
 
+```bash
+docker build -f DockerfileDbCi -t alistaircol/db-ci .
 ```
-docker container stop $(docker container ls -a -q --filter name=qa_db_ci)
-docker container rm $(docker container ls -a -q --filter name=qa_db_ci)
-docker build -f DockerfileDbCi -t qa_db_ci .
-# push
-docker run -p 3333:3306 --name qa_db_ci -e MYSQL_ROOT_PASSWORD=password qa_db_ci:latest #add -d for daemon/detached shit
 
+Testing the image contains fixture data, etc.:
+
+```bash
+docker container rm -f $(docker container ls -a -q --filter name=db_ci) 2>/dev/null
+docker run --rm -d -p 3333:3306 --name db_ci -e MYSQL_ROOT_PASSWORD=password db_ci:latest
 ```
 
 Publishing the image:
 
 ```bash
-docker build -f DockerfileDbCi -t alistaircol/qa-db-ci .
-
 docker login --username=alistaircol
 
 Password: 
@@ -132,7 +76,3 @@ Configure a credential helper to remove this warning. See
 https://docs.docker.com/engine/reference/commandline/login/#credentials-store
 Login Succeeded
 ```
-
-TODO: screenshot
-
-TODO: pipeline
