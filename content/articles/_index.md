@@ -17,6 +17,7 @@ You can see [tags](/tags) for what topics I like to cover.
 * **docker/k8s**: [rancher](https://rancher.com), [heimdall](https://heimdall.site), [helm](https://helm.sh/)
 * **composer** composer v2, custom packagist package.
 * **misc**: [ceph](https://ceph.io/), [minio](https://min.io/), [airflow](https://airflow.apache.org/), [kafka](https://kafka.apache.org/), [grafana](https://grafana.com/), [prometheus](https://prometheus.io/), more.. 
-* **misc** webdevops containers with graylog & gelf stack logging
+* **misc**: webdevops containers with graylog & gelf stack logging
+* **db**: spatial/geometry stuff with [torus](https://en.wikipedia.org/wiki/Torus)
 
 Mostly the articles below are just a place to dump what I think are some pretty neat, or exotic commands for my future reference.
