@@ -52,11 +52,33 @@ RUN touch /tmp/crm-header.sql \
 * `testing_fixtures` is pretty much a read-only holding area, the frameworks testing runner will use this as a reference for structure and data for each test case 
 * `use testing_fixtures;` since the dump script doesn't have any awareness of that
 
-Building the image:
+### Building the image
 
 ```bash
 docker build -f DockerfileDbCi -t alistaircol/db-ci .
 ```
+
+Multiple tags are allowed, might want to tag with date as well as latest, since this makes sense to be run daily, or even more frequently.
+
+```bash
+docker build -f DockerfileDbCi \
+    -t alistaircol/db-ci:$(date '+%Y-%m-%d') \
+    -t alistaircol/db-ci:latest \
+    .
+```
+
+You can see they have been built.
+
+```bash
+docker images -a alistaircol/db-ci --format "{{.ID}}: {{.Repository}} {{.Tag}}"
+```
+
+```text
+81cc0956594b: alistaircol/db-ci 2020-12-08
+81cc0956594b: alistaircol/db-ci latest
+```
+
+### Testing the image
 
 Testing the image contains fixture data, etc.:
 
@@ -65,7 +87,29 @@ docker container rm -f $(docker container ls -a -q --filter name=db_ci) 2>/dev/n
 docker run --rm -d -p 3333:3306 --name db_ci -e MYSQL_ROOT_PASSWORD=password db_ci:latest
 ```
 
-Publishing the image:
+Open Datagrip or MySQL workbench, etc. for a quick sanity check to see the schema structure.
+
+### Publishing the image
+
+The easiest way I think without messing with alternative registries is to publish onto [dockerhub](https://hub.docker.com), where most things are.
+
+You will need to create an account for this, and you are allowed one private repository.
+
+![repos](/img/articles/docker-db-ci/01-dockerhub-repos.png)
+
+Click `Create Repository`.
+
+![new repo](/img/articles/docker-db-ci/02-new-repo.png)
+
+Fill out the repository name, i.e. the image name and optionally the description. Then click `Create`.
+
+![view new repo](/img/articles/docker-db-ci/03-view-empty-repo.png)
+
+You're now ready to push your built image to the registry.
+
+First you will need to authenticate yourself prior to `docker push`.
+
+This simple command will ask for your password (same as one used to login to dockerhub account) interactively, see `man docker-login` if you do not want this to be interactive.
 
 ```bash
 docker login --username=alistaircol
@@ -76,3 +120,38 @@ Configure a credential helper to remove this warning. See
 https://docs.docker.com/engine/reference/commandline/login/#credentials-store
 Login Succeeded
 ```
+
+Now we will be able to push.
+
+```bash
+docker push alistaircol/db-ci
+```
+
+![view new repo](/img/articles/docker-db-ci/04-docker-push.png)
+
+The image with its tags will be pushed, so no need to push twice with as many tags as you had to build.
+
+![view new repo](/img/articles/docker-db-ci/05-dockerhub-tags.png)
+
+
+
+### Pulling the private image
+
+It's easy enough to pull it down, we're already authenticated from the earlier `docker login`. This won't work when pulling down in a CI pipeline from bitbucket pipeline, github actions, etc.
+
+The process will be similar. Authenticate with the username and password for dockerhub, using the secret manager for those platforms CI pipeline.
+
+[`bitbucket-pipelines.yml`](https://support.atlassian.com/bitbucket-cloud/docs/use-docker-images-as-build-environments/) example:
+
+You can use [secure variables](https://confluence.atlassian.com/bitbucket/variables-in-pipelines-794502608.html) to configure username and password variables, then add them to the image YAML configuration as shown below:
+
+```yaml
+image:
+  name: alistaircol/db-ci:latest
+  username: $DOCKER_HUB_USERNAME
+  password: $DOCKER_HUB_PASSWORD
+  email: $DOCKER_HUB_EMAIL
+```
+
+Github Action will be very similar, see example from Github [blog](https://github.blog/changelog/2020-09-24-github-actions-private-registry-support-for-job-and-service-containers/):
+
