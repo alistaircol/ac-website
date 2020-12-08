@@ -4,6 +4,8 @@ title: "Articles"
 
 Some things I want to learn and write about (even if it's just for myself) in the future:
 
+You can see [tags](/tags) for what topics I like to cover.
+
 * **js/sh**: very basic Google Chrome extension to list dev sites, show which branch is on there, time of last remote push, etc. *WIP*
 * **mysql**: app migration, segregation and replication *WIP*
 * **sh**: [codewars](https://www.codewars.com/users/alistaircol) kata - `gnuplot` for debugging some geometry things.
