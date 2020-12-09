@@ -1,0 +1,30 @@
+{{ define "main" }}
+
+<h1 class="post-title">{{ .Title }}</h1>
+
+{{ with .Params.tags }}
+{{ range . }}
+<a href="{{ "tags/" | absURL }}{{ . | urlize }}" style="text-decoration: none !important;">
+<span class="badge">
+        {{ . }}
+    </span>
+</a>
+{{ end }}
+<p></p>
+{{ end }}
+
+{{ $dateFormat := $.Site.Params.dateFormat | default "Jan 2, 2006" }}
+<strong>Publish date: </strong>{{ .PublishDate.Format $dateFormat }}
+<br>
+<strong>Author: </strong>{{ .Params.author }}
+<br>
+<hr>
+
+{{ if ne .Params.toc false }}
+{{ partial "toc.html" . }}
+{{ end }}
+
+{{ .Content }}
+{{ template "_internal/disqus.html" . }}
+
+{{ end }}
