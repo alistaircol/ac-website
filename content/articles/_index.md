@@ -18,6 +18,7 @@ You can see [tags](/tags) for what topics I like to cover.
 * **composer** composer v2, custom packagist package.
 * **misc**: [ceph](https://ceph.io/), [minio](https://min.io/), [airflow](https://airflow.apache.org/), [kafka](https://kafka.apache.org/), [grafana](https://grafana.com/), [prometheus](https://prometheus.io/), more.. 
 * **misc**: webdevops containers with graylog & gelf stack logging
-* **db**: spatial/geometry stuff with [torus](https://en.wikipedia.org/wiki/Torus)
+* **misc**: terraform iam and s3 website buckets for ssg cd
+* **db**: spatial/geometry stuff with [torus](https://en.wikipedia.org/wiki/Torus) or gazetteer
 
 Mostly the articles below are just a place to dump what I think are some pretty neat, or exotic commands for my future reference.
