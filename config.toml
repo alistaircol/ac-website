@@ -3,6 +3,11 @@ languageCode = "en-us"
 title = "alistaircol"
 theme = "papercss-hugo-theme"
 
+[params]
+    homeMetaContent = "Ally is a full-stack software engineer."
+    # For more date formats see https://gohugo.io/functions/format/
+    dateFormat = "Jan 2, 2006"
+
 [menu]
     [[menu.nav]]
         name = "Work"
