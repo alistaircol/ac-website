@@ -23,7 +23,7 @@ I use the following tools in these scripts:
 
 ---
 
-### `pdf-cat.sh`
+## `pdf-cat.sh`
 
 Append multiple documents to a new file.
 
@@ -115,7 +115,7 @@ fi
 
 ---
 
-### `pdf-cut.sh`
+## `pdf-cut.sh`
 
 Cut/extract pages from a document to a new file.
 
@@ -181,7 +181,7 @@ echo "Done!"
 
 ---
 
-### `pdf-convert.sh`
+## `pdf-convert.sh`
 
 Converts to PDF version 1.4 - this is because when working with TCPDF/FPDI/etc. don't support later versions, like 1.7.
 
@@ -226,6 +226,6 @@ gs \
 echo "Done!"
 ```
 
-### Aside
+# Aside
 
-Adapting to read from stdin. TODO.
+Might be good idea to adapt file paths from `stdin`, maybe will make a repo for this, but probably won't.
