@@ -44,7 +44,11 @@ Set up Postman to use the HTTP proxy.
 
 File → Settings → Proxy → Add a Custom Proxy Configuration
 
+<center>
+
 ![postman](/img/articles/postman-proxy/postman-proxy.png)
+
+</center>
 
 Good luck.
 
