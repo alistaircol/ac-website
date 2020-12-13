@@ -12,7 +12,7 @@ We will export the JSON data to CSV and import the csv data to MongoDB. Also, wi
 
 This is what I've figured out so far, and it looks like a promising option to switch to! 
 
-### Exporting JSON column to a CSV file
+## Exporting JSON columns to a CSV file
 
 Exporting the JSON to CSV might look something like this. The first row of the CSV should be **all** possible JSON keys.
 
@@ -102,7 +102,7 @@ If you want to use something like [MongoDB Compass](https://www.mongodb.com/prod
 
 ![mongo-express](/img/articles/mongodb-php/compass.png)
 
-### `mongodb`
+## `mongodb`
  
 **Importing** the `csv` data with [`mongoimport`](https://docs.mongodb.com/v4.2/reference/program/mongoimport/) is mostly self-explanatory.
 
@@ -142,12 +142,11 @@ dropping: alistaircol.policy_data
 xxxxxxx document(s) imported successfully. 0 document(s) failed to import.
 ```
 
-#### Backup & Restore Strategy (Binary)
+### Backup & Restore Strategy (Binary)
 
 Exporting the collection will be important too. Will need this for local development/staging environment sync as well as for backup restoration if something bad happens.
 
-##### Backup
-
+#### Backup
 
 Binary export/backup of `policy_data` collection in `alistaircol` database.
 
@@ -171,7 +170,7 @@ writing alistaircol.policy_data to archive on stdout
 done dumping alistaircol.policy_data (xxxxxx documents)
 ```
 
-##### Restore
+#### Restore
 
 Binary import/restore of `policy_data.archive`:
 
@@ -203,7 +202,7 @@ xxxxxx document(s) restored successfully. 0 document(s) failed to restore.
 
 This isn't strictly recommended, it's best to read more on backup and restore tools [here](https://docs.mongodb.com/manual/tutorial/backup-and-restore-tools/).
 
-### `mongodb-express`
+## `mongodb-express`
 
 Just after starting the container after login:
 
@@ -211,7 +210,7 @@ Just after starting the container after login:
 
 You are able to view all collections and records, plus do queries. As mentioned earlier, it is not recommended to use this in production. Using [Compass](https://www.mongodb.com/products/compass) might be better. 
 
-### Integrating into a `php` app
+## Integrating into a `php` app
 
 I use a bespoke `docker` image, but it's ultimately based on `php:7.3-apache`.
 
@@ -244,7 +243,7 @@ This seems to be all I needed to do for `pdo`, `pdo_mysql`, `sockets`.
 
 ![app](/img/articles/mongodb-php/php-app-grid.png)
 
-### Connection (or an interface to the Collection)
+## Connection (or an interface to the Collection)
 
 I just need to do simple reads and updates for now, on a single collection, so `$collection` is going to be the starting point for all other samples.
 
@@ -274,7 +273,7 @@ $collection = $client
     ->selectCollection('policy_data');
 ```
 
-### **C**reate
+## **C**reate
 
 I don't have a need to create right now, any future things will come in csv, so will just use `mongoimport`.
 
@@ -291,7 +290,7 @@ $options = [
 $collection->insertOne($document, $options);
 ```
 
-### **R**ead
+## **R**ead
 
 There are a few things we need to read:
 
@@ -302,7 +301,7 @@ There are a few things we need to read:
 * A subset of documents/results with subset of fields (projection), i.e. for efficient pagination results
 * An individual document to view and update
 
-#### All distinct values in column/document key
+### All distinct values in column/document key
 
 ```php
 <?php
@@ -342,7 +341,7 @@ As the name suggests, this could be used for getting all users/authors or produc
 
 ---
 
-#### The number of documents/results matching criteria:
+### The number of documents/results matching criteria:
 
 ```php
 <?php
@@ -370,7 +369,7 @@ Straightforward.
 
 ---
 
-#### Get a subset of documents/results, with projection and other options
+### Get a subset of documents/results, with projection and other options
 
 Imagine this is the search page controller logic.
 
@@ -439,7 +438,7 @@ $documents = queryDocuments($collection, $filter, $options);
 
 ---
 
-#### An individual document to view and update
+### An individual document to view and update
 
 Converted to an `array` instead of an `object` through mostly preference, and I find easier to debug.
 
@@ -473,7 +472,7 @@ function getDocument(MongoDB\Collection $collection, string $object_id): array
 
 This will be the basis for the edit/view page.
 
-### **U**pdate
+## **U**pdate
 
 Update a document, in our case we make a diff and store the diff in MySQL for auditing purposes, omitted for clarity.
 
@@ -514,7 +513,7 @@ function reviseDocument(
 }
 ```
 
-### **D**elete
+## **D**elete
 
 Currently, we have a soft-delete in place with a cleanup script to hard-delete after a certain time.
 
