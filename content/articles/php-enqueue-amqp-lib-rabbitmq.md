@@ -5,8 +5,9 @@ summary: "Publish messages to a RabbitMQ instance using PHP. Build a PHP consume
 publishDate: 2020-08-30T00:00:00+01:00
 tags: ['docker', 'php', 'rabbitmq', 'supervisord']
 draft: false
-toc: true
 ---
+
+## Introduction
 
 A good place to start to get a brief overview, watch [RabbitMQ in 5 Minutes](https://www.youtube.com/watch?v=deG25y_r6OY).
 
@@ -35,13 +36,13 @@ services:
       - "15672:15672"
 ```
 
-### Configure RabbitMQ
+## Configure RabbitMQ
 
 Go to [`http://localhost:15672/`](http://localhost:15672/) and login with `guest:guest` where we will add exchanges, queues, route bindings, etc. 
 
 ![admin](/img/articles/rabbitmq-php/admin.png)
 
-#### Add a new exchange
+### Add a new exchange
 
 We will add two exchanges:
 
@@ -53,7 +54,7 @@ We will add two exchanges:
 
 ![crm_exchange](/img/articles/rabbitmq-php/exchange_ac_crm_failed.png)
 
-#### Add a new queue
+### Add a new queue
 
 Similar to the exchanges, we are going to set up two queues:
 
@@ -65,7 +66,7 @@ Similar to the exchanges, we are going to set up two queues:
 
 ![queue_jobs_file_validation_failed](/img/articles/rabbitmq-php/queue_ac_crm_jobs_file_validation_failed.png)
 
-#### Add a binding (to a queue)
+### Add a binding (to a queue)
 
 ![binding_ac_crm_jobs_file_validation](/img/articles/rabbitmq-php/binding_ac_crm_jobs_file_validation.png)
 
@@ -75,7 +76,7 @@ Similar to the exchanges, we are going to set up two queues:
 
 Alternatively, you could do this via the API: [`http://localhost:15672/api/index.html`](http://localhost:15672/api/index.html).
 
-#### Saving/Syncing Configuration
+### Saving/Syncing Configuration
 
 Imagine this configuration is for your production instance, and you want to get the same environment locally, or for a staging environment - we can do that!
 
@@ -243,7 +244,7 @@ That's enough of RabbitMQ instance for now.
 
 ---
 
-### Publisher/Producer & Subscriber/Consumer Apps
+## Publisher/Producer & Subscriber/Consumer Apps
 
 Will add a `ac_worker` container for producer/publisher and consumer/subscriber code.
 
@@ -286,7 +287,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 ---
 
-#### `MessageBroker`
+### `MessageBroker`
 
 Will have a `MessageBroker` class which publisher and consumer will use to communicate to the RabbitMQ instance.
 
@@ -332,7 +333,7 @@ class MessageBroker
 }
 ```
 
-### Publisher
+## Publisher
 
 Will use a `symfony/console` command for publishing an example message. This is an interactive demo for illustration purposes only.
 
@@ -453,7 +454,7 @@ When you look at RabbitMQ management panel you can see the message has been publ
 
 ![message_ready](/img/articles/rabbitmq-php/queue_message_ready.png)
 
-### Consumer
+## Consumer
 
 Will use a `symfony/console` command for publishing an example message. This is an interactive demo for illustration purposes only.
 
@@ -591,7 +592,7 @@ And with the dead-letter exchange we have configured, rejected messages from thi
 
 ---
 
-### Always have a `consumer` running in the background with `supervisord`
+## Always have a `consumer` running in the background with `supervisord`
 
 **Note:** Go to `non-interactive` branch for this section.
 
