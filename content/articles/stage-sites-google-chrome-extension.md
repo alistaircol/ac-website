@@ -6,6 +6,10 @@ draft: true
 tags: ['php', 'html', 'js', 'git', 'chrome']
 ---
 
+{{< alert "danger" >}}
+Will be deleted, a better replacement is WIP.
+{{< /alert >}}
+
 **TODO**
 
 Screenshots
