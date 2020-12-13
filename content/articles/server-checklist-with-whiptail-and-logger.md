@@ -22,7 +22,11 @@ These include things like:
 
 I setup a bunch of [`whiptail`](https://en.wikibooks.org/wiki/Bash_Shell_Scripting/Whiptail) questions and log the answers to `syslog` with [`logger`](https://linux.die.net/man/1/logger). Our `syslog` messages go to papertrail, so we can have a history of these checks. This is also handy for other developers to easily see any notes.
 
+<center>
+
 ![server-checks](/img/articles/server-checks/server-checks.png)
+
+</center>
 
 ---
 
@@ -44,7 +48,11 @@ whiptail --title "Perform Check" \
 I do this because some checks are to do with emails and AWS things, so once these have been done once (I start on production server)
 we don't need to do these checks on the next server.
 
+<center>
+
 ![Server Check Question](/img/articles/server-checks/screens/01.png)
+
+</center>
 
 If you answer yes, then it will run whatever is in the function `developer_alerts`.
 
@@ -83,15 +91,27 @@ function developer_alerts
 In `email_more_info` when asking for input we need to get the exit code from `whiptail` to see whether we selected `Ok` or `Cancel`.
 If `Ok`, the input goes to `stderr` so need to swap `stderr` to `stdout` to set `INFO` to be what the user input.
 
+<center>
+
 ![Server Check Question](/img/articles/server-checks/screens/04.png)
+
+</center>
 
 The next check which is a bit different is AWS checks, first it prompts you with some instructions.
 
+<center>
+
 ![Server Check Info](/img/articles/server-checks/screens/02.png)
+
+</center>
 
 Then there is a list of volumes we expect to be backed up.
 
+<center>
+
 ![Server Check List](/img/articles/server-checks/screens/03.png)
+
+</center>
 
 We check the volumes if they're backed up with the date mentioned.
 
