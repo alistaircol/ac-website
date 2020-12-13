@@ -19,7 +19,7 @@ Returning a `Response` with a redirect url and `MessageBag` might not be what yo
 
 Overriding the `failedValidation` in a new `Request` might be what you need to return the validation errors in a standard json format! This post will walk you through this.
 
-### `Request`s
+## `Request`s
 
 Lets start by making a couple of `Request`s.
 
@@ -133,7 +133,7 @@ php artisan make:request Api/TestRequest
  
 ```
 
-### `Controller`s
+## `Controller`s
 
 ```text
 $ php artisan make:controller --help
@@ -199,7 +199,7 @@ Changing the argument in `__invokable` to the `TestRequest` will trigger the val
  
 ```
 
-### Routes
+## Routes
 
 Just the last line for testing.
 
@@ -229,7 +229,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('test', \App\Http\Controllers\Api\TestController::class);
 
 ```
-### Testing
+## Testing
 
 | Without `field` param | With `field` param |
 |-----------------------|---------------------|
@@ -237,7 +237,7 @@ Route::post('test', \App\Http\Controllers\Api\TestController::class);
 
 Nothing has changed, unsurprisingly. The next step will fix that!
 
-### `Request`s Again
+## `Request`s Again
 
 Override the `failedValidation` in `app/Http/Requests/JsonRequest.php`:
 
@@ -297,7 +297,7 @@ class JsonRequest extends FormRequest
 
 ```
 
-### Testing Again
+## Testing Again
 
 Great success!
 
