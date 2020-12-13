@@ -27,7 +27,7 @@ I will create two buckets:
 * `static.ac93.uk` - this will be production site, later will configure this web address in Cloudflare to point to the bucket
 * `stage-static.ac93.uk` - this will be the staging site, same as production, will configure in Cloudflare later.
 
-### S3
+## S3
 
 Give the bucket a name. *Note*: my example is `static.ac93.uk` and can be accessed at `static.ac93.uk.s3-website.eu-west-2.amazonaws.com`.
 We can configure our domain by adding `static` as a CNAME to `static.ac93.uk.s3-website.eu-west-2.amazonaws.com`.
@@ -127,7 +127,7 @@ This is because we do not want direct access from anywhere.
 
 This is virtually identical to the Production bucket, only changing the bucket name, user, role, bucket policy, etc. to reflect its stage environment.
 
-### IAM
+## IAM
 
 We will create two users, as you guessed they will be for `production` and `stage`.
 
@@ -197,7 +197,7 @@ Now you have access keys **save** them safely **now**, you won't be able to retr
 
 ---
 
-### Bitbucket
+## Bitbucket
 
 A couple things to cover in this section:
 
@@ -206,7 +206,7 @@ A couple things to cover in this section:
 * Configuring branches (i.e. origin and destination for features/PRs)
 * Adding `bitbucket-pipelines.yml`
 
-#### Setting Repository & Pipeline Configuration
+### Setting Repository & Pipeline Configuration
 
 When you create a new repo for the project, go to `Repository Settings -> Pipelines -> Settings` and enable pipelines.
 
@@ -226,7 +226,7 @@ Go to `Repository Settings -> Pipelines -> Deployments`
 
 The deployment variables take precedence over repository variables. We will see these in the `bitbucket-plugins.yml` a little later.
 
-#### Configuring Branches
+### Configuring Branches
 
 Go to branches and create a new one, call it `staging` which branches from `master`.
 
@@ -241,7 +241,7 @@ Go to `Repository Settings -> Workflow -> Branching Model`
 
 This means new branches will be based on `master` but are merged into `staging` when approved and therefore onto staging environment to look at before release to production.
 
-#### Adding the Repository Pipelines
+### Adding the Repository Pipelines
 
 Summary:
 
@@ -311,7 +311,7 @@ Commit this file to your repository and good luck, it should go through the step
 
 ![build](/img/articles/s3-ci/bb-build.png)
 
-### Nuxt
+## Nuxt
 
 Our static site will be configured something like this (fictional URLs):
 
@@ -398,12 +398,11 @@ export default {
 </script>
 ```
 
-### Cloudflare
+## Cloudflare
 
 It's just a case of adding a `CNAME` with the URL from the Static website hosting section in the bucket properties.
 
 ![build](/img/articles/s3-ci/cloudflare-cname.png)
-
 
 ---
 
