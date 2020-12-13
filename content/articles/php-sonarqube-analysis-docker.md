@@ -61,6 +61,8 @@ volumes:
   postgresql_data:
 ```
 
+## Sonarqube
+
 Run the stack with
 
 ```shell script
@@ -99,8 +101,6 @@ Login using `admin` for username and `admin` for password.
 
 ![Projects](/img/articles/sonarqube/04-welcome.png)
 
----
-
 To analyse the project we need to create it in Sonarqube, so, create it and a token.
 
 ![Create Project](/img/articles/sonarqube/05-create-project.png)
@@ -113,7 +113,7 @@ Copy this token - we will need it when running the scanner on the code.
 
 ![Projects](/img/articles/sonarqube/08-projects.png)
 
----
+## Sonar Scanner
 
 Running analysis:
 
