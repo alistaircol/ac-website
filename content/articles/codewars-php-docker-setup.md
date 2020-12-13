@@ -6,6 +6,8 @@ publishDate: 2020-08-31T00:00:00+01:00
 tags: ['docker', 'php', 'xdebug', 'kcachegrind']
 ---
 
+## Introduction
+
 [`codewars`](https://www.codewars.com/users/alistaircol) is a site with loads of [kata](https://en.wikipedia.org/wiki/Kata_(programming)) challenges that I have been engrossed in for a couple of weeks now.
 
 [![badge](https://www.codewars.com/users/alistaircol/badges/large)](https://www.codewars.com/users/alistaircol)
@@ -18,7 +20,7 @@ Repo is here: https://github.com/alistaircol/codewars-php7.0
 
 ---
 
-#### `Makefile`
+## `Makefile`
 
 Just some handy shortcuts for building image and running some commands.
 
@@ -58,7 +60,7 @@ test:
 	${exec} bash -c "./vendor/bin/phpunit $(args)"
 ```
 
-#### `Dockerfile`
+## `Dockerfile`
 
 Since I am a PHP guy, the Kata's offer the choice of PHP 7.0 or 7.4. The task I needed to debug was 7.0 only so this `Dockerfile` reflects that. Altering the Dockerfile to be 7.4 is trivial, just change the base image and look in PECL for a suitable more recent `xdebug` release.
 
@@ -72,13 +74,17 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY 99-xdebug.ini /usr/local/etc/php/conf.d
 ``` 
 
-#### Configuring `xdebug`
+## Configuring `xdebug`
 
 For `zend_extension`, you might want to run `$(find /usr/local/lib/php/extensions/ -name xdebug.so)` in the container and update `99-xdebug.ini` with that. I had some issues.
 
 Update `xdebug.remote_host` using your LAN IP, `ip addr show` or similar.
 
+<center>
+
 ![gonna-stop-you-there](/img/misc/gonna-stop-you-there.jpg)
+
+</center>
 
 `99-xdebug.ini`:
 
@@ -98,11 +104,15 @@ xdebug.profiler_output_name=callgrind.trace-%t.out
 
 Update `xdebug.profiler_enable` if you want to use `kcachegrind` or similar.
 
+<center>
+
 ![kcachegrind](/img/articles/codewars-php-setup/kcachegrind.png)
+
+</center>
 
 For any of these changes to take effect, run `make` again.
 
-#### Configuring `phpunit`
+## Configuring `phpunit`
 
 `phpunit.xml`:
 
@@ -132,7 +142,7 @@ For any of these changes to take effect, run `make` again.
 
 Fairly simple, `bootstrap` `./src/index.php` since this will be the main code.
 
-#### Coding
+## Coding
 
 * Code in `src/index.php`
 * Tests in `tests/`
