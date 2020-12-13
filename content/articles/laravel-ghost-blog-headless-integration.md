@@ -7,7 +7,7 @@ tags: ['php', 'laravel', 'ghost']
 draft: false
 ---
 
-### Setting up Ghost
+## Setting up a Ghost Instance
 
 Create an account.
 
@@ -23,7 +23,7 @@ Create an API integration so that our Laravel site can pull content.
 
 ![create-integration](/img/articles/laravel-ghost-blog/ghost-integration-step2.png)
 
-### Setting up Ghost Integration in Laravel
+## Setting up Ghost Integration in Laravel
 
 First, start with `m1guelpf/ghost-api` into Laravel site.
 
@@ -123,7 +123,7 @@ e.g. `resources/views/parts/homepage-blog.blade.php`:
 
 ```php
 <div class="container" style="padding-top:20px; margin-bottom: 20px;">
-  <h2 class="h2-section-title">QANW Blog</h2>
+  <h2 class="h2-section-title">Blog</h2>
   <div class="i-section-title"><i class="icon-zoom-in"></i></div>
 
   <div class="col-md-12 col-sm-12 isotope" id="masonry-elements">
@@ -173,6 +173,10 @@ Which might look something like this:
 ![integration](/img/articles/laravel-ghost-blog/laravel-integration.png)
 
 ### Blog Route Service Provider
+
+{{< alert "secondary" >}}
+This is not required.
+{{< /alert >}}
 
 For the route service provider we need to get a list of slugs.
 
@@ -273,6 +277,8 @@ Run `php artisan route:list` and we can see them!
 |        | GET|HEAD | blog/welcome            | blog/welcome            | App\Http\Controllers\GhostBlogPostController |
 ```
 
+## Blog Routes
+
 Or you could've just done:
 
 `routes/blog.php`:
@@ -285,7 +291,7 @@ Route::get('blog/{?slug}', App\Http\Controllers\GhostBlogPostController::class);
 
 And handle that in a similar way...
 
-#### Posts Controller
+## Blog Posts Controller
 
 The Posts controller is fairly simple:
 
@@ -367,7 +373,7 @@ public static function post(string $slug)
 }
 ```
 
-#### Posts View
+## Blog Posts View
 
 From the controller you can see its view is `blog-post`.
 
@@ -429,7 +435,7 @@ From the controller you can see its view is `blog-post`.
 
 `.posts[0]` is sent to view to do whatever you want with.
 
-#### Configuring Ghost URL
+### Configuring Ghost URL
 
 As you can see from some of the links, these will need to be rewritten.
 
@@ -437,7 +443,7 @@ As you can see from some of the links, these will need to be rewritten.
 
 Or scan through each value in the post response and manually rewrite (yuck).
 
-### Complete `GhostBlog` helper
+## Complete `GhostBlog` helper
 
 ```php
 <?php
