@@ -8,6 +8,10 @@ draft: false
 toc: true
 ---
 
+{{< alert "danger" >}}
+I plan on creating a new and improved post in Q1 2021 which has similar end-goal to this post.
+{{< /alert >}}
+
 **TL;DR:**
 
 * All PHP apps running in a single container on port 8080, debugging is sometimes hard.
@@ -20,11 +24,15 @@ This can't go on, I need xDebug to work properly!
 
 Ahh, debugging is nicer now!* [repo](https://github.com/alistaircol/docker-nginx-ingress-httpd-php)
 
+<center>
+
 ![overview](/img/articles/docker-nginx-apache/nginx-httpd-php.png)
+
+</center>
 
 ---
 
-# Motivation
+## Motivation
 
 > Improve document quality in 4 minutes with Architectural decision records
 
@@ -36,7 +44,7 @@ Ahh, debugging is nicer now!* [repo](https://github.com/alistaircol/docker-nginx
 
 >> Colleague
 
-# Rationale
+## Rationale
 
 For some time I've been developing using one container to host **ALL** our (PHP) code for our services, which consists of 3 main projects:
 
@@ -52,7 +60,7 @@ If we want to debug something where we use the Members platform which goes throu
 
 I've spent a lot of time searching, but the requests just hang. Yes I know Postman, etc. exist, no, I don't want to mock requests, etc. everything I tried in PHPStorm, VS Code didn't seem to work nicely. I had to change the setup because I can't go back to `var_dump` and `echo` debugging!
 
-# nginx
+## `nginx`
 
 We'll start with `nginx`. This will act as the only ingress point (on port 8080) for our applications. It will act as a reverse proxy to the relevant (isolated) container where the app lives. We can do this based on the server name, e.g.:
 
@@ -165,7 +173,7 @@ Our applications have multisite configuration, so certain things need to change 
 
 We could do this in `nginx` but I'm not familiar with its configuration. My brief research led me to [if is evil](https://www.nginx.com/resources/wiki/start/topics/depth/ifisevil/) and pretty sure setting environment variables isn't as elegant.
 
-# Base Image
+## Base PHP Image
 
 We'll use base `php:7.3-apache` container with extra things installed, like `xdebug`, `memcache`, `composer`, Docker in Docker (don't judge, it's development only!) etc.
 
@@ -228,7 +236,7 @@ Docker in Docker is a requirement for our complicated test setup. Maybe I'll wri
 
 We basically use this image for our 3 projects, and mount volumes. Mostly `php` configs, `httpd` configs, and our source code.
 
-# CRM
+## CRM
 
 So our CRM is the guts of the business.
 
@@ -265,7 +273,7 @@ ac-crm:
 * The third entry in is the bespoke configuration for PHP (mostly XDebug).
 * The fourth entry is our code.
 
-## Apache Config
+### Apache Config
 
 Just a relatively straightforward config.
 
@@ -288,7 +296,7 @@ The file `containers/crm/httpd/crm.conf` will look something like this:
 </VirtualHost>
 ```
 
-## PHP Config
+### PHP Config
 
 The file `containers/crm/php/crm.ini` will look something like this:
 
@@ -313,7 +321,7 @@ So the flow sort of looks like this:
 
 Unfortunately for each project you will need to update the `remote_host` to the IP of your host machine where your debugger is running.
 
-# API
+## API
 
 Here is the API service in `docker-compose.yml`:
 
@@ -380,7 +388,7 @@ xdebug.remote_host=192.168.1.6
 
 ```
 
-# Members Area
+## Members Area
 
 Last piece of the puzzle and there are not many changes here compared to the previous services.
 
@@ -453,7 +461,7 @@ To see a complete example, see the associated github repo [https://github.com/al
 
 ---
 
-# Logging
+## Logging
 
 Adventure in logging:
 
@@ -463,11 +471,11 @@ cat >> /etc/hosts <<<EOF
 EOF
 ```
 
-# Setting Up Debugger
+## Setting Up Xdebug
 
 ![breakpoints](/img/misc/stop-signs.jpg)
 
-## (PHPStorm)
+### (PHPStorm)
 
 Each project will need to be configured.
 
