@@ -7,6 +7,8 @@ tags: ['php', 'wget', 'csv', 'httpd', 'cloudflare']
 draft: false
 ---
 
+## Mirroring sites with `wget`
+
 For this, there is a list of subdomains in `sites.csv` 3rd column (counting from 1), not too important but just to explain the format for `csvtool`.
 
 We drop first row because this is header names and pass the rest in. For each row in the csv file we run the `wget` command.
@@ -42,7 +44,7 @@ find . \
     -exec zip -r $(basename {}).zip $(basename {}) \;
 ```
 
-### Web Server
+## Install & Configure Server
 
 Used the following commands to set up a fresh Ubuntu 20.04 server from DigtalOcean.
 
@@ -74,7 +76,7 @@ EOF
 sudo apt-get install -y software-properties-common git pv nano htop vim jq neofetch mlocate
 ```
 
-#### PHP
+### PHP
 
 Installing Apache, PHP on the server (as `root`):
 
@@ -95,7 +97,7 @@ php -v
 chown -R ubuntu:ubuntu /var/www
 ```
 
-#### Email
+### Email
 
 Had to reverse-engineer the legacy sites backend contact form. Won't bore you with that code because it's super simple.
 
@@ -165,7 +167,7 @@ systemctl reload apache2
 **Tip:** For email to be a bit more secure and for some clients to determine authenticity the IP needs to be added to domain [SPF Record](https://support.google.com/a/answer/33786?hl=en), this is a TXT record. Just adding because it was relevant for me!
 
 
-#### Virtual Hosts
+### `httpd` Virtual Hosts
 
 Similar to the first command, we take the `sites.csv` and create the virtual host based on that.
 
@@ -198,7 +200,7 @@ sudo systemctl reload apache2
 
 This should only be run once, since you might need to make a tweak to an individual host and if ran a second time this tweak would be lost.
 
-## Git
+### Git
 
 Login to server as `ubuntu`.
 
@@ -213,7 +215,7 @@ For the server to access this, copy the `id_rsa.pub` from the server and add the
 
 Clone the repo in `/var/www/html`.
 
-## Cloudflare
+## Wildcard Subdomain & Cloudflare
 
 The subdomains are routed to a server using a wildcard subdomain, unfortunately these cannot be proxied through Cloudflare, and we do not see many benefits.
 
