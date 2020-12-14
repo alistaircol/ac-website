@@ -85,9 +85,7 @@ Total in 58 ms
 Updating our theme from the base theme.
 
 ```bash
-git remote add zwbetz-gh https://github.com/alistaircol/papercss-hugo-theme
-git fetch zwbetz-gh
-git merge zwbetz-gh/master
+git submodule update --recursive
 ```
 
 ## TODO
