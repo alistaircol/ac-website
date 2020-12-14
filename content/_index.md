@@ -51,7 +51,7 @@ Ally has exposure and experience working with, but not limited to include:
     
 Or, my [roadmap.sh skill tree](https://github.com/dafedteam/skill-tree)! I should write about this 🤔.
     
-![skills](https://static.ac93.uk/resume/skills-web.png)
+![skills](https://static.ac93.uk/resume/skills.png)
 
 **Leave things better than when you find it.**
 
