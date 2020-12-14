@@ -78,6 +78,18 @@ docker run --rm --interactive --tty --user=$(id -u) --volume="$(pwd):/src" klake
 Total in 58 ms
 ```
 
+## Dark Mode theme
+
+[Removing submodules](https://gist.github.com/myusuf3/7f645819ded92bda6677)
+
+Updating our theme from the base theme.
+
+```bash
+git remote add zwbetz-gh https://github.com/alistaircol/papercss-hugo-theme
+git fetch zwbetz-gh
+git merge zwbetz-gh/master
+```
+
 ## TODO
 
 * contact form
