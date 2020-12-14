@@ -1,0 +1,16 @@
+html.dark body {
+    background: var(--primary-inverse);
+}
+
+a,
+a:visited {
+    color: var(--secondary);
+    background-image: none;
+    text-decoration: underline;
+}
+
+nav a,
+nav a:visited {
+    color: var(--primary);
+    text-decoration: none;
+}
