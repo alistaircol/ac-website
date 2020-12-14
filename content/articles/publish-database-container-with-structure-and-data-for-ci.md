@@ -54,7 +54,7 @@ RUN touch /tmp/crm-header.sql \
 
 I found this [answer](https://serverfault.com/a/915845/530593) helpful for loading the `crm.sql` into the image.
 
-### Building the image
+## Building the image
 
 Don't do this.
 
@@ -82,7 +82,7 @@ docker images -a alistaircol/db-ci --format "{{.ID}}: {{.Repository}} {{.Tag}}"
 81cc0956594b: alistaircol/db-ci latest
 ```
 
-### Testing the image
+## Testing the image
 
 Testing the image contains fixture data, etc.:
 
@@ -93,7 +93,7 @@ docker run --rm -p 3333:3306 --name db_ci -e MYSQL_ROOT_PASSWORD=password alista
 
 Open Datagrip or MySQL workbench, etc. for a quick sanity check to see the schema structure.
 
-### Creating a repository in registry for the image
+## Creating a repository in registry for the image
 
 The easiest way I think without messing with alternative registries is to publish onto [dockerhub](https://hub.docker.com), where most things are.
 
@@ -111,7 +111,7 @@ Fill out the repository name, i.e. the image name and optionally the description
 
 You're now almost ready to push your built image to the registry.
 
-### Publishing the image
+## Publishing the image
 
 First you will need to authenticate yourself prior to `docker push`.
 
@@ -147,7 +147,7 @@ Where you are building the image where it's not ephemeral, I would recommend run
 docker container rm -f $(docker container ls -a -q --filter name=db_ci) 2>/dev/null
 ```
 
-### Pulling the private image
+## Pulling the private image
 
 If you're on the same host that built and pushed the image, it's easy enough to pull it down, we're already authenticated from the earlier `docker login`.
 
@@ -155,7 +155,7 @@ This won't work when pulling down in a CI pipeline from bitbucket pipeline, gith
 
 The process will be similar. Authenticate with the username and password for dockerhub, using the secret manager for those platforms CI pipeline.
 
-#### Bitbucket
+### Bitbucket
 
 [`bitbucket-pipelines.yml`](https://support.atlassian.com/bitbucket-cloud/docs/use-docker-images-as-build-environments/) example:
 
@@ -169,11 +169,11 @@ image:
   email: $DOCKER_HUB_EMAIL
 ```
 
-#### Github
+### Github
 
 Github Action will be very similar, see example from Github [blog](https://github.blog/changelog/2020-09-24-github-actions-private-registry-support-for-job-and-service-containers/).
 
-#### Gitlab
+### Gitlab
 
 Again this should be very similar, documentation [here](https://docs.gitlab.com/ee/ci/docker/using_docker_images.html#define-an-image-from-a-private-container-registry)
 
