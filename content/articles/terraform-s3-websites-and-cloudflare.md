@@ -32,7 +32,7 @@ In a new folder create a `create-site.tf` file. The name isn't super important.
 
 ---
 
-The terraform file consists of a few blocks
+The [terraform file](https://gist.github.com/alistaircol/cb3b0a41688b230347d180ee9bc4e7ba) consists of a few blocks
 
 ## Required Providers
 
