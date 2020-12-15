@@ -209,7 +209,7 @@ resource "cloudflare_record" "terraform_bucket_cname" {
 
 ## Terraform Commands
 
-An example [gist](https://gist.github.com/alistaircol/cb3b0a41688b230347d180ee9bc4e7ba)
+Most of the script I've covered is in this [gist](https://gist.github.com/alistaircol/cb3b0a41688b230347d180ee9bc4e7ba)
 
 ```bash
 $ terraform validate
