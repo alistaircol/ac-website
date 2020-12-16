@@ -554,4 +554,4 @@ Good luck.
 
 </center>
 
-Entire sample [`gist`](https://gist.github.com/alistaircol/227b7d3768e559b944fb65265a6c6179)
+{{< gist alistaircol 227b7d3768e559b944fb65265a6c6179 "sample.php" >}}

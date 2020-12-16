@@ -130,6 +130,8 @@ jobs:
 
 Entire file [here](https://gist.github.com/alistaircol/bc5fcc9f0cbd82c90387f338a8000c1d).
 
+{{< gist alistaircol bc5fcc9f0cbd82c90387f338a8000c1d "build.yml" >}}
+
 ---
 
 [`shivammathur/setup-php@v2`](https://github.com/shivammathur/setup-php#readme) is fairly configurable and comes with `composer`.

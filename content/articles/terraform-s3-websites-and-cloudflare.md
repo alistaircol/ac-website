@@ -470,7 +470,9 @@ Apply complete! Resources: 1 added, 0 changed, 0 destroyed.
 
 ## Demo
 
-[gist](https://gist.github.com/alistaircol/cb3b0a41688b230347d180ee9bc4e7ba) and the website in the bucket: [terraform-example.ac93.uk](https://terraform-example.ac93.uk)
+{{< gist alistaircol cb3b0a41688b230347d180ee9bc4e7ba "create-site.tf" >}}
+ 
+The end result of running the gist: [terraform-example.ac93.uk](https://terraform-example.ac93.uk)
 
 <center>
 
