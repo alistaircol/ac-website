@@ -7,6 +7,8 @@ tags: ['aws', 's3', 'terraform', 'cloudflare']
 draft: false
 ---
 
+![hero](/img/articles/terraform-s3-cloudflare/hero.png)
+
 
 First, [install Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli), and if you're not too familiar with it - [here](https://www.youtube.com/watch?v=l5k1ai_GBDE) is a good introductory video to it and its+ concepts.
 
