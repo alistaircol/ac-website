@@ -31,8 +31,8 @@ The Livewire component:
         </thead>
         <tbody wire:sortable="changeSortOrder">
         @foreach($posts as $post)
-            <tr wire:sortable.item="{{ $option->id }}"
-                wire:key="{{ $option->id }}"
+            <tr wire:sortable.item="{{ $post->id }}"
+                wire:key="{{ $post->id }}"
             >
                 <td>
                     <x.icons.heroicons.handle
@@ -78,7 +78,7 @@ class SortOrder extends Component
         $this->user = $user;
         $this->category = $category;
         // just for the initial load
-        $this->buildOptions = Posts::getPostsFromUserWithinCategory(
+        $this->posts = Posts::getPostsFromUserWithinCategory(
             $this->user,
             $this->category
         );
@@ -94,11 +94,11 @@ class SortOrder extends Component
      * ['value' => model_id, 'order' => order from front-end]
      * Check your component wires :)
      *
-     * @param  array  $sortOrderBuildOptionIdTuples
+     * @param  array  $sortOrderTuples
      */
-    public function changeSortOrder(array $sortOrderuples)
+    public function changeSortOrder(array $sortOrderTuples)
     {
-        $tuples = collect($sortOrderuples);
+        $tuples = collect($sortOrderTuples);
 
         // $this->posts->transform(...) is meant to edit in place
         // I couldn't make livewire recognise any changes by this method
