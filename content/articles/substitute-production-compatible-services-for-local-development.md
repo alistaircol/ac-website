@@ -4,7 +4,7 @@ author: "Ally"
 summary: "A few tools (email, object storage, logging) to substitute compatible APIs from production environment for local development."
 publishDate: 2021-02-20T12:00:00+01:00
 tags: ['laravel', 'docker', 'mailhog', 'graylog', 'minio', 'terraform']
-draft: true
+draft: false
 ---
 
 For local development there are a few services we might want to mock. I'll walk through substituting some common services.
