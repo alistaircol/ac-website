@@ -765,3 +765,9 @@ You can dig into [monolog](https://github.com/Seldaek/monolog/blob/main/src/Mono
 ![Graylog message](/img/articles/local-dev-laravel-complements/graylog-message.png)
 
 ![Graylog message detail](/img/articles/local-dev-laravel-complements/graylog-message-detail.png)
+
+---
+
+* `docker-compose.yml` [gist](https://gist.github.com/alistaircol/145aad8877a80184e8497802037afcd5)
+* `minio-terraform` [gist](https://gist.github.com/alistaircol/b7bff7690d629e3fb69905b8b177b87a)
+* `graylog-terraform` [gist](https://gist.github.com/alistaircol/bfbf6a04e9e58857037c0efda77ef87e)
