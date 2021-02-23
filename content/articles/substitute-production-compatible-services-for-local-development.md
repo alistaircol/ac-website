@@ -762,6 +762,23 @@ Psy Shell v0.10.6 (PHP 8.0.1 — cli) by Justin Hileman
 
 You can dig into [monolog](https://github.com/Seldaek/monolog/blob/main/src/Monolog/Handler/SyslogUdpHandler.php) source and override settings such as the `application_name`, etc.
 
+To do the above, you can set `ident`, e.g.:
+
+`config/logging.php`:
+
+```php
+'graylog' => [
+    'driver' => 'monolog',
+    'level' => 'debug',
+    'handler' => SyslogUdpHandler::class,
+    'handler_with' => [
+        'host' => env('PAPERTRAIL_URL'),
+        'port' => env('PAPERTRAIL_PORT'),
+        'ident' => Str::slug(env('APP_NAME')),
+    ],
+],
+```
+
 ![Graylog message](/img/articles/local-dev-laravel-complements/graylog-message.png)
 
 ![Graylog message detail](/img/articles/local-dev-laravel-complements/graylog-message-detail.png)
