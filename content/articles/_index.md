@@ -16,7 +16,7 @@ You can see [tags](/tags) for what topics I like to cover.
 * **git**: tags, configs, signing commits.
 * **docker/k8s**: [rancher](https://rancher.com), [heimdall](https://heimdall.site), [helm](https://helm.sh/)
 * **composer** composer v2, custom packagist package.
-* **misc**: [ceph](https://ceph.io/), [minio](https://min.io/), [airflow](https://airflow.apache.org/), [kafka](https://kafka.apache.org/), [grafana](https://grafana.com/), [prometheus](https://prometheus.io/), more.. 
+* **misc**: [ceph](https://ceph.io/), [airflow](https://airflow.apache.org/), [kafka](https://kafka.apache.org/), [grafana](https://grafana.com/), [prometheus](https://prometheus.io/), [dozzle](https://dozzle.dev), proxies, more.. 
 * **misc**: webdevops containers with graylog & gelf stack logging
 * **misc**: terraform iam and s3 website buckets for ssg cd
 * **db**: spatial/geometry stuff with [torus](https://en.wikipedia.org/wiki/Torus) or gazetteer
