@@ -3,8 +3,8 @@ title: "Using Xdebug with Laravel Valet"
 author: "Ally"
 summary: "Installing and configuring Xdebug with Laravel Valet."
 publishDate: 2021-03-02T12:00:00+01:00
-tags: ['laravel', 'valet']
-draft: true
+tags: ['xdebug', 'valet']
+draft: false
 ---
 
 First, assuming you have installed [`valet`](https://laravel.com/docs/8.x/valet):
