@@ -774,7 +774,7 @@ To do the above, you can set `ident`, e.g.:
     'handler_with' => [
         'host' => env('PAPERTRAIL_URL'),
         'port' => env('PAPERTRAIL_PORT'),
-        'ident' => Str::slug(env('APP_NAME')),
+        'ident' => \Illuminate\Support\Str::slug(env('APP_NAME')),
     ],
 ],
 ```
