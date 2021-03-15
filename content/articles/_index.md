@@ -20,5 +20,6 @@ You can see [tags](/tags) for what topics I like to cover.
 * **misc**: webdevops containers with graylog & gelf stack logging
 * **misc**: terraform iam and s3 website buckets for ssg cd
 * **db**: spatial/geometry stuff with [torus](https://en.wikipedia.org/wiki/Torus) or gazetteer
+* **nginx**: reverse https -> http proxy for local minio container for use in https development site, i.e. from `valet secure`
 
 Mostly the articles below are just a place to dump what I think are some pretty neat, or exotic commands for my future reference.
