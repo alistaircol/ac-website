@@ -8,3 +8,6 @@ develop:
 
 build:
 	${docker_run} ${image_name}
+
+article:
+	./.scripts/new-article.sh

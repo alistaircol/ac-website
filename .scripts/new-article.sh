@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -x
-read -rp 'Slug:' slug
-read -rp 'Description:' description
-read -rp 'Tags:' tags
+read -rp 'Slug: ' slug
+read -rp 'Description: ' description
+read -rp 'Tags :' tags
 
 filename="$(dirname "$(pwd)")/content/articles/$slug.md"
 
