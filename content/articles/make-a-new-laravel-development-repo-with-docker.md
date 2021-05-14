@@ -25,6 +25,7 @@ docker run \
   --rm \
   --tty \
   --interactive \
+  --user=$(id -u) \
   --volume="$(pwd):/app" \
   --volume="${COMPOSER_HOME:-$HOME/.composer}:/tmp" \
   composer:2.0 create-project laravel/laravel src
