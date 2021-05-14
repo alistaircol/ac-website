@@ -10,4 +10,4 @@ build:
 	${docker_run} ${image_name}
 
 article:
-	./.scripts/new-article.sh
+	@./.scripts/new-article.sh
