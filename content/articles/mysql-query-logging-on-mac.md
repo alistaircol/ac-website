@@ -4,7 +4,7 @@ author: "Ally"
 summary: "Enabling MySQL query logging on Mac (without Docker)"
 publishDate: 2021-05-17T17:54:18+0100
 tags: ['mysql']
-draft: true
+draft: false
 ---
 
 Run the following command to see which config files are loaded by MySQL/Mariadb:
