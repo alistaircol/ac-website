@@ -17,7 +17,7 @@ When I run migrations on the project containing the migration files, I have to r
 
 How do you listen to a post-migration event?
 
-There's nothing out of the box for this, but I'll show what I did.
+There's nothing super-easy out of the box for this, but I'll show what I did.
 
 - Make a service provider
 - Register the service provider
@@ -26,6 +26,8 @@ There's nothing out of the box for this, but I'll show what I did.
 ## Service Provider
 
 I'm not 100% sure whether this is the best approach, but I want to dump this information here.
+
+This isn't required, you can add to the main `AppServiceProvider`'s `boot` but maybe having separate is better for you.
 
 While trying to find a solution, I answered [this](https://stackoverflow.com/questions/63194721) similar SO question.
 
@@ -81,7 +83,7 @@ Will unsurprisingly generate `app/Providers/CommandListenerProvider.php`.
 
 ## Register the Service Provider
 
-Really easy, just add to `config/app.php`:
+If you want to keep separate from the main `AppServiceProvider`'s `boot` it's really easy to add the new Provider, just add to `config/app.php`:
 
 ```diff
      /*
