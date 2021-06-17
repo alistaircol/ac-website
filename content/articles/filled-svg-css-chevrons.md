@@ -1,5 +1,5 @@
 ---
-title: "Making filled triangle/chevron SVG with CSS"
+title: "Making filled triangle SVG with CSS"
 author: "Ally"
 summary: "Understanding basic SVG path and viewbox for a simple filled triangle"
 publishDate: 2021-05-18T22:00:56+0100
