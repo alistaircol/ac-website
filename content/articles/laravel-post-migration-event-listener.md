@@ -17,19 +17,19 @@ When I run migrations on the project containing the migration files, I have to r
 
 How do you listen to a post-migration event?
 
-There's nothing super-easy out of the box for this, but I'll show what I did.
+There's nothing super-easy (i.e. more than one step required) out of the box for this, but I'll show what I did.
 
-- Make a service provider
-- Register the service provider
-- Make a post-migration handler
+- Make a service provider (or add to an existing provider)
+- Register the service provider (if not adding to an existing provider)
+- Add post-migration handler logic
 
 ## Service Provider
 
 I'm not 100% sure whether this is the best approach, but I want to dump this information here.
 
-This isn't required, you can add to the main `AppServiceProvider`'s `boot` but maybe having separate is better for you.
+It isn't absolutely necessary to create a new `Provider`, you can add to the main `AppServiceProvider`'s `boot`, but maybe having separate is better for you.
 
-While trying to find a solution, I answered [this](https://stackoverflow.com/questions/63194721) similar SO question.
+While trying to find a solution, I answered [this](https://stackoverflow.com/questions/63194721) similar SO question, which gave me a head-start and something to look at to achieve my goal!
 
 ```bash
 php artisan make:provider CommandListenerProvider
@@ -63,6 +63,13 @@ Will unsurprisingly generate `app/Providers/CommandListenerProvider.php`.
      
      public function boot()
      {
++         Event::listen(MigrationsEnded::class, function (MigrationsEnded $event) {
++             if ($this->isPretend) {
++                 return;
++             }
++             // TODO: whatever you want post-checkout :)
++         });
++
 +         Event::listen(CommandStarting::class, function (CommandStarting $event) {
 +             if ($event->input->hasParameterOption('migrate')
 +                 && !$event->input->hasParameterOption('--pretend')
@@ -70,16 +77,13 @@ Will unsurprisingly generate `app/Providers/CommandListenerProvider.php`.
 +                 $this->isPretend = false;
 +             }
 +         });
-+
-+         Event::listen(MigrationsEnded::class, function (MigrationsEnded $event) {
-+             if ($this->isPretend) {
-+                 return;
-+             }
-+             // TODO: whatever you want post-checkout :)
-+         });
      }
  }
 ```
+
+The `MigrationsEnded` is fired when there isn't any errors and there was something to change. So if nothing was changed, or a migration was run but failed, then it won't be fired.
+
+May not be necessary for you, but I listen to the `CommandStarting` event too, so I can see whether it's ran with `--pretend`, then it's likely the user is debugging, so running the post-migration handler in my case will be costly and makes no real change on the database. See my SO [answer](https://stackoverflow.com/questions/63194721/laravel-intercept-multi-parameter-artisan-event/68025467#68025467) to see how I check whether it's been ran with `--seed`.
 
 ## Register the Service Provider
 
@@ -120,7 +124,7 @@ If you want to keep separate from the main `AppServiceProvider`'s `boot` it's re
 
 ## Post-Migration handler
 
-You can do whatever you want, but for me, I want to generate `laravel-ide-helper` files.
+You can do whatever you want, but for me, I want to generate `laravel-ide-helper` files in my different projects.
 
 I've implemented the `TODO: whatever you want post-checkout :)` simply to run this `post-checkout` target in the repository containing the migrations `Makefile`.
 
@@ -146,3 +150,5 @@ website3:
 	cd ~/development/website3
 	${ide_helper}
 ```
+
+Hope this helps!
