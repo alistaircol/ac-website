@@ -67,7 +67,7 @@ Will unsurprisingly generate `app/Providers/CommandListenerProvider.php`.
 +             if ($this->isPretend) {
 +                 return;
 +             }
-+             // TODO: whatever you want post-checkout :)
++             // TODO: whatever you want post-migration :)
 +         });
 +
 +         Event::listen(CommandStarting::class, function (CommandStarting $event) {
@@ -126,10 +126,10 @@ If you want to keep separate from the main `AppServiceProvider`'s `boot` it's re
 
 You can do whatever you want, but for me, I want to generate `laravel-ide-helper` files in my different projects.
 
-I've implemented the `TODO: whatever you want post-checkout :)` simply to run this `post-checkout` target in the repository containing the migrations `Makefile`.
+I've implemented the `TODO: whatever you want post-migrate :)` simply to run this `post-migrate` target in the repository containing the migrations `Makefile`.
 
 ```makefile
-post-checkout: website1 website2 website3
+post-migrate: website1 website2 website3
 
 ide_helper = composer require barryvdh/laravel-ide-helper ^2.7; \
 	php artisan ide-helper:meta; \
