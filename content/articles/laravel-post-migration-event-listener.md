@@ -4,7 +4,7 @@ author: "Ally"
 summary: "Want your Laravel app to do something after running migrations? Here's how I did it."
 publishDate: 2021-06-17T19:16:55+0100
 tags: ['laravel','event','migration','post-migration']
-draft: true
+draft: false
 ---
 
 I work on a few different Laravel applications using the same database between them.
