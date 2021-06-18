@@ -139,16 +139,13 @@ ide_helper = composer require barryvdh/laravel-ide-helper ^2.7; \
 	git restore composer.json composer.lock
 
 website1:
-	cd ~/development/website1
-	${ide_helper}
+	@cd ~/development/website1; pwd; ${ide_helper}
 	
 website2:
-	cd ~/development/website2
-	${ide_helper}
+	@cd ~/development/website2; pwd; ${ide_helper}
 	
 website3:
-	cd ~/development/website3
-	${ide_helper}
+	@cd ~/development/website3; pwd; ${ide_helper}
 ```
 
 Hope this helps!
