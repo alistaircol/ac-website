@@ -37,49 +37,7 @@ php artisan make:provider CommandListenerProvider
 
 Will unsurprisingly generate `app/Providers/CommandListenerProvider.php`.
 
-```diff
- <?php
- 
- namespace App\Providers;
- 
- use Event;
- use Illuminate\Console\Events\CommandStarting;
- use Illuminate\Database\Events\MigrationsEnded;
- use Illuminate\Support\ServiceProvider;
- 
- class CommandListenerProvider extends ServiceProvider
- {
-     public $isPretend = true;
-     
-     /**
-      * Register services.
-      *
-      * @return void
-      */
-     public function register()
-     {
-         //
-     }
-     
-     public function boot()
-     {
-+         Event::listen(MigrationsEnded::class, function (MigrationsEnded $event) {
-+             if ($this->isPretend) {
-+                 return;
-+             }
-+             // TODO: whatever you want post-migration :)
-+         });
-+
-+         Event::listen(CommandStarting::class, function (CommandStarting $event) {
-+             if ($event->input->hasParameterOption('migrate')
-+                 && !$event->input->hasParameterOption('--pretend')
-+             ) {
-+                 $this->isPretend = false;
-+             }
-+         });
-     }
- }
-```
+{{< gist alistaircol 5716274c9c1ef76a3fb74284af83f46e "CommandListenerProvider.php" >}}
 
 The `MigrationsEnded` is fired when there isn't any errors and there was something to change. So if nothing was changed, or a migration was run but failed, then it won't be fired.
 
