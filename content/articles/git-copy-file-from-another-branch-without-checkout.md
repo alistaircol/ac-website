@@ -1,9 +1,9 @@
 ---
-title: "git copy a file from another branch without switching branch"
+title: "Quckie: git - copy a file from another branch without switching branch"
 author: "Ally"
 summary: "Copy a file from another git branch without checking to that target branch"
 publishDate: 2021-06-21T14:57:08+0100
-tags: ['git']
+tags: ['git', 'quickie']
 draft: false
 ---
 
