@@ -69,25 +69,4 @@ I spent my time being an above average [geoguessr-enjoyer](https://www.geoguessr
 
 </center>
 
-<div id="milf" style="display: none; visibility: hidden;">
-
-## Es is Mittwoch, meine Kerle
-
-![MILF](/img/milf.png)
-
-</div>
-
 Founder of [DAFED](https://dafedteam.com/).
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-  var d = new Date();
-  var n = d.getDay();
-
-  if (n === 3) {
-    var e = document.getElementById('milf');
-    e.style.display = 'block';
-    e.style.visibility = 'visible';
-  }
-});
-</script>
