@@ -8,7 +8,7 @@ trap "rm -f $tmpdir" 0 2 3 15
 
 git clone git@github.com:alistaircol/ac-netlify.git $tmpdir
 
-docker run --rm --interactive --tty --user=$(id -u) --volume="$tmpdir:/src" klakegg/hugo:0.75.1-ext
+docker run --rm --interactive --tty --user=$(id -u) --volume="$tmpdir:/src" klakegg/hugo:0.75.1-ext --baseUrl=http://localhost:9999
 
 cat <<EOF > "$tmpdir/Dockerfile"
 FROM caddy:2-alpine
