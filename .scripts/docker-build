@@ -1,25 +1,41 @@
 #!/usr/bin/env bash
-# built this when netlify was down and wasn't building site
+target_image_name="alistaircol/ac93uk:latest"
+base_url="http://localhost:9999"
+
+docker_image_hugo="klakegg/hugo:0.75.1-ext"
+docker_image_caddy="caddy:2-alpine"
+
+docker inspect --type=image "$target_image_name" && docker image rm --force "$target_image_name"
+
+docker inspect --type=image "$docker_image_hugo" &> /dev/null || docker pull "$docker_image_hugo" &> /dev/null
+docker inspect --type=image "$docker_image_caddy" &> /dev/null || docker pull "$docker_image_caddy" &> /dev/null
 
 tmpdir=$(mktemp -d)
 # 0: exit shell
 # 2: Interrupt
 # 3: Quit
 # 15: Terminate
-trap "rm -f $tmpdir" 0 2 3 15
+trap cleanup 0 2 3 15
 
-git clone git@github.com:alistaircol/ac-netlify.git $tmpdir
+cleanup() {
+  rm -rf "$tmpdir"
+}
 
-docker run --rm --interactive --tty --user=$(id -u) --volume="$tmpdir:/src" klakegg/hugo:0.75.1-ext --baseUrl=http://localhost:9999
+git clone git@github.com:alistaircol/ac-netlify.git "$tmpdir" &> /dev/null
+
+docker run --rm --interactive --tty --user="$(id -u)" --volume="$tmpdir:/src" "$docker_image_hugo" --baseUrl="$base_url"
 
 cat <<EOF > "$tmpdir/Dockerfile"
-FROM caddy:2-alpine
+FROM "$docker_image_caddy"
 WORKDIR /usr/share/caddy/
 COPY ./public /usr/share/caddy/
 EXPOSE 80
 EOF
 
-docker build --force-rm --tag=alistaircol/ac93 "$tmpdir"
-open "http://localhost:9999"
+docker build --force-rm --tag="$target_image_name" "$tmpdir"
 
-docker run --rm -p 9999:80 alistaircol/ac93:latest
+# https://stackoverflow.com/a/8597411/5873008
+[[ $OSTYPE == "darwin"* ]] && open "$base_url"
+[[ $OSTYPE == "linux-gnu" ]] && xdg-open "$base_url"
+
+docker run --rm -p 9999:80 "$target_image_name"
