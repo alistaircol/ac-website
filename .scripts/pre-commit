@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+if [ "$(git --no-pager diff --name-only --staged -- *.yaml .yamllint | wc -l)" -gt "0" ]; then
+  tput setaf 4
+  echo "Linting files"
+  tput sgr0
+
+  LINT_RESULT=$(make --file=$(git rev-parse --show-toplevel)/Makefile lint 2>/dev/null)
+fi
+
+if [ $? -eq "0" ]; then
+  exit 0
+else
+  tput setaf 1
+  >&2 echo "There were some errors."
+  tput sgr0
+
+  tput setaf 7
+  >&2 echo "You must add these fixes before being allowed to commit."
+  tput sgr0
+
+  echo ""
+  echo -e "$LINT_RESULT"
+  exit 1
+fi

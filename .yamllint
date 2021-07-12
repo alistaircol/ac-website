@@ -1,0 +1,41 @@
+---
+extends: default
+
+ignore: |
+  themes
+
+# https://yamllint.readthedocs.io/en/stable/rules.html
+rules:
+  braces:
+    forbid: true
+  brackets:
+    forbid: true
+  colons:
+    max-spaces-before: 0
+    max-spaces-after: 1
+  commas:
+    max-spaces-before: 0
+    min-spaces-after: 1
+    max-spaces-after: 1
+  comments:
+    require-starting-space: true
+    ignore-shebangs: true
+    min-spaces-from-content: 2
+  document-start:
+    present: true
+  hyphens:
+    max-spaces-after: 1
+  indentation:
+    spaces: 2
+    indent-sequences: false
+    check-multi-line-strings: true
+  line-length:
+    max: 120
+    level: warning
+  new-line-at-end-of-file: enable
+  new-lines:
+    type: unix
+  quoted-strings:
+    quote-type: double
+    required: only-when-needed
+  trailing-spaces: enable

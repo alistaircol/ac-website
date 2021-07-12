@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# built this when netlify was down and wasn't building site
+
 tmpdir=$(mktemp -d)
 # 0: exit shell
 # 2: Interrupt

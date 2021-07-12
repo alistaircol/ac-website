@@ -2,15 +2,20 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/0a56f7df-cacd-4f46-9f40-45c16e62fd31/deploy-status)](https://app.netlify.com/sites/alistaircol/deploys)
 
-Site built with `hugo` and [papercss](https://themes.gohugo.io//theme/papercss-hugo-theme/) theme.
+Site built with `hugo` and forked [papercss](https://themes.gohugo.io/theme/papercss-hugo-theme/) theme.
 
-Favicon built from [favicon.io](https://favicon.io/favicon-generator/), colors `#41403E` and `#FFFFFF`.
+Favicon generated with [favicon.io](https://favicon.io/favicon-generator/); foreground: `#ddddde`, background: `#2e2e33`, Roboto @ font size 90
 
-To get latest site and pull theme submodule:
+## Blogging
 
+Make a new article with `make article`.
+
+Lint yaml files on commit, shouldn't edit many yaml files after initial setup.
+
+```shell
+git config core.hookspath "$(pwd)/.scripts"
 ```
-git submodule update --init --recursive
-```
+
 
 ## Development
 
@@ -77,17 +82,3 @@ docker run --rm --interactive --tty --user=$(id -u) --volume="$(pwd):/src" klake
 
 Total in 58 ms
 ```
-
-## Dark Mode theme
-
-[Removing submodules](https://gist.github.com/myusuf3/7f645819ded92bda6677)
-
-Updating our theme from the base theme.
-
-```bash
-git submodule update --recursive
-```
-
-## TODO
-
-* contact form
