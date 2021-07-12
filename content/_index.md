@@ -3,61 +3,19 @@ title: "Welcome"
 url: "/"
 ---
 
+{{< unsplash/laptop-code >}}
+
 [Alistair Collins](https://github.com/alistaircol) (Ally) is a capable full stack web developer from Scotland, with a broad knowledge of web technologies.
 
-Exposure and experience working with, but not limited to include:
+Exposure and experience working with, but not developing and configuring LAMP stack. Keen on automation and dev-ops, see my [roadmap.sh skill tree](https://github.com/dafedteam/skill-tree)! (I should write about how I made this 🤔.)
 
-* Terraform
-* `php`
-    * \>= 7
-    * Laravel & Lumen
-    * CakePHP
-    * Symfony Components
-    * PHPUnit
-    * Behat
-    * xDebug
-* Javascript
-    * angularjs (v1)
-    * `npm` (also `nvm` is great)
-    * `gulp` (also `webpack`)
-    * WebSocket
-    * `SweetAlert`
-    * `toastr`
-    * `ui-grid`
-    * `vue` (& `nuxt` for easy blogging)
-* `mysql`
-* HTML
-* `git`
-* Bash
-    * `zenity`
-    * `whiptail`
-    * `pv`
-    * etc.
-* `Make`file
-    * Kinda have a thing for `make` right now, even though they're just bash shortcuts and probably nothing to do with `make`'s genuine intentions.
-* `docker`
-* `python`
-    * `pip`
-* AWS (and other VPS providers like DO, OVH, etc.)
-    * EC2
-    * RDS
-    * S3
-* Internet
-    * DNS
-    * Cloudflare
-    * `postfix`
-    * `samba` (smb)
-    * `pihole`
-    
-Or, my [roadmap.sh skill tree](https://github.com/dafedteam/skill-tree)! I should write about this 🤔.
+**Leave things better than when you find it.**
 
 <object
   type="image/svg+xml"
   data="https://static.ac93.uk/resume/skills.svg"
   style="max-width: 900px;">
 </object>
-
-**Leave things better than when you find it.**
 
 ## When I'm not coding
 
