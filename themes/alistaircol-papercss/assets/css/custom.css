@@ -1,0 +1,94 @@
+/* anchors */
+a,
+a:visited {
+  color: var(--secondary-light);
+  background-image: none;
+  text-decoration: none;
+}
+
+/* navbar */
+nav a,
+nav a:visited {
+  color: var(--white);
+  text-decoration: none;
+}
+
+/* blockquote */
+blockquote {
+  font-style: italic;
+}
+
+/* post list */
+.post-list {
+  font-size: 2em;
+}
+.summary {
+  margin-bottom: 0.1em;
+}
+
+/* post single */
+.post-title {
+  margin-bottom: 0.1em;
+}
+
+/* toc */
+.toc {
+  padding: 1em;
+  margin-top: 1em;
+}
+.toc h2 {
+  font-size: 1.3em;
+}
+
+/** darkmode **/
+body {
+  background-color: var(--main-background);
+}
+
+body.dark {
+    background-color: var(--main-background);
+}
+
+.paper {
+    background-color: var(--main-background);
+}
+
+nav {
+    background-color: var(--main-background);
+}
+
+.border {
+    border-color: var(--white);
+}
+
+/** has very poor contrast, so overriding to be slightly better */
+html.dark
+  .alert-warning,
+  .alert-secondary,
+  .alert-success,
+  .alert-warning,
+  .alert-danger
+{
+  color: var(--white);
+}
+
+.to-top {
+    opacity: 1;
+    display: inline-block;
+    padding: 1em;
+    position: fixed;
+    bottom: 1em;
+    right: 1em;
+}
+
+.to-top .paper-btn {
+    padding: .6em 1em;
+    border-top-left-radius: 185px 160px;
+    border-top-right-radius: 200px 195px;
+    border-bottom-right-radius: 160px 195px;
+    border-bottom-left-radius: 185px 190px;
+}
+
+.to-top a, .to-top a:visited {
+  color: var(--white);
+}

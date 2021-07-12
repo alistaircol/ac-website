@@ -1,7 +1,7 @@
 baseURL: https://ac93.uk
-languageCode: en-uk
+languageCode: en-us
 title: alistaircol
-theme: papercss-hugo-theme
+theme: alistaircol-papercss
 
 params:
   homeMetaContent: Ally is a full-stack software engineer.
