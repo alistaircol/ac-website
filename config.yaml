@@ -1,0 +1,19 @@
+baseURL: https://ac93.uk
+languageCode: en-uk
+title: alistaircol
+theme: papercss-hugo-theme
+
+params:
+  homeMetaContent: Ally is a full-stack software engineer.
+  dateFormat: Jan 2, 2006
+
+menu:
+  nav:
+  - name: Articles
+    url: /articles/
+    weight: 1
+
+markup:
+    goldmark:
+        renderer:
+            unsafe: true
