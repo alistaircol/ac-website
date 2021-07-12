@@ -1,2 +1,4 @@
 # docker run --rm -t -v $(pwd):/repo  crazymax/linguist:latest
 themes/** linguist-vendored
+public/** linguist-vendored
+layouts/** linguist-vendored
