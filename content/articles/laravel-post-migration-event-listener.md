@@ -7,6 +7,8 @@ tags: ['laravel','event','migration','post-migration']
 draft: false
 ---
 
+{{< unsplash/magnify >}}
+
 I work on a few different Laravel applications using the same database between them.
 
 Only one of the applications has migrations, and the others have models linked to the singular database.
