@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-read -rp 'Article Title: ' title
 read -rp 'Article Slug: ' slug
+read -rp 'Article Title: ' title
 read -rp 'Article Description: ' description
 read -rp 'Tags (csv with single quote): ' tags
 
