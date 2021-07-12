@@ -13,7 +13,7 @@ trim_trailing_whitespace = true
 [*.md]
 trim_trailing_whitespace = false
 
-[*.{html,css,js,yaml,toml,json}]
+[*.{html,css,js,toml,json}]
 indent_size = 4
 
 [Makefile]
