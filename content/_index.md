@@ -22,11 +22,13 @@ Exposure and experience working with, but not developing and configuring LAMP st
 
 **Leave things better than when you find it.**
 
-<object
-  type="image/svg+xml"
-  data="https://static.ac93.uk/resume/skills.svg"
-  style="max-width: 900px;">
-</object>
+<div class="row">
+    <object
+      type="image/svg+xml"
+      data="https://static.ac93.uk/resume/skills.svg"
+      style="max-width: 900px;">
+    </object>
+</div>
 
 ## When I'm not coding
 
