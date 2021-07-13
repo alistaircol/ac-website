@@ -70,4 +70,6 @@ open "http://localhost:9999"
 docker run --rm -p 9999:80 alistaircol/ac93:latest
 ```
 
+It turns out that on Netlify, it was pulling in cached data, so after clearing cache and re-deploying it worked!
+
 ![Netlify clear cache](/img/articles/static-site-build-docker-image/clear-netlify-cache.png)
