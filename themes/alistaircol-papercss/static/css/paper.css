@@ -1282,7 +1282,7 @@ table.table-alternating tbody tr:nth-of-type(even) {
     display: inline-block;
     font-weight: 600;
     margin: 0 0 -1px;
-    padding: 0.75rem;
+    padding: 0.25rem;
     text-align: center;
 }
 
@@ -3261,27 +3261,25 @@ nav .bar3 {
     background-color: var(--primary);
     border-color: var(--primary);
     color: var(--primary);
-    border-bottom-left-radius: 15px 5px;
-    border-bottom-right-radius: 15px 3px;
     margin: 6px 0;
     transition: 0.4s;
     width: 2rem;
 }
 
-nav .collapsible input[id^=collapsible]:checked + button .bar1,
-nav .collapsible input[id^=collapsible]:checked + label .bar1 {
-    transform: rotate(-45deg) translate(-9px, 7px);
-}
+/*nav .collapsible input[id^=collapsible]:checked + button .bar1,*/
+/*nav .collapsible input[id^=collapsible]:checked + label .bar1 {*/
+/*    transform: rotate(-45deg) translate(-9px, 7px);*/
+/*}*/
 
-nav .collapsible input[id^=collapsible]:checked + button .bar2,
-nav .collapsible input[id^=collapsible]:checked + label .bar2 {
-    opacity: 0;
-}
+/*nav .collapsible input[id^=collapsible]:checked + button .bar2,*/
+/*nav .collapsible input[id^=collapsible]:checked + label .bar2 {*/
+/*    opacity: 0;*/
+/*}*/
 
-nav .collapsible input[id^=collapsible]:checked + button .bar3,
-nav .collapsible input[id^=collapsible]:checked + label .bar3 {
-    transform: rotate(45deg) translate(-8px, -9px);
-}
+/*nav .collapsible input[id^=collapsible]:checked + button .bar3,*/
+/*nav .collapsible input[id^=collapsible]:checked + label .bar3 {*/
+/*    transform: rotate(45deg) translate(-8px, -9px);*/
+/*}*/
 
 nav.split-nav {
     justify-content: space-between;
@@ -3386,11 +3384,7 @@ nav div.collapsible-body {
 
 nav .collapsible label {
     border-color: var(--primary);
-    border-bottom-left-radius: 15px 255px;
-    border-bottom-right-radius: 225px 15px;
     border-style: solid;
-    border-top-left-radius: 255px 15px;
-    border-top-right-radius: 15px 225px;
     border-width: 2px;
 }
 
@@ -3402,9 +3396,9 @@ nav .collapsible > button,
 nav .collapsible > label {
     background-color: var(--main-background);
     display: none;
-    font-size: 0.5rem;
-    margin-right: 1rem;
-    padding: 0.25rem;
+    font-size: 0.1rem;
+    /*margin-right: 1rem;*/
+    padding: 0.2rem;
     position: absolute;
     right: 0;
     top: 0.2rem;
