@@ -218,7 +218,6 @@ section {
 }
 
 h1 {
-    font-size: 2em;
     margin: 0.67em 0;
 }
 
@@ -975,27 +974,27 @@ h6 {
 }
 
 h1 {
-    font-size: 4rem;
-}
-
-h2 {
     font-size: 3rem;
 }
 
-h3 {
+h2 {
     font-size: 2rem;
 }
 
-h4 {
-    font-size: 1.5rem;
-}
-
-h5 {
+h3 {
     font-size: 1rem;
 }
 
-h6 {
+h4 {
     font-size: 0.8rem;
+}
+
+h5 {
+    font-size: 0.6rem;
+}
+
+h6 {
+    font-size: 0.4rem;
 }
 
 .text-left {
@@ -3261,8 +3260,6 @@ nav .bar3 {
     background-color: var(--primary);
     border-color: var(--primary);
     color: var(--primary);
-    border-bottom-left-radius: 15px 5px;
-    border-bottom-right-radius: 15px 3px;
     margin: 6px 0;
     transition: 0.4s;
     width: 2rem;
@@ -3386,11 +3383,7 @@ nav div.collapsible-body {
 
 nav .collapsible label {
     border-color: var(--primary);
-    border-bottom-left-radius: 15px 255px;
-    border-bottom-right-radius: 225px 15px;
     border-style: solid;
-    border-top-left-radius: 255px 15px;
-    border-top-right-radius: 15px 225px;
     border-width: 2px;
 }
 
