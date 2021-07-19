@@ -13,9 +13,6 @@ url: "/"
   <div class="col-3 col"><a href="https://www.geoguessr.com/user/604a9652025d6f00015bff8f" target="blank">{{< icons/geoguessr >}}</a></div>
 </div>
 
-
-
-
 [Alistair Collins](https://github.com/alistaircol) (Ally) is a capable full stack web developer from Scotland, with a broad knowledge of web technologies.
 
 Exposure and experience working with, but not limited to developing and configuring on a LAMP stack. Keen on automation and dev-ops, see my [roadmap.sh skill tree](https://github.com/dafedteam/skill-tree)! (I should write about how I made this 🤔.)
@@ -29,11 +26,5 @@ Exposure and experience working with, but not limited to developing and configur
 ## When I'm not coding
 
 I spent my time being an above average [geoguessr-enjoyer](https://www.geoguessr.com/user/604a9652025d6f00015bff8f).
-
-<center>
-
-![Geoguessr Enjoyer](/img/geoguessr.jpeg)
-
-</center>
 
 Founder of [DAFED](https://dafedteam.com/).
