@@ -17,11 +17,11 @@ url: "/"
 
 Exposure and experience working with, but not limited to developing and configuring on a LAMP stack. Keen on automation and dev-ops, see my [roadmap.sh skill tree](https://github.com/dafedteam/skill-tree)! (I should write about how I made this 🤔.)
 
-  <object
-    type="image/svg+xml"
-    data="https://static.ac93.uk/resume/skills.svg"
-    style="max-width: 900px;">
-  </object>
+<object
+  type="image/svg+xml"
+  data="https://static.ac93.uk/resume/skills.svg"
+  style="max-width: 900px;">
+</object>
 
 ## When I'm not coding
 
