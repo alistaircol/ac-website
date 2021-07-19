@@ -18,17 +18,13 @@ url: "/"
 
 [Alistair Collins](https://github.com/alistaircol) (Ally) is a capable full stack web developer from Scotland, with a broad knowledge of web technologies.
 
-Exposure and experience working with, but not developing and configuring LAMP stack. Keen on automation and dev-ops, see my [roadmap.sh skill tree](https://github.com/dafedteam/skill-tree)! (I should write about how I made this 🤔.)
+Exposure and experience working with, but not limited to developing and configuring on a LAMP stack. Keen on automation and dev-ops, see my [roadmap.sh skill tree](https://github.com/dafedteam/skill-tree)! (I should write about how I made this 🤔.)
 
-**Leave things better than when you find it.**
-
-<div class="row">
-    <object
-      type="image/svg+xml"
-      data="https://static.ac93.uk/resume/skills.svg"
-      style="max-width: 900px;">
-    </object>
-</div>
+  <object
+    type="image/svg+xml"
+    data="https://static.ac93.uk/resume/skills.svg"
+    style="max-width: 900px;">
+  </object>
 
 ## When I'm not coding
 
