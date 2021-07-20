@@ -5,7 +5,6 @@ url: "/"
 
 {{< unsplash/laptop-code >}}
 
-
 <div class="row">
   <div class="col-3 col"><a href="https://codepen.io/alistaircol" target="blank">{{< icons/simpleicons/codepen >}}</a></div>
   <div class="col-3 col"><a href="https://stackoverflow.com/users/5873008/alistaircol" target="blank">{{< icons/simpleicons/stackoverflow >}}</a></div>
@@ -15,7 +14,9 @@ url: "/"
 
 [Alistair Collins](https://github.com/alistaircol) (Ally) is a capable full stack web developer from Scotland, with a broad knowledge of web technologies.
 
-Exposure and experience working with, but not limited to developing and configuring on a LAMP stack. Keen on automation and dev-ops, see my [roadmap.sh skill tree](https://github.com/dafedteam/skill-tree)! (I should write about how I made this 🤔.)
+Exposure and experience working with, but not limited to developing and configuring on a LAMP stack.
+
+Keen on automation and dev-ops, see my [roadmap.sh inspired skill tree](https://github.com/dafedteam/skill-tree)! (I should write about how I made this 🤔.)
 
 <object
   type="image/svg+xml"
