@@ -6,10 +6,12 @@ url: "/"
 {{< unsplash/laptop-code >}}
 
 <div class="row">
-  <div class="col-3 col"><a href="https://codepen.io/alistaircol" target="blank">{{< icons/simpleicons/codepen >}}</a></div>
-  <div class="col-3 col"><a href="https://stackoverflow.com/users/5873008/alistaircol" target="blank">{{< icons/simpleicons/stackoverflow >}}</a></div>
-  <div class="col-3 col"><a href="https://github.com/alistaircol" target="blank">{{< icons/simpleicons/github >}}</a></div>
-  <div class="col-3 col"><a href="https://www.geoguessr.com/user/604a9652025d6f00015bff8f" target="blank">{{< icons/geoguessr >}}</a></div>
+  <div class="col-2 col"><a target="_blank" rel="noopener" href="https://codepen.io/alistaircol">{{< icons/simpleicons/codepen >}}</a></div>
+  <div class="col-2 col"><a target="_blank" rel="noopener" href="https://stackoverflow.com/users/5873008/alistaircol">{{< icons/simpleicons/stackoverflow >}}</a></div>
+  <div class="col-2 col"><a target="_blank" rel="noopener" href="https://github.com/alistaircol">{{< icons/simpleicons/github >}}</a></div>
+  <div class="col-2 col"><a target="_blank" rel="noopener" href="https://www.geoguessr.com/user/604a9652025d6f00015bff8f">{{< icons/geoguessr >}}</a></div>
+  <div class="col-2 col"><a target="_blank" rel="noopener" href="https://www.linkedin.com/in/alistaircol/">{{< icons/simpleicons/linkedin >}}</a></div>
+  <div class="col-2 col"><a target="_blank" rel="noopener" href="#">{{< icons/simpleicons/bitbucket >}}</a></div>
 </div>
 
 [Alistair Collins](https://github.com/alistaircol) (Ally) is a capable full stack web developer from Scotland, with a broad knowledge of web technologies.
