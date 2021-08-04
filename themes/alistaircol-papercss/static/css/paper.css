@@ -3436,3 +3436,21 @@ blockquote {
 blockquote p {
     margin: 0px !important;
 }
+
+
+.hanchor {
+    font-size: 100%;
+    visibility: var(--white);
+    color: silver;
+}
+
+a.hanchor:visited {
+    color: var(--white);
+}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a {
+    visibility: visible
+}

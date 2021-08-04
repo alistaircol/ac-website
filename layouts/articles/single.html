@@ -24,7 +24,12 @@
 {{ partial "toc.html" . }}
 {{ end }}
 
-{{ .Content }}
+{{- with .Content -}}
+<div>
+    {{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" `${1}<a href="#${2}" class="hanchor" ariaLabel="Anchor">  &para;</a> ${3}` | safeHTML }}
+</div>
+{{- end -}}
+
 {{ template "_internal/disqus.html" . }}
 
 {{ end }}
