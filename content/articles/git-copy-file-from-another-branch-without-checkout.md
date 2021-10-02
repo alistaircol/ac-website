@@ -18,4 +18,10 @@ export OUTPUT="MyComponent-123-feature.php"
 git show $BRANCH:$FILE > $OUTPUT
 ```
 
+Or [`git-diff`](https://git-scm.com/docs/git-diff) if you to do that:
+
+```bash
+git diff master:app/Http/Livewire/MyComponent.php feature:app/Http/Livewire/MyComponent.php
+```
+
 {{< unsplash/git >}}
