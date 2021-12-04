@@ -4,7 +4,7 @@ author: "Ally"
 summary: "I've hosted many apps. I've set up CI to build containers. But I've never figured out the continuous deployment part, until now."
 publishDate: 2021-12-04T12:00:00+01:00
 tags: ['github', 'ci', 'cd', 'traefik', 'watchtower']
-draft: true
+draft: false
 ---
 
 In this post I will explain in broad strokes how I develop and deploy a Laravel application and then set up CI & CD for it.
