@@ -13,9 +13,9 @@ The application CI pipeline will:
 
 * Run some basic code checks
 * Build front-end asset (css & js) bundles
-* Build container for entire application (excluding dev dependencies and including front-end bundles)
+* Build an image with the entire application (excluding dev dependencies and including front-end bundles)
 
-The resultant container will:
+The resultant image will be able to:
 
 * Run web application (obviously)
 * Run scheduled tasks (i.e. `php artisan schedule:work`)
@@ -23,15 +23,15 @@ The resultant container will:
 
 ---
 
-I'm using github workflows and its private package registry, so this might not be for you. Hopefully there will still be some useful things, though.
+I'm using Github with its workflows and private package registry, so this might not be for you. Hopefully there will still be some useful things, though.
 
 ## Overview 
 
-Everything will be running as a `docker` container:
+Everything on production/development will be running as a `docker` container. These include:
 
-* `traefik` - a reverse proxy and the main entry point into the services
+* `traefik` - a reverse proxy and the main entry point into the application's services
     * The advantage of `traefik` is that you can refer to a container, at least in my implementation, by a FQDN. No more assigning/remembering random ports.
-* `bnss-app` - my Laravel application, it needs a `redis` cache, a `mysql` database and it will use `imgproxy`
+* `bnss-app` - my Laravel application, it utilises a `redis` cache, a `mysql` database, and it will use `imgproxy`
 * `redis` - just a simple cache for my application
 * `database` - just a `mysql` database
 * `imgproxy` - my application will work with images, `imgproxy` allows for easy manipulation
@@ -42,14 +42,15 @@ Some other services I will use (not essential for my application to function) bu
 * `dozzle` - a nice web UI to see logs from all `docker` services
 * `watchtower` - a really handy tool to (automatically, by polling; or by webhook) detect change to the containers image and 'restart' the service, running the latest version
 
-I won't detail all of these services, it's just the ones I have chosen to use for my use-case.
+I won't detail all of these services, it's just the ones I have chosen to use for my use-case. They are sensitive so are authwalled accordingly.
 
 ## Repositories
 
 I have two repositories:
 
-* `bnss` - my applications `docker-compose` files, `ansible` playbooks, `terraform` scripts, etc.
-  * `ansible` playbooks to install essential software on server, install crons, etc.
+* `bnss` - my application's `docker-compose` files, `ansible` playbooks, `terraform` scripts, etc.
+  * `docker-compose` files (one per service) 
+  * `ansible` playbooks to install essential software on production server, install crons, etc.
   * `terraform` to set up S3 bucket
 * `bnss-app` - my application code
   * `Dockerfile`
@@ -89,7 +90,7 @@ Each `docker-compose*.yaml` file is anticipated to be used in production environ
 
 There are some `docker-compose*.override.yaml` files that are used in development environment.
 
-For example, `docker-compose.bnss-app.override.yaml` will change the `image` from the production image to a development PHP image and mount a volume for code.
+For example, `docker-compose.bnss-app.override.yaml` will change the `image` from the resultant `ghcr.io` image built by CI pipeline, to a development PHP image and mount a volume for code.
 
 Why have separate files? I hear you ask. Well:
 
@@ -106,11 +107,15 @@ Cons:
 
 I'm hosting a lot of these services instead of using other managed services mainly to reduce cost, and the fact this is still a WIP application and there's no requirement for HA, etc.
 
+Secondly, and most importantly for me, as a learning exercise.
+
 ---
 
 `docker-compose` by default will load `docker-compose(\.override)?\.y[a]?ml` files. This means for all our services to be loaded we will need to specify more files by `-f` manually.
 
-You could do (and I have done) something like this:
+You could do (and I have done) something like this (in a `Makefile`):
+
+`Makefile`:
 
 ```makefile
 docker_compose = docker-compose \
@@ -121,14 +126,17 @@ docker_compose = docker-compose \
 		-f docker-compose.mongo.yaml \
 		-f docker-compose.rabbitmq.yaml \
 		-f docker-compose.mysql8.yaml \
-	
+
+# make up
 up:
    @${docker_compose} up
 ```
 
-But this means you have to remember to add this file to the command.
+But this means you have to remember to add this file to the command, and it's easy to forget.
 
 I resolved this issue (it's not pretty, I've left comments in):
+
+`Makefile`:
 
 ```makefile
 # depending on the hostname we're running on this 
@@ -137,6 +145,7 @@ HOSTNAME := $(shell hostname)
 endif
 
 # my dev pc hostname is pc, if running from here assume I want to include override files
+# which are for development purposes
 ifeq ($(HOSTNAME),pc)
 INCLUDE_OVERRIDE_FILES = true
 endif
@@ -171,7 +180,7 @@ This means (when `hostname` is `pc`) `make up` or `INCLUDE_OVERRIDE_FILES=true m
 ```bash
 docker-compose \
   -f docker-compose.yaml \
-  -f docker-compose.bnss-members.yaml \
+  -f docker-compose.bnss-app.yaml \
   -f docker-compose.dozzle.yaml \
   -f docker-compose.database.yaml \
   -f docker-compose.portainer.yaml \
@@ -179,7 +188,7 @@ docker-compose \
   -f docker-compose.watchtower.yaml \
   -f docker-compose.redis.yaml \
   -f docker-compose.watchtower.override.yaml \
-  -f docker-compose.bnss-members.override.yaml \
+  -f docker-compose.bnss-app.override.yaml \
   up
 ```
 
@@ -187,7 +196,7 @@ docker-compose \
 
 I'm just using `.env` file. `docker-compose` will read this with any of its commands or any specified with `--env-file`.
 
-Leaving this here with comments so you can see how some of the steps I might not explain.
+Leaving this here with comments, so you can see how some of the steps are configured that I might not have explain.
 
 e.g.:
 
