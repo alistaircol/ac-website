@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*Cousine is for skills SVG tree*/
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&family=Cousine&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegibl&display=swap');
 /* PaperCSS core */
 /**
   Global PaperCSS Config
@@ -3455,8 +3455,4 @@ h2 a,
 h3 a,
 h4 a {
     visibility: visible
-}
-
-object, svg {
-    font-family: 'Cousine', monospace;
 }
