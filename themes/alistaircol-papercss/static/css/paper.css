@@ -1,4 +1,6 @@
 @charset "UTF-8";
+/*Cousine is for skills SVG tree*/
+@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&family=Cousine&display=swap');
 /* PaperCSS core */
 /**
   Global PaperCSS Config
@@ -961,7 +963,7 @@ pre code {
 
 html {
     color: var(--primary);
-    font-family: -apple-system, BlinkMacSystemFont, segoe ui, Roboto, Oxygen, Ubuntu, Cantarell, open sans, helvetica neue, sans-serif;
+    font-family: 'Atkinson Hyperlegible', -apple-system, BlinkMacSystemFont, segoe ui, Roboto, Oxygen, Ubuntu, Cantarell, open sans, helvetica neue, sans-serif;
     font-size: 20px;
 }
 
@@ -3453,4 +3455,8 @@ h2 a,
 h3 a,
 h4 a {
     visibility: visible
+}
+
+object, svg {
+    font-family: 'Cousine', monospace;
 }

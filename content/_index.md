@@ -20,14 +20,4 @@ Exposure and experience working with, but not limited to developing and configur
 
 Keen on automation and dev-ops, see my [roadmap.sh inspired skill tree](https://github.com/dafedteam/skill-tree)! (I should write about how I made this 🤔.)
 
-<object
-  type="image/svg+xml"
-  data="https://static.ac93.uk/resume/skills.svg"
-  style="max-width: 900px;">
-</object>
-
-## When I'm not coding
-
-I spent my time being an above average [geoguessr-enjoyer](https://www.geoguessr.com/user/604a9652025d6f00015bff8f).
-
-Founder of [DAFED](https://dafedteam.com/).
+<img alt="Skills" src="https://static.ac93.uk/resume/skills.png" />
