@@ -1,7 +1,0 @@
-[build.environment]
-  HUGO_VERSION = "0.75.1"
-
-[[redirects]]
-  from = "/*"
-  to = "/404.html"
-  status = 404
