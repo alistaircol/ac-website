@@ -1,6 +1,10 @@
 # My Website
 
-Site built with `hugo` and forked [papercss](https://themes.gohugo.io/theme/papercss-hugo-theme/) theme.
+Site built with `hugo` and a tailwind theme, based from the [papercss](https://themes.gohugo.io/theme/papercss-hugo-theme/) theme.
+
+Everything below this needs reworked.
+
+---
 
 Favicon generated with [favicon.io](https://favicon.io/favicon-generator/); foreground: `#ddddde`, background: `#2e2e33`, Roboto @ font size 90
 

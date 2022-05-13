@@ -26,6 +26,7 @@
 
   <link rel="dns-prefetch" href="//instant.page" />
   <link rel="stylesheet" type="text/css" href="{{ "css/paper.css" | absURL }}">
+  <link rel="stylesheet" type="text/css" href="{{ "css/ac.css" | absURL }}">
 
   {{ $customCssPath := "css/custom.css" }}
   {{ $customCss:= resources.Get $customCssPath | resources.ExecuteAsTemplate $customCssPath . }}

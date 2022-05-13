@@ -1519,7 +1519,7 @@ ul.breadcrumb li a:hover {
 }
 
 ul.breadcrumb li + li::before {
-    content: "/ ";
+    content: "/ ";
     padding: 8px;
 }
 
