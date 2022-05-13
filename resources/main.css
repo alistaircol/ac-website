@@ -2,14 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-    @apply bg-slate-900 text-white;
+html {
+    @apply bg-ac-background font-atkinson;
 }
 
-.container {
-    @apply mx-auto max-w-xl border border-white px-2;
+body {
+    @apply container mx-auto max-w-2xl border border-white text-white px-8;
 }
 
 .to-top {
     @apply fixed bottom-8 right-8 border-2 border-white rounded-full h-12 w-12 flex items-center justify-center;
+}
+
+h1 {
+    @apply font-bold text-3xl pb-4 underline underline-offset-8 decoration-blue-300;
+}
+
+h2 {
+    @apply font-semibold text-2xl pb-4 underline underline-offset-4 decoration-blue-300;
+}
+
+h3 {
+    @apply font-medium text-xl pb-4 underline underline-offset-2 decoration-blue-300;
+}
+
+h4 {
+    @apply text-lg pb-4 underline underline-offset-1 decoration-blue-300;
+}
+
+h5 {
+    @apply text-base pb-4 underline underline-offset-0 decoration-blue-300;
+}
+
+p {
+    @apply text-xl mb-2 leading-5;
+}
+
+a {
+    @apply text-white underline decoration-blue-300 decoration-dotted;
+}
+
+code {
+    @apply text-blue-300 text-lg bg-ac-pre-background py-0.5 px-1;
+}
+
+.highlight {
+    @apply my-8;
+}
+
+.highlight pre {
+    @apply m-0 p-4 overflow-auto;
+}
+
+.highlight pre code {
+    @apply m-0 p-0 text-lg text-white bg-ac-pre-background;
 }

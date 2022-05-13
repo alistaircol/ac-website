@@ -1,3 +1,5 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
     content: [
         'layouts/**/*.html',
@@ -6,7 +8,8 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                'ac-background': '#1d1e20'
+                'ac-background': '#1d1e20',
+                'ac-pre-background': '#272822',
             },
             fontFamily: {
                 'atkinson': [
