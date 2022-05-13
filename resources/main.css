@@ -57,3 +57,7 @@ code {
 .highlight pre code {
     @apply m-0 p-0 text-lg text-white bg-ac-pre-background;
 }
+
+hr {
+    @apply mx-auto w-1/2 border border-dashed border-blue-300 my-4;
+}
