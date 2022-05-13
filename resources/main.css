@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply bg-slate-900 text-white;
+}
+
+.container {
+    @apply mx-auto max-w-xl border border-white px-2;
+}
+
+.to-top {
+    @apply fixed bottom-8 right-8 border-2 border-white rounded-full h-12 w-12 flex items-center justify-center;
+}

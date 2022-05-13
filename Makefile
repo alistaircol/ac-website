@@ -14,3 +14,9 @@ build:
 
 article:
 	@./.scripts/new-article
+
+theme:
+	npx tailwindcss \
+		--input="$(shell pwd)/resources/main.css" \
+		--output="$(shell pwd)/static/css/main.css" \
+		--watch
