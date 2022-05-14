@@ -25,3 +25,8 @@ theme:
 assets:
 	@rm $(pwd)/static/css/main.css || exit 0
 	@${tailwind} --minify
+
+image:
+	${docker_run} ${image_name} --baseUrl=http://localhost:9999
+	docker build --force-rm --tag=alistaircol/ac93 .
+	docker run --rm -p 9999:80 alistaircol/ac93:latest
