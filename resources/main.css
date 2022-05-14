@@ -42,6 +42,18 @@ a {
     @apply text-white underline decoration-blue-300 decoration-dotted;
 }
 
+.tags {
+    @apply flex flex-row space-x-2 py-4;
+}
+
+.tags a {
+    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2 border-2 border-blue-300 border-t-0 border-l-0;
+}
+
+.tags a .badge {
+    @apply text-white;
+}
+
 code {
     @apply text-blue-300 text-lg bg-ac-pre-background py-0.5 px-1;
 }
@@ -60,4 +72,28 @@ code {
 
 hr {
     @apply mx-auto w-1/2 border border-dashed border-blue-300 my-4;
+}
+
+ul {
+    @apply text-xl leading-5 py-4 list-inside list-disc;
+}
+
+ol {
+    @apply text-xl leading-5 py-4 list-inside list-decimal;
+}
+
+ul ul {
+    @apply py-0 mx-6;
+}
+
+.toc {
+    @apply p-4 mb-8;
+}
+
+.toc ol {
+    @apply py-0;
+}
+
+.toc li {
+    @apply py-0 px-2;
 }
