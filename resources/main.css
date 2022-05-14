@@ -7,11 +7,11 @@ html {
 }
 
 body {
-    @apply container mx-auto max-w-2xl border border-white text-white px-8;
+    @apply container mx-auto border border-white text-white px-8 pb-8 mb-16;
 }
 
 .to-top {
-    @apply fixed bottom-8 right-8 border-2 border-white rounded-full h-12 w-12 flex items-center justify-center;
+    @apply bg-ac-background z-50 fixed bottom-8 right-0 sm:right-8 border-2 border-white rounded-full h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center;
 }
 
 h1 {
@@ -96,4 +96,36 @@ ul ul {
 
 .toc li {
     @apply py-0 px-2;
+}
+
+main p img {
+    @apply object-contain pb-4;
+}
+
+dl {
+    @apply flex flex-col;
+}
+
+dt {
+    @apply font-semibold text-2xl underline underline-offset-4 decoration-blue-300 pb-2;
+}
+
+dd {
+    @apply pb-4;
+}
+
+section.terms {
+    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 pt-4;
+}
+
+section.terms div.term {
+    @apply flex flex-row space-x-4 items-center;
+}
+
+section.terms a {
+    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2 border-2 border-blue-300 border-t-0 border-l-0;
+}
+
+div.image {
+    @apply flex justify-center;
 }

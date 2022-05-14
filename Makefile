@@ -16,6 +16,7 @@ article:
 	@./.scripts/new-article
 
 theme:
+	rm $(pwd)/static/css/main.css || exit 0
 	npx tailwindcss \
 		--input="$(shell pwd)/resources/main.css" \
 		--output="$(shell pwd)/static/css/main.css" \
