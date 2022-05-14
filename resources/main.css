@@ -131,7 +131,7 @@ div.image {
 }
 
 nav {
-    @apply flex justify-between my-8 px-4 items-center space-x-4;
+    @apply flex flex-wrap justify-between my-8 px-4 items-center space-x-4;
 }
 
 nav div.nav-brand {
