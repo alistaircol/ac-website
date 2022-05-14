@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html lang="{{ .Site.Language.Lang }}" class="dark">
-  {{ partial "head.html" . }}
-  <body>
-    <div id="top" class="container paper">
-      {{ partial "nav.html" . }}
-      <main>
-        {{ block "main" . }}{{ end }}
-      </main>
-      {{ partial "google-analytics-async.html" . }}
+    {{ partial "head.html" . }}
+    <body id="top">
 
-      <div class="to-top">
-        <a href="#top" class="paper-btn margin">^</a>
-      </div>
-    </div>
+        {{ partial "nav.html" . }}
+        <main>
+            {{ block "main" . }}{{ end }}
+        </main>
+        {{ partial "google-analytics-async.html" . }}
 
-    <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
-  </body>
+        <div class="to-top">
+            <a href="#top" class="to-top-btn">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                    stroke-width="2"
+                >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                </svg>
+            </a>
+        </div>
+
+        <script
+            src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"
+        ></script>
+    </body>
 </html>

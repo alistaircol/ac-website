@@ -3,14 +3,15 @@
 <h1 class="post-title">{{ .Title }}</h1>
 
 {{ with .Params.tags }}
+<div class="tags">
 {{ range . }}
-<a href="{{ "tags/" | absURL }}{{ . | urlize }}" style="text-decoration: none !important;">
-<span class="badge">
-        {{ . }}
-    </span>
-</a>
+    <a href="{{ "tags/" | absURL }}{{ . | urlize }}" style="text-decoration: none !important;">
+        <span class="badge">
+            {{ . }}
+        </span>
+    </a>
 {{ end }}
-<p></p>
+</div>
 {{ end }}
 
 {{ $dateFormat := $.Site.Params.dateFormat | default "Jan 2, 2006" }}
@@ -25,9 +26,9 @@
 {{ end }}
 
 {{- with .Content -}}
-<div>
+<article>
     {{ . | replaceRE "(<h[1-9] id=\"([^\"]+)\".+)(</h[1-9]+>)" `${1}<a href="#${2}" class="hanchor" ariaLabel="Anchor">  &para;</a> ${3}` | safeHTML }}
-</div>
+</article>
 {{- end -}}
 
 {{ template "_internal/disqus.html" . }}

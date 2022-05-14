@@ -2,15 +2,18 @@
 
 <h1>{{ .Title }}</h1>
 {{ .Content }}
-{{ $pages := .Pages }}
-{{ range $pages.ByPublishDate.Reverse }}
-  <h2 class="post-list {{ if ne .Params.show_summary false }}summary{{ end }}">
-    <a href="{{ .Permalink }}">
-      {{ .Title }}
-    </a>
-  </h2>
-  {{ if ne .Params.show_summary false }}
-    {{ .Summary }}
-  {{ end }}
-{{ end }}
+
+<dl>
+    {{ $pages := .Pages }}
+    {{ range $pages.ByPublishDate.Reverse }}
+        <dt class="post-list {{ if ne .Params.show_summary false }}summary{{ end }}">
+            <a href="{{ .Permalink }}">
+                {{ .Title }}
+            </a>
+        </dt>
+        {{ if ne .Params.show_summary false }}
+            <dd>{{ .Summary }}</dd>
+        {{ end }}
+    {{ end }}
+</dl>
 {{ end }}

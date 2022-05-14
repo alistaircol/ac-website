@@ -6,14 +6,16 @@
 <strong>Publish date: </strong>{{ .PublishDate.Format $dateFormat }}
 <br>
 {{ with .Params.tags }}
-  <strong>Tags: </strong>
-  {{ range . }}
-    <a href="{{ "tags/" | absURL }}{{ . | urlize }}">{{ . }}</a>
-  {{ end }}
+    <strong>Tags: </strong>
+    <div class="tags">
+    {{ range . }}
+        <a href="{{ "tags/" | absURL }}{{ . | urlize }}">{{ . }}</a>
+    {{ end }}
+    </div>
 {{ end }}
 
 {{ if ne .Params.toc false }}
-  {{ partial "toc.html" . }}
+    {{ partial "toc.html" . }}
 {{ end }}
 
 {{ .Content }}

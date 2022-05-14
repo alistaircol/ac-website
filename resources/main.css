@@ -129,3 +129,23 @@ section.terms a {
 div.image {
     @apply flex justify-center;
 }
+
+nav {
+    @apply flex justify-between my-8 px-4 items-center space-x-4;
+}
+
+nav div.nav-brand {
+    @apply flex items-center font-bold text-3xl underline underline-offset-8 decoration-blue-300;
+}
+
+nav div.collapsible {
+    @apply flex flex-grow justify-end;
+}
+
+nav ul {
+    @apply list-none;
+}
+
+nav a {
+    @apply font-bold text-3xl underline underline-offset-8 decoration-blue-300;
+}
