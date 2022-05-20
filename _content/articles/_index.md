@@ -2,6 +2,9 @@
 title: "Articles"
 ---
 
+dflnsdflnsdfn
+jnkjn
+
 Some things I want to learn and write about (even if it's just for myself) in the future:
 
 You can see [tags](/tags) for what topics I like to cover.

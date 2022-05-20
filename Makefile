@@ -1,7 +1,14 @@
 PHONY: serve
 
 image_name = klakegg/hugo:0.95.0-ext
-docker_run = docker run --rm --interactive --tty --user=$(shell id -u) --volume="$(shell pwd):/src" --workdir="/src"
+docker_run = docker run \
+	--rm \
+	--interactive \
+	--tty \
+	--user=$(shell id -u):$(shell id -g) \
+	--mount type=bind,source=$(shell pwd),target=/src \
+	--workdir="/src"
+
 tailwind = npx tailwindcss \
 	--input="$(shell pwd)/resources/main.css" \
 	--output="$(shell pwd)/static/css/main.css"
@@ -10,7 +17,17 @@ lint:
 	@docker run --rm $(shell tty -s && echo "-it" || echo) -v "$(shell pwd):/data" cytopia/yamllint:latest .
 
 serve:
-	${docker_run} --publish="1313:1313" ${image_name} server --buildDrafts --enableGitInfo --disableFastRender
+	${docker_run} \
+		--publish="1313:1313" \
+		${image_name} server \
+		--appendPort \
+		--port 1313 \
+		--noHTTPCache \
+		--baseURL=http://localhost \
+		--buildFuture
+
+shell:
+	${docker_run} --entrypoint="sh" ${image_name}
 
 build:
 	${docker_run} ${image_name}

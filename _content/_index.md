@@ -3,6 +3,8 @@ title: "Welcome"
 url: "/"
 ---
 
+lkmlkmlk
+
 {{< unsplash/laptop-code >}}
 
 <div class="row">
@@ -16,8 +18,8 @@ url: "/"
 
 [Alistair Collins](https://github.com/alistaircol) (Ally) is a capable full stack web developer from Scotland, with a broad knowledge of web technologies.
 
-Exposure and experience working with, but not limited to developing and configuring on a LAMP stack.
+Exposure and experience working with, but not limited to developing applications using LAMP and TALL stack. Keen on automation and dev-ops, see my [roadmap.sh inspired skill tree](https://github.com/dafedteam/skill-tree) below!
 
-Keen on automation and dev-ops, see my [roadmap.sh inspired skill tree](https://github.com/dafedteam/skill-tree)! (I should write about how I made this 🤔.)
+ljjjkmkmkmkmkm
 
 <img alt="Skills" src="https://static.ac93.uk/resume/skills.png" />
