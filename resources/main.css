@@ -71,7 +71,7 @@ code {
 }
 
 hr {
-    @apply mx-auto w-1/2 border border-dashed border-blue-300 my-4;
+    @apply mx-auto w-full border border-dashed border-blue-300 my-4;
 }
 
 ul {
