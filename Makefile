@@ -19,11 +19,11 @@ article:
 	@./.scripts/new-article
 
 theme:
-	@rm $(pwd)/static/css/main.css || exit 0
+	@rm $(shell pwd)/static/css/main.css || exit 0
 	@${tailwind} --watch
 
 assets:
-	@rm $(pwd)/static/css/main.css || exit 0
+	@rm $(shell pwd)/static/css/main.css || exit 0
 	@${tailwind} --minify
 
 image:
