@@ -2,7 +2,17 @@
 
 Site built with `hugo` and a tailwind theme, based from the [papercss](https://themes.gohugo.io/theme/papercss-hugo-theme/) theme.
 
-Everything below this needs reworked.
+Everything below here needs reworked.
+
+## Build/Develop
+
+* `make server` runs `hugo server` in a container
+* `make shell` runs `sh` in a container
+* `make build` runs `hugo build` in a container
+* `make article` runs an interactive script to create a new `.md` file in `content/`
+* `make theme` runs `npx tailwindcss --watch` while creating changes to theme
+* `make assets` runs `npx tailwind --minify` to commit changes to `static/`
+* `make lint` runs `yamllint` in a container to verify syntax of `yaml` config files
 
 ---
 
