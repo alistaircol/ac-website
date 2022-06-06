@@ -4,7 +4,6 @@ author: "Ally"
 summary: "List the active `git branch` for a set of `git` repositories in `whiptail`, then jump to the repository's `tmux` window"
 publishDate: 2022-06-06T20:18:44+0100
 tags: ['git', 'tmux', 'whiptail']
-draft: true
 ---
 
 ## Preamble
@@ -78,7 +77,7 @@ Highlighted lines will (not in a bulletproof manner):
 # make the command (trailing space for concatenating tag item status tuples
 cmd="whiptail \
     --title=\"Repository branches\" \
-    --backtitle=\"Relevant work repository branches\" \
+    --backtitle=\"Relevant repository branches\" \
     --ok-button=\"Change Window\" \
     --cancel-button=\"Ok\" \
     --radiolist \"Repository branches\" \
@@ -134,7 +133,26 @@ fi
 
 ## Screenshots
 
-**TODO**
+### With tmux
+
+List of all repositories in your list and the active branch:
+
+![whiptail tmux list](/img/articles/whiptail-git-branches-tmux/whiptail-tmux-list.png)
+
+Select a branch (or choose Ok to close):
+
+![whiptail tmux select](/img/articles/whiptail-git-branches-tmux/whiptail-tmux-select.png)
+
+Will change to defined window if in tmux (trust me it does it):
+
+![whiptail tmux answer](/img/articles/whiptail-git-branches-tmux/whiptail-tmux-answer.png)
+
+### Without tmux
+
+![whiptail list](/img/articles/whiptail-git-branches-tmux/whiptail-no-tmux-list.png)
+
+![whiptail answer](/img/articles/whiptail-git-branches-tmux/whiptail-no-tmux-answer.png)
+
 
 ## Complete Code
 
@@ -165,7 +183,7 @@ width=$((w_repo + w_branch + 15))
 # make the command (trailing space for concatenating tag item status tuples
 cmd="whiptail \
     --title=\"Repository branches\" \
-    --backtitle=\"Relevant work repository branches\" \
+    --backtitle=\"Relevant repository branches\" \
     --ok-button=\"Change Window\" \
     --cancel-button=\"Ok\" \
     --radiolist \"Repository branches\" \
