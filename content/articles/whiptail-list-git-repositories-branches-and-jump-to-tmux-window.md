@@ -133,6 +133,7 @@ fi
 ## Complete Code
 
 ```bash { linenos=true }
+#!/usr/bin/env zsh
 # list of repository roots
 paths=(
     # todo: add your repositories here
