@@ -13,6 +13,12 @@ My day job requires working across multiple repositories. Often more than one re
 
 Tangentially, I use [`tmux`](https://github.com/tmux/tmux) and [`tmuxinator`](https://github.com/tmuxinator/tmuxinator) to have a window for each repository and some for monitoring, etc. I often jump between windows (i.e. repositories) and see the active [`git branch`](https://git-scm.com/docs/git-branch) from the command line (I use [`ohmyzsh`](https://github.com/ohmyzsh/ohmyzsh) with the [`ys`](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes#ys) theme).
 
+Install on Mac:
+
+```bash
+brew install newt
+```
+
 ## Script (step by step)
 
 ```bash {linenos=true}
