@@ -4,7 +4,6 @@ author: "Ally"
 summary: "List the active `git branch` for a set of `git` repositories in `whiptail`, then jump to the repository's `tmux` window"
 publishDate: 2022-06-06T20:18:44+0100
 tags: ['git', 'tmux', 'whiptail']
-draft: true
 ---
 
 ## Preamble
@@ -12,6 +11,12 @@ draft: true
 My day job requires working across multiple repositories. Often more than one repository needs to be on the same branch when I'm working on a feature.
 
 Tangentially, I use [`tmux`](https://github.com/tmux/tmux) and [`tmuxinator`](https://github.com/tmuxinator/tmuxinator) to have a window for each repository and some for monitoring, etc. I often jump between windows (i.e. repositories) and see the active [`git branch`](https://git-scm.com/docs/git-branch) from the command line (I use [`ohmyzsh`](https://github.com/ohmyzsh/ohmyzsh) with the [`ys`](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes#ys) theme).
+
+Install on Mac:
+
+```bash
+brew install newt
+```
 
 ## Script (step by step)
 
@@ -72,7 +77,7 @@ Highlighted lines will (not in a bulletproof manner):
 # make the command (trailing space for concatenating tag item status tuples
 cmd="whiptail \
     --title=\"Repository branches\" \
-    --backtitle=\"Relevant work repository branches\" \
+    --backtitle=\"Relevant repository branches\" \
     --ok-button=\"Change Window\" \
     --cancel-button=\"Ok\" \
     --radiolist \"Repository branches\" \
@@ -128,11 +133,31 @@ fi
 
 ## Screenshots
 
-**TODO**
+### With tmux
+
+List of all repositories in your list and the active branch:
+
+![whiptail tmux list](/img/articles/whiptail-git-branches-tmux/whiptail-tmux-list.png)
+
+Select a branch (or choose Ok to close):
+
+![whiptail tmux select](/img/articles/whiptail-git-branches-tmux/whiptail-tmux-select.png)
+
+Will change to defined window if in tmux (trust me it does it):
+
+![whiptail tmux answer](/img/articles/whiptail-git-branches-tmux/whiptail-tmux-answer.png)
+
+### Without tmux
+
+![whiptail list](/img/articles/whiptail-git-branches-tmux/whiptail-no-tmux-list.png)
+
+![whiptail answer](/img/articles/whiptail-git-branches-tmux/whiptail-no-tmux-answer.png)
+
 
 ## Complete Code
 
 ```bash { linenos=true }
+#!/usr/bin/env zsh
 # list of repository roots
 paths=(
     # todo: add your repositories here
@@ -158,7 +183,7 @@ width=$((w_repo + w_branch + 15))
 # make the command (trailing space for concatenating tag item status tuples
 cmd="whiptail \
     --title=\"Repository branches\" \
-    --backtitle=\"Relevant work repository branches\" \
+    --backtitle=\"Relevant repository branches\" \
     --ok-button=\"Change Window\" \
     --cancel-button=\"Ok\" \
     --radiolist \"Repository branches\" \
