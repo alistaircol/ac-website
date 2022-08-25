@@ -30,9 +30,15 @@ You could:
 Simply put, you could get away with just using something like this for a small example:
 
 ```php
-return Str::of($model->content)
-    ->replace('[foo]', $foo)
-    ->replace('[bar]', $bar);
+public function getContentAttribute($content)
+{
+    $foo = 'bar';
+    $bar = 'baz';
+    
+    return Str::of($content)
+        ->replace('[foo]', $foo)
+        ->replace('[bar]', $bar);
+}
 ```
 
 But when there are multiple sections (with multiple placeholders) making some potentially non-trivial queries/transformations, this gets out of hand very quickly.
@@ -186,4 +192,6 @@ public function getContentAttribute($content): string
 
 This means the original template (`$article->content`) remains editable with placeholders untouched, and you can listen for the `updated` event to run some service to update the `$article->markup` to be the output of the pipeline.
 
-Having it work this way means there is no cross-repository code to replace the placeholders values.
+**Note** when updating the content (i.e. setting `$article->output` by running it through the pipeline) in an event as outlined above, remember to use `$article->getRawOriginal('content')`, otherwise you will either get into an infinite loop, or the template with the values already replaced (i.e. value from the accessor) going **in** to the pipeline.
+
+Having it work this way means there is no cross-repository code to replace the placeholders values, e.g. admin repo (pipeline only) and public repo (accessor only).
