@@ -22,7 +22,7 @@ The raw template will be stored as part of the model (say `content`), and we can
 
 You could:
 
-* Listen for model events and update another attribute on the model the result of running the `content` through the placeholder replacement logic
+* Listen for model events and update another attribute on the model the result of running the `content` through the placeholder replacement logic **preferred**
 * Listen for model events and place the result of running the `content` through the placeholder replacement logic in a cache, and use a model accessor to retrieve the value
 
 ## Why Pipelines
@@ -168,3 +168,22 @@ return app(Pipeline::class)
 ```
 
 Instead of an absolute monstrosity. Thank you, pipeline!
+
+## Accessor
+
+For the public facing side, it's possibly a good idea to add an accessor on the model.
+
+```php
+public function getContentAttribute($content): string
+{
+    if (filled($this->markup)) {
+        return $this->markup;
+    }
+
+    return $content;
+}
+```
+
+This means the original template (`$article->content`) remains editable with placeholders untouched, and you can listen for the `updated` event to run some service to update the `$article->markup` to be the output of the pipeline.
+
+Having it work this way means there is no cross-repository code to replace the placeholders values.
