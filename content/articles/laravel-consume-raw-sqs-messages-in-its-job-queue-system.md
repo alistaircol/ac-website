@@ -334,8 +334,6 @@ php artisan queue:work --once --queue=webhook_queue sqs-plain
 
 ![consumer](/img/articles/laravel-consume-raw-sqs-messages/consumer.png)
 
----
-
 <center>
 
 ![summary](/img/articles/laravel-consume-raw-sqs-messages/summary.jpeg)
