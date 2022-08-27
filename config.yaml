@@ -1,5 +1,6 @@
 languageCode: en-us
 title: alistaircol
+baseURL: https://ac93.uk
 
 params:
   homeMetaContent: Ally is a full-stack software engineer.
