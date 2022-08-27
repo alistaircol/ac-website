@@ -12,7 +12,7 @@ Unfortunately the other application might not use Laravel, or, if it does, the j
 
 I will outline with the use `terraform` to setup a SQS queue, and provide some commands to push raw messages, and the few steps required to set up the queue, and a job to process messages in Laravel.
 
-![process](/img/articles/laravel-consume-raw-sqs-messages/terminal.png)
+![e2e](/img/articles/laravel-consume-raw-sqs-messages/e2e.png)
 
 ## AWS
 
@@ -34,7 +34,26 @@ aws --profile=ally-api-webhooks configure set cli_pager ''
 
 ## Terraform (optional)
 
-The terraform script is simple, since SQS is relatively simple.
+The `terraform` script is simple, since SQS is relatively simple.
+
+`variables.tf`:
+
+```hcl
+variable "aws_profile" {
+  type    = string
+  default = "ally-api-webhooks"
+}
+
+variable "aws_region" {
+  type    = string
+  default = "eu-west-2"
+}
+
+variable "queue_name" {
+  type    = string
+  default = "webhook_queue"
+}
+```
 
 `main.tf`:
 
@@ -49,8 +68,8 @@ terraform {
 }
 
 provider "aws" {
-  profile                  = "ally-api-webhooks"
-  region                   = "eu-west-2"
+  profile                  = var.aws_profile
+  region                   = var.aws_region
   shared_config_files      = [pathexpand("~/.aws/config")]
   shared_credentials_files = [pathexpand("~/.aws/credentials")]
 }
@@ -60,7 +79,7 @@ provider "aws" {
 
 ```hcl
 resource "aws_sqs_queue" "webhook_queue" {
-  name = "webhook_queue"
+  name = var.queue_name
 }
 
 resource "aws_sqs_queue_policy" "webhook_queue_policy" {
@@ -86,7 +105,6 @@ resource "aws_sqs_queue_policy" "webhook_queue_policy" {
 }
 POLICY
 }
-
 ```
 
 `data.tf`:
@@ -106,6 +124,14 @@ output "queue_url" {
 output "region" {
   value = data.aws_region.current.name
 }
+
+output "SQS_PREFIX" {
+  value = replace(aws_sqs_queue.webhook_queue.url, "/${var.queue_name}", "")
+}
+
+output "SQS_QUEUE" {
+  value = var.queue_name
+}
 ```
 
 The core commands for `terraform` are:
@@ -119,6 +145,10 @@ terraform apply
 
 This might take a minute, arguably quicker to create through the web UI.
 
+It will also give you some values to set as environment variables for queue config later on.
+
+![terraform](/img/articles/laravel-consume-raw-sqs-messages/terraform.png)
+
 ## Project (optional)
 
 This is for example purposes, so I create a fresh install.
@@ -128,7 +158,6 @@ docker run \
     --rm \
     --tty \
     --interactive \
-    --user=$(id -u):$(id -g) \
     --volume="$(pwd)/src:/app" \
     --volume="${COMPOSER_HOME:-$HOME/.composer}:/tmp" \
     --workdir=/app \
@@ -143,7 +172,6 @@ docker run \
     --rm \
     --tty \
     --interactive \
-    --user=$(id -u):$(id -g) \
     --volume="$(pwd)/src:/app" \
     --volume="${COMPOSER_HOME:-$HOME/.composer}:/tmp" \
     --workdir=/app \
@@ -200,6 +228,8 @@ return [
     ],
 ];
 ```
+
+![monitor](/img/articles/laravel-consume-raw-sqs-messages/monitor.png)
 
 ## Job
 
@@ -259,6 +289,8 @@ You should be good to consume messages now.
 
 ## Producer
 
+![enqueue](/img/articles/laravel-consume-raw-sqs-messages/enqueue.png)
+
 Since the scenario is to process an arbitrary SQS payload with a `Job`, we will use [`aws sqs send-message`](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/sqs/send-message.html) to enqueue a 'job'.
 
 ```bash
@@ -299,3 +331,13 @@ Process the message:
 ```bash
 php artisan queue:work --once --queue=webhook_queue sqs-plain
 ```
+
+![consumer](/img/articles/laravel-consume-raw-sqs-messages/consumer.png)
+
+---
+
+<center>
+
+![summary](/img/articles/laravel-consume-raw-sqs-messages/summary.jpeg)
+
+</center>
