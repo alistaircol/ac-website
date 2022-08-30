@@ -184,7 +184,7 @@ docker run \
 I use [`primitivesense/laravel-raw-sqs-connector`](https://packagist.org/packages/primitivesense/laravel-raw-sqs-connector) to interpret arbitrary SQS messages to be handled by a `Job` in Laravel world.
 
 ```bash
-composer require dusterio/laravel-plain-sqs
+composer require primitivesense/laravel-raw-sqs-connector
 ```
 
 After install, add their service provider into your `providers` in `config/app.php`:
