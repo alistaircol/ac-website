@@ -52,7 +52,7 @@ I use `yaml` file instead of command line arguments to:
 * set namespace of the package, i.e. `Ally\PetStore`
 * set directory of the models within the package, e.g. `Schema`, i.e. `Ally\PetStore\Schema`
 * set the package git user, e.g. `alistaircol`
-* set the package git repo, e.g. `project-sdk`
+* set the package git repo, e.g. `pet-store-api-sdk`
 * some other things
 
 `spec/config.yaml`:
@@ -70,10 +70,10 @@ invokerPackage: Ally\PetStore
 # model/dto package
 modelPackage: Schema
 # path to folder, probably will just be same as gitRepoId for consistency
-packageName: project-sdk
+packageName: pet-store-api-sdk
 srcBasePath: src/
 gitUserId: alistaircol
-gitRepoId: project-sdk
+gitRepoId: pet-store-api-sdk
 
 # for the html2 docs
 phpInvokerPackage: Ally\PetStore
@@ -113,7 +113,7 @@ All the documentation output will go to `.generator/docs`.
 
 ## Doctum
 
-[![Doctum](/img/articles/github-action-build-multiple-sets-of-documentation/doc_doctum.png)](https://alistaircol.github.io/project-sdk/doctum/index.html)
+[![Doctum](/img/articles/github-action-build-multiple-sets-of-documentation/doc_doctum.png)](https://alistaircol.github.io/pet-store-api-sdk/doctum/index.html)
 
 ### Config
 
@@ -148,7 +148,7 @@ php .generator/bin/doctum.phar render --force --ignore-parse-errors doctum.php
 
 ## Doxygen
 
-[![Doxygen](/img/articles/github-action-build-multiple-sets-of-documentation/doc_doxygen.png)](https://alistaircol.github.io/project-sdk/doxygen/index.html)
+[![Doxygen](/img/articles/github-action-build-multiple-sets-of-documentation/doc_doxygen.png)](https://alistaircol.github.io/pet-store-api-sdk/doxygen/index.html)
 
 ### Config
 
@@ -182,7 +182,7 @@ docker run \
 
 ## OpenAPI
 
-[![OpenAPI](/img/articles/github-action-build-multiple-sets-of-documentation/doc_openapi.png)](https://alistaircol.github.io/project-sdk/openapi/index.html)
+[![OpenAPI](/img/articles/github-action-build-multiple-sets-of-documentation/doc_openapi.png)](https://alistaircol.github.io/pet-store-api-sdk/openapi/index.html)
 
 ### Build
 
@@ -205,7 +205,7 @@ docker run \
 
 ## PHPDoc
 
-[![PHPDoc](/img/articles/github-action-build-multiple-sets-of-documentation/doc_phpdoc.png)](https://alistaircol.github.io/project-sdk/phpdoc/index.html)
+[![PHPDoc](/img/articles/github-action-build-multiple-sets-of-documentation/doc_phpdoc.png)](https://alistaircol.github.io/pet-store-api-sdk/phpdoc/index.html)
 
 ### Config
 
@@ -508,4 +508,4 @@ This will add a new workflow, which will be run when changes are pushed to `gh-p
 
 ![Pages Workflow](/img/articles/github-action-build-multiple-sets-of-documentation/pages-workflow.png)
 
-You can see the consolidated documentation [here](https://alistaircol.github.io/project-sdk) and the repo example [here](https://github.com/alistaircol/project-sdk).
+You can see the consolidated documentation [here](https://alistaircol.github.io/pet-store-api-sdk) and the repo example [here](https://github.com/alistaircol/pet-store-api-sdk).
