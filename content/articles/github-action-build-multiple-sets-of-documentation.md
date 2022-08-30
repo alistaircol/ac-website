@@ -102,14 +102,81 @@ docker run \
 
 ## Documentation
 
-I chose four documentation generators, each having their own advantages and disadvantages.
+I chose five documentation generators, each having their own advantages and disadvantages.
 
-* [doctum](https://github.com/code-lts/doctum) is my favourite - nice UI with all classes, properties and method signature overviews, and search. It's what [Laravel](https://laravel.com/api/9.x/) uses.
+* [apigen](https://github.com/ApiGen/ApiGen) one of my favourites - nice and compact, extremely navigable with search. It's what [AWS](https://docs.aws.amazon.com/aws-sdk-php/v3/api/class-Aws.Sqs.SqsClient.html) use.
+* [doctum](https://github.com/code-lts/doctum) is my favourite - nice UI with all classes, properties and method signature overviews, and search. It's what [Laravel](https://laravel.com/api/9.x/) use.
 * [doxygen](http://www.doxygen.org/index.html) requires more clicks than doctum to get the details you might want, but it includes actual source code in the documentation, includes class inheritance diagrams, and search. Has the most verbose config file.
 * [openapi](https://openapi-generator.tech) the others mentioned look at the SDK code whereas this is generated from the spec directly - gives great overview of the spec file.
 * [phpdoc(umentor)](https://www.phpdoc.org/) my least favourite - has similar but more modern UI compared to doxygen, but surfaces about the same information as doctum (i.e. without the code & inheritance from doxygen).
 
 All the documentation output will go to `.generator/docs`.
+
+## ApiGen
+
+[![ApiGen](/img/articles/github-action-build-multiple-sets-of-documentation/doc_apigen.png)](https://alistaircol.github.io/project-sdk/apigen/index.html)
+
+### Config
+
+ApiGen can be configured with `apigen.neon` [configuration](https://github.com/ApiGen/ApiGen#configuration) file:
+
+`apigen.neon`:
+
+```yaml
+parameters:
+  # string[], passed as arguments in CLI, e.g. ['src']
+  paths:
+  - src
+
+  # string[], --include in CLI, included files mask, e.g. ['*.php']
+  include:
+  - '*.php'
+
+  # string[], --exclude in CLI, excluded files mask, e.g. ['tests/**']
+  exclude: []
+
+  # bool, should protected members be excluded?
+  excludeProtected: false
+
+  # bool, should private members be excluded?
+  excludePrivate: true
+
+  # string[], list of tags used for excluding class-likes and members
+  excludeTagged:
+  - 'internal'
+
+  # string, --output in CLI
+  outputDir: '%workingDir%/.generator/docs/apigen'
+
+  # string | null, --theme in CLI
+  themeDir: null
+
+  # string, --title in CLI
+  title: Ally's PetStore API
+
+  # string, --base-url in CLI
+  baseUrl: ''
+
+  # int, --workers in CLI, number of processes that will be forked for parallel rendering
+  workerCount: 8
+
+  # string, --memory-limit in CLI
+  memoryLimit: '512M'
+
+```
+
+### Build
+
+I use the following command to build the documentation for `apigen`:
+
+```bash
+docker run \
+    --rm \
+    --user=$(id -u):$(id -g) \
+    --volume="$(pwd):/local" \
+    --workdir=/local \
+    apigen/apigen
+```
 
 ## Doctum
 
@@ -290,11 +357,27 @@ tasks:
 
   docs:
     cmds:
+    - task: apigen
     - task: doctum
     - task: doxygen
     - task: openapi
     - task: phpdoc
 
+  apigen:
+    cmds:
+    - >-
+```
+
+```bash
+      docker run \
+        --rm \
+        --user=$(id -u):$(id -g) \
+        --volume="$(pwd):/local" \
+        --workdir=/local \
+        apigen/apigen
+```
+
+```yaml
   doctum:
     cmds:
     - mkdir -p .generator/bin
@@ -392,6 +475,7 @@ jobs:
     strategy:
       matrix:
         affix:
+        - apigen
         - doctum
         - doxygen
         - openapi
@@ -441,6 +525,11 @@ Another job to consolidate the branches into a single branch:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+    - name: Checkout apigen
+      uses: actions/checkout@v3
+      with:
+        ref: gh-pages-apigen
+        path: release/apigen
     - name: Checkout doctum
       uses: actions/checkout@v3
       with:
