@@ -114,7 +114,7 @@ All the documentation output will go to `.generator/docs`.
 
 ## ApiGen
 
-[![ApiGen](/img/articles/github-action-build-multiple-sets-of-documentation/doc_apigen.png)](https://alistaircol.github.io/project-sdk/apigen/index.html)
+[![ApiGen](/img/articles/github-action-build-multiple-sets-of-documentation/doc_apigen.png)](https://alistaircol.github.io/pet-store-api-sdk/apigen/index.html)
 
 ### Config
 
