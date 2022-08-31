@@ -6,7 +6,7 @@ publishDate: 2022-08-30T16:58:02+0100
 tags: ['laravel','whatsapp']
 ---
 
-Imagine you need to send (on some schedule) a notification, of, say, a users portfolio value, then a WhatsApp message might be ideal.
+Imagine you need to send (on some schedule) a notification, of, say, a users' portfolio value, then a WhatsApp message might be ideal.
 
 I used the following packages to help:
 
@@ -16,7 +16,7 @@ I used the following packages to help:
 
 ## Validation
 
-I use [`giggsey/libphonenumber-for-php`](https://packagist.org/packages/giggsey/libphonenumber-for-php) for a basic validation check from a given number.
+I use [`giggsey/libphonenumber-for-php`](https://packagist.org/packages/giggsey/libphonenumber-for-php) for validation of a given number.
 
 First, some things for DI:
 
@@ -41,7 +41,7 @@ class AppServiceProvider extends ServiceProvider
 }
 ```
 
-I use the following accessors in the model:
+I use the following accessors in the model, so we can use it in a validation rule, or in `Collection`'s `reject`/`filter` in future scenarios.
 
 `app/Models/Portfolio.php`:
 
@@ -61,9 +61,6 @@ You might want to exchange the `GB` with a relevant ISO 3316-2 country code if t
 
 ```php
             $phone = $helper->parse($this->phone, 'GB');
-```
-
-```php
 
             return $helper->isValidNumber($phone);
         } catch (Throwable $e) {
@@ -126,9 +123,7 @@ However, unlike most other APIs where you specify the template ID and then the t
 ]
 ```
 
-You however need to construct the template yourself, and then send that.
-
-I use [`elvanto/litemoji`](https://packagist.org/packages/elvanto/litemoji) to handle emojis easier.
+You however need to construct the template yourself, and then send that as the payload. This gets a little awkward when using emoji (some editors might strip it out, achieving correct spacing might be difficult, etc), so I use [`elvanto/litemoji`](https://packagist.org/packages/elvanto/litemoji) to make that easier.
 
 ```php
 use Illuminate\Support\Str;
@@ -144,7 +139,7 @@ $message = $template->replaceArray([
 ]);
 ```
 
-So the `body` in the payload will be:
+So the `body` in the payload you will send will be something like this:
 
 ```text
 📊 Crypto portfolio has decreased in value. It is now worth: £187.51
@@ -185,7 +180,8 @@ class SendWhatsAppMessage implements ShouldQueue
     public function handle()
     {
 ```
-This `Client` dependency injection will be left to the user, basically `ssid` and `token` passed into `Twilio\Rest\Client`.
+
+This `Client` dependency injection will be left to the user, basically `ssid` and `token` passed into `Twilio\Rest\Client` constructor.
 
 ```php
         $twilio = app(Client::class);
@@ -204,10 +200,10 @@ There is a command to run on a schedule (the command signature or how to add on 
 
 You might want to consider some options/arguments to:
 
-* change the chunk size
-* search only a subset if certain conditionals are used
-* dump as json for debugging, or not queueing the jobs
-* send message to a debug number (i.e. not to real users)
+* change the chunk size (`--chunk-size=100`)
+* search only a subset if certain conditionals are used (`--portfolios=comma,separated,list`)
+* dump as json for debugging, or not queueing the jobs (`--dry-run`)
+* send message to a debug number (i.e. not to real users) (`--blackhole`)
 
 Its `handle` might look something like this, using `chunkById` to get some better performance.
 
