@@ -598,3 +598,16 @@ This will add a new workflow, which will be run when changes are pushed to `gh-p
 ![Pages Workflow](/img/articles/github-action-build-multiple-sets-of-documentation/pages-workflow.png)
 
 You can see the consolidated documentation [here](https://alistaircol.github.io/pet-store-api-sdk) and the repo example [here](https://github.com/alistaircol/pet-store-api-sdk).
+
+## Local Copy
+
+You might want to host the consolidated docs locally if you do not want them public.
+
+```bash
+git clone \
+  --branch=gh-pages \
+  git@github.com:alistaircol/pet-store-api-sdk.git \
+  pet-store-api-sdk-docs
+cd pet-store-api-sdk-docs
+valet link --secure pet-store-api-sdk-docs.ac93
+```
