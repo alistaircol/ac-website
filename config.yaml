@@ -2,6 +2,9 @@ languageCode: en
 title: alistaircol
 baseURL: https://ac93.uk
 
+author:
+  name: Ally
+
 params:
   name: Alistair Collins
   homeMetaContent: Ally is a full-stack software engineer.
