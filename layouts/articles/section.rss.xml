@@ -47,11 +47,11 @@
       {{end}}
       <guid>{{ .Permalink }}</guid>
       <description>{{ .Summary | html }}</description>
-      <tags>
+      <categories>
         {{ range .Params.tags }}
         <category>{{ . }}</category>
         {{ end }}
-      </tags>
+      </categories>
     </item>
     {{ end }}
   </channel>
