@@ -6,10 +6,29 @@
     {{ hugo.Generator }}
     <link rel="canonical" href="{{ .Permalink }}">
 
+    <!-- https://webcode.tools/generators/open-graph/article -->
+    <!-- https://og-image.xyz/ -->
+
+    <meta name="description" content="{{ .Page.Title }} | {{ .Site.Title }}">
+    <meta property="og:site_name" content="{{ .Site.Params.name }}" />
+    <meta property="og:title" content="{{ .Page.Title }} | {{ .Site.Title }}" />
+    <meta property="og:url" content="{{ .Permalink }}" />
+    <meta property="og:description" content="{{ index $.Page.Description | default $.Page.Summary }}" />
+
+    {{ $cover := index .Page.Params "Cover" | default .Site.Params.Cover }}
+    <meta property="og:image" content="{{ $cover }}" />
+
     {{ if .IsHome }}
-        {{ with .Site.Params.homeMetaContent }}
-            <meta name="description" content="{{ . | plainify }}">
-        {{ end }}
+    <meta property="og:type" content="website" />
+    {{ else if eq .Kind "taxonomy" }}
+    <meta property="og:type" content="website" />
+    {{ else if and (eq .Kind "section") (eq .Page.File.Path "articles/_index.md") }}
+    <meta property="og:type" content="website" />
+    {{ else }}
+    <meta property="og:type" content="article" />
+    {{ $dateFormat := $.Site.Params.dateFormat | default "Jan 2, 2006" }}
+    <meta property="article:published_time" content="{{ .Page.PublishDate.Format $dateFormat }}" />
+    <meta property="article:author" content="Ally" />
     {{ end }}
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">

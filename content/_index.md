@@ -1,6 +1,7 @@
 ---
-title: "Welcome"
-url: "/"
+title: Welcome
+description: Ally is a capable full stack web developer with many years of PHP experience with Laravel. Keen on dev-ops and automation, especially Linux, Docker, Terraform, Ansible, and AWS.
+cover: https://ac93.uk/img/unsplash/mohammad-rahmani-cY1SvvEfRwk-unsplash.jpg
 ---
 
 {{< unsplash/laptop-code >}}

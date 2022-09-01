@@ -1,5 +1,7 @@
 ---
-title: "Articles"
+title: Articles
+description: Here are some things I have picked up for future reference. Hopefully they can one day be of some use to someone other than myself.
+cover: https://ac93.uk/img/unsplash/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg
 ---
 
 You can see [tags](/tags) for what topics I like to cover.

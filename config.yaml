@@ -3,8 +3,10 @@ title: alistaircol
 baseURL: https://ac93.uk
 
 params:
+  name: Alistair Collins
   homeMetaContent: Ally is a full-stack software engineer.
   dateFormat: Jan 2, 2006
+  cover: https://ac93.uk/img/unsplash/mohammad-rahmani-cY1SvvEfRwk-unsplash.jpg
 
 menu:
   nav:
