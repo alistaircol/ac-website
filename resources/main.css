@@ -153,3 +153,15 @@ nav a {
 div.highlight td {
     @apply max-w-4xl;
 }
+
+.post-tags {
+    @apply flex flex-row space-x-2 pb-4;
+}
+
+.post-tags a {
+    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2;
+}
+
+.post-tags a .badge {
+    @apply text-white;
+}

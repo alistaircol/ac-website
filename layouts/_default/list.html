@@ -6,14 +6,23 @@
 <dl>
     {{ $pages := .Pages }}
     {{ range $pages.ByPublishDate.Reverse }}
-        <dt class="post-list {{ if ne .Params.show_summary false }}summary{{ end }}">
+        <dt class="py-0 post-list {{ if ne .Params.show_summary false }}summary{{ end }}">
             <a href="{{ .Permalink }}">
                 {{ .Title }}
             </a>
         </dt>
         {{ if ne .Params.show_summary false }}
-            <dd>{{ .Summary }}</dd>
+            <dd class="py-0">{{ .Summary }}</dd>
         {{ end }}
+
+        {{ with .Params.tags }}
+        <div class="post-tags">
+            {{ range . }}
+            <a href="{{ "tags/" | absURL }}{{ . | urlize }}">{{ . }}</a>
+            {{ end }}
+        </div>
+        {{ end }}
+
     {{ end }}
 </dl>
 {{ end }}

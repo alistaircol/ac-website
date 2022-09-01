@@ -627,6 +627,11 @@ Ensure the default browser behavior of the `hidden` attribute.
   border-style: dotted;
 }
 
+.py-0 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -1105,4 +1110,36 @@ nav a {
 
 div.highlight td {
   max-width: 56rem;
+}
+
+.post-tags {
+  display: flex;
+  flex-direction: row;
+}
+
+.post-tags > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+.post-tags {
+  padding-bottom: 1rem;
+}
+
+.post-tags a {
+  display: inline-flex;
+  --tw-bg-opacity: 1;
+  background-color: rgb(39 40 34 / var(--tw-bg-opacity));
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.post-tags a .badge {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
