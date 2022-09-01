@@ -4,6 +4,7 @@ author: "Ally"
 summary: "Send a message template containing emoji from Twilio in Laravel"
 publishDate: 2022-08-30T16:58:02+0100
 tags: ['laravel','whatsapp']
+cover: https://ac93.uk/img/unsplash/dimitri-karastelev-ynJaWgrwSlM-unsplash.jpg
 ---
 
 Imagine you need to send (on some schedule) a notification, of, say, a users' portfolio value, then a WhatsApp message might be ideal.

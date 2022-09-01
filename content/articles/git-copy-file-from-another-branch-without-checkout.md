@@ -5,6 +5,7 @@ summary: "Copy a file from another git branch without checking to that target br
 publishDate: 2021-06-21T14:57:08+0100
 tags: ['git', 'quickie']
 draft: false
+cover: https://ac93.uk/img/unsplash/yancy-min-842ofHC6MaI-unsplash.jpg
 ---
 
 Ever wanted to grab a file from another branch in `git`, but don't want to `checkout` to the target branch?

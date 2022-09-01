@@ -5,6 +5,7 @@ summary: "Use a SOCKS proxy to query an IP restricted API with Postman."
 publishDate: 2020-09-11T12:00:00+01:00
 tags: ['proxy', 'socks', 'ssh', 'postman']
 draft: false
+cover: https://ac93.uk/img/unsplash/jakob-soby-RjPG-_LVmiQ-unsplash.jpg
 ---
 
 **Rationale** Had an IP to debug, but it is only allowed from server IP addresses.

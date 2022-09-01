@@ -5,6 +5,7 @@ summary: "Create an AWS S3 and corresponding CNAME in Cloudflare for static site
 publishDate: 2020-12-15T00:00:00+01:00
 tags: ['aws', 's3', 'terraform', 'cloudflare']
 draft: false
+cover: https://ac93.uk/img/articles/terraform-s3-cloudflare/hero.png
 ---
 
 ![hero](/img/articles/terraform-s3-cloudflare/hero.png)
@@ -481,4 +482,3 @@ The end result of running the gist: [terraform-example.ac93.uk](https://terrafor
 ![S3 Site](/img/articles/terraform-s3-cloudflare/index.png)
 
 </center>
-

@@ -4,6 +4,7 @@ author: "Ally"
 summary: "Moving our semi-unstructured data from a `mysql` database, stored in a `json` column to a `mongodb` instance for better performance."
 publishDate: 2020-09-12T00:00:00+01:00
 tags: ['mongodb', 'mysql', 'csv']
+cover: https://ac93.uk/img/articles/mongodb-php/php-app-grid.png
 ---
 
 **Rationale** Querying our semi-unstructured data which is currently in JSON column in a MySQL database gives quite poor performance, so looking to use something else. I tried Solr earlier, but MongoDB has been much easier to get up and running.

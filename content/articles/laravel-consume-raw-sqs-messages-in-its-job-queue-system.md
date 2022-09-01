@@ -4,6 +4,7 @@ author: "Ally"
 summary: "Easily consume arbitrary raw AWS SQS messages by another application in your Laravel application's queue with a `Job` and `queue` configuration."
 publishDate: 2022-08-27T13:37:44+0100
 tags: ['laravel','aws','sqs']
+cover: https://ac93.uk/img/articles/laravel-consume-raw-sqs-messages/consumer.png
 ---
 
 An alternative method to webhooks might be pushing an event/message onto an AWS SQS queue and having any consumer deal with it however they want.

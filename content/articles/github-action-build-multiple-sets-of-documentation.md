@@ -3,7 +3,8 @@ title: "Setting up CI to build and release multiple sets of documentation for a 
 author: "Ally"
 summary: "Learn how to set up GitHub action to build documentation (PHP, OpenAPI) from multiple generators and consolidate them all into a single `gh-pages` branch"
 publishDate: 2022-08-26T18:06:53+0100
-tags: ['github','php','openapi']
+tags: ['github','php','openapi','apigen','doctum','doxygen','phpdoc','taskfile']
+cover: https://ac93.uk/img/articles/github-action-build-multiple-sets-of-documentation/doc_apigen.png
 ---
 
 Recently I had to work on an integration with an external API from an OpenAPI spec.

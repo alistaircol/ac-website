@@ -5,6 +5,7 @@ summary: "Want your Laravel app to do something after running migrations? Here's
 publishDate: 2021-06-17T19:16:55+0100
 tags: ['laravel','event','migration','post-migration']
 draft: false
+cover: https://ac93.uk/img/unsplash/agence-olloweb-d9ILr-dbEdg-unsplash.jpg
 ---
 
 {{< unsplash/magnify >}}

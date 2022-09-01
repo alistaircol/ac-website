@@ -5,6 +5,7 @@ summary: "Code Quality and Security - SonarQube empowers all developers to write
 publishDate: 2020-11-08T12:00:00+01:00
 tags: ['php', 'docker', 'sonarqube']
 draft: false
+cover: https://ac93.uk/img/articles/sonarqube/11-quality.png
 ---
 
 [Sonarqube](https://docs.sonarqube.org/latest/) is a code analysis tool.

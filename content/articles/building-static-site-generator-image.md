@@ -5,6 +5,7 @@ summary: "Bundling the generated output from a static site generator into a simp
 publishDate: 2021-07-12T21:01:31+0100
 tags: ['hugo', 'docker', 'caddy']
 draft: false
+cover: https://ac93.uk/img/unsplash/victoire-joncheray-XsP7GCLMWjM-unsplash.jpg
 ---
 
 I had a weird issue today with building my website.

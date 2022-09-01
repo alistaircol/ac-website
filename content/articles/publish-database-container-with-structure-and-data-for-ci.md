@@ -5,6 +5,7 @@ summary: "Building a private Docker image with custom structure and data, for a 
 publishDate: 2020-12-08T12:00:00+01:00
 tags: ['mysql', 'docker', 'ci']
 draft: false
+cover: https://ac93.uk/img/articles/docker-db-ci/00-fin.jpg
 ---
 
 **Rationale**: A major application is quite old and is *very* database heavy in its testing, and is unfeasible for it to be changed.
@@ -186,4 +187,3 @@ I don't have any authority or claim to be any sort of expert on this, it's more 
 ![fin](/img/articles/docker-db-ci/00-fin.jpg)
 
 </center>
-

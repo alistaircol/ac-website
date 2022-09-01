@@ -5,6 +5,7 @@ summary: "I've hosted many apps. I've set up CI to build containers. But I've ne
 publishDate: 2021-12-04T12:00:00+01:00
 tags: ['github', 'ci', 'cd', 'traefik', 'watchtower']
 draft: false
+cover: https://ac93.uk/img/articles/laravel-ci-cd/workflow.png
 ---
 
 In this post I will explain in broad strokes how I develop and deploy a Laravel application and then set up CI & CD for it.

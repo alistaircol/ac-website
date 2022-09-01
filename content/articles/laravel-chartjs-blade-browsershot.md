@@ -4,6 +4,7 @@ author: "Ally"
 summary: "Generate and save a `Chart.js` chart in Laravel with Browsershot and upload it to S3"
 publishDate: 2022-08-25T15:00:07+0100
 tags: ['laravel','chartjs','browsershot']
+cover: https://ac93.uk/img/articles/laravel-chartjs-browsershot/chart_example_for_blog.png
 ---
 
 I needed to automate the production of several Chart.js charts as images as part of a blog.
