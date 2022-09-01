@@ -5,6 +5,7 @@ summary: "Publish messages to a RabbitMQ instance using PHP. Build a PHP consume
 publishDate: 2020-08-30T00:00:00+01:00
 tags: ['docker', 'php', 'rabbitmq', 'supervisord']
 draft: false
+cover: https://ac93.uk/img/articles/rabbitmq-php/queue_message_consumed_and_rejected.png
 ---
 
 ## Introduction

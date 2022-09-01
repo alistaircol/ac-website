@@ -5,6 +5,7 @@ summary: "Basic scripts for dealing with PDF in my job - converting, cutting and
 publishDate: 2020-07-13T12:00:00+01:00
 tags: ['pdf', 'bash', 'zenity', 'pdftk', 'gs']
 draft: false
+cover: https://ac93.uk/img/articles/pdf-sh/pdf-cat.png
 ---
 
 Just a collection of handy bash scripts for working with PDFs. https://github.com/alistaircol/pdf-sh

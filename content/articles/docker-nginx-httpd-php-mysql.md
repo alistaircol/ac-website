@@ -6,6 +6,7 @@ publishDate: 2020-01-19T00:00:00+01:00
 tags: ['docker', 'nginx', 'apache', 'httpd', 'php', 'xdebug', 'mysql']
 draft: false
 toc: true
+cover: https://ac93.uk/img/articles/docker-nginx-apache/nginx-httpd-php.png
 ---
 
 {{< alert "danger" >}}

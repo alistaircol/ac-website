@@ -5,6 +5,7 @@ summary: "How you might integrate content written in a Ghost Blog into a Laravel
 publishDate: 2020-08-29T00:00:00+01:00
 tags: ['php', 'laravel', 'ghost']
 draft: false
+cover: https://ac93.uk/img/articles/laravel-ghost-blog/ghost-create-account.png
 ---
 
 ## Setting up a Ghost Instance

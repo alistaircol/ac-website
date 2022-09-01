@@ -5,6 +5,7 @@ summary: "Friendship ended with `terminator`, now `tmux` is my best friend."
 publishDate: 2020-06-09T12:00:00+01:00
 tags: ['tmux']
 draft: false
+cover: https://ac93.uk/img/articles/tmuxinator/tmux-screenshot.png
 ---
 
 ![tmuxinator screenshot](/img/articles/tmuxinator/tmux-screenshot.png)

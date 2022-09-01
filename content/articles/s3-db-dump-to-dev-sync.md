@@ -5,6 +5,7 @@ summary: "A simple `whiptail` script to select which databases you want to refre
 publishDate: 2020-07-16T12:00:00+01:00
 tags: ['aws', 's3', 'bash', 'whiptail']
 draft: false
+cover: https://ac93.uk/img/articles/s3-db-dump-sync/screenshot.png
 ---
 
 For better or worse, we download a backup of production database (`mysqldump` in a lambda, but that's not important) and import it into our local development machine.

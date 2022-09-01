@@ -5,6 +5,7 @@ summary: "An interactive CLI for logging server audits in `bash` with `whiptail 
 publishDate: 2020-01-18T12:00:00+01:00
 tags: ['bash', 'whiptail', 'logger']
 draft: false
+cover: https://ac93.uk/img/articles/server-checks/screens/04.png
 ---
 
 ![whiptail](/img/articles/server-checks/screens/whiptail.png)

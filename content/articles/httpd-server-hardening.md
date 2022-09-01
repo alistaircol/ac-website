@@ -5,6 +5,7 @@ summary: "Some tips I picked up to make sites hosted on Apache `httpd` servers m
 publishDate: 2020-06-09T12:00:00+01:00
 tags: ['httpd']
 draft: false
+cover: https://ac93.uk/img/unsplash/philipp-katzenberger-iIJrUoeRoCQ-unsplash.jpg
 ---
 
 Some things from a security audit that were brought up and can effect many sites by default.
