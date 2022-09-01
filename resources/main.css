@@ -149,3 +149,7 @@ nav ul {
 nav a {
     @apply font-bold text-3xl underline underline-offset-8 decoration-blue-300;
 }
+
+div.highlight td {
+    @apply max-w-4xl;
+}
