@@ -47,11 +47,9 @@
       {{end}}
       <guid>{{ .Permalink }}</guid>
       <description>{{ .Summary | plainify }}</description>
-      <categories>
-        {{ range .Params.tags }}
-        <category>{{ . }}</category>
-        {{ end }}
-      </categories>
+      {{ range .Params.tags }}
+      <category>{{ . }}</category>
+      {{ end }}
     </item>
     {{ end }}
   </channel>
