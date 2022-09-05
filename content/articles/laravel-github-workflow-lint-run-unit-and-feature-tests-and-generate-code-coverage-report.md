@@ -1,6 +1,6 @@
 ---
-title: "Create a GitHub workflow to run linters, Laravel tests, and generate coverage report"
-summary: "Create a GitHub workflow to run linters (e.g. `phplint`, `phpcs`), run Laravel unit and feature tests, and finally generate a code coverage report."
+title: "Create a GitHub workflow to run linters, tests, and generate coverage report"
+summary: "Create and configure a GitHub workflow to run linters (e.g. `phplint`, `phpcs`), run unit and feature tests (e.g. `php artisan test`), and finally generate a code coverage report or some other artifact."
 author: "Ally"
 publishDate: 2022-09-05T17:40:52+0100
 tags: ['laravel','github','phpunit']
