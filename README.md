@@ -6,6 +6,7 @@ Site built with `hugo` and a tailwind theme, based from the [papercss](https://t
 
 | Function | Class | Color |
 |-|-|
+| background | `ac-background` | `#1d1e20` | 
 | text | `gray-400` | `#9ca3af` |
 | link, titles | `white` | `#ffffff` |
 | accent | `gray-800` | `#1f2937` |
