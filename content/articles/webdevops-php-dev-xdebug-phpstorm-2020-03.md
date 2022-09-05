@@ -15,7 +15,7 @@ My previous go-to configuration for xDebug using the `webdevops/php-dev:7.3` ima
 
 `.env` file loaded in `docker-compose` but would work in `docker run`:
 
-```dotenv
+```
 PHP_DEBUGGER=xdebug
 XDEBUG_REMOTE_AUTOSTART=1
 XDEBUG_REMOTE_CONNECT_BACK=0
@@ -30,7 +30,7 @@ Recently started using version 7.4 and this image uses xDebug 3, which includes 
 
 The equivalent `.env` file to get the same end result from the previous version is:
 
-```dotenv
+```
 PHP_DEBUGGER="xdebug"
 XDEBUG_MODE="develop,debug"
 XDEBUG_CLIENT_HOST="192.168.1.6"

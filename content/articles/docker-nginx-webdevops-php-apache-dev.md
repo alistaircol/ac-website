@@ -45,7 +45,7 @@ I have a standard `web.env` for some config for our apps and some environemnt se
 
 `web.env`:
 
-```dotenv
+```
 # https://dockerfile.readthedocs.io/en/latest/content/DockerImages/dockerfiles/php-apache-dev.html
 PHP_DEBUGGER=xdebug
 XDEBUG_REMOTE_AUTOSTART=1
@@ -62,7 +62,7 @@ And a `.env` file for each container, i.e. `api.env`.
 
 `api.env`:
 
-```dotenv
+```
 # https://dockerfile.readthedocs.io/en/latest/content/DockerImages/dockerfiles/php-apache-dev.html
 WEB_DOCUMENT_ROOT=/var/www/html/api/public
 XDEBUG_REMOTE_PORT=9101
