@@ -1,6 +1,14 @@
 {{ define "main" }}
 
-<h1>{{ .Title }}</h1>
-{{ .Content }}
+<div class="flex items-center justify-center">
+    <img class="" src="{{ .Page.Params.Cover }}" alt="">
+</div>
+
+<div>
+    <div class="mx-auto max-w-7xl py-16 px-4 sm:py-24 sm:px-6 lg:flex lg:justify-between lg:px-8 flex-col">
+        <h2 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">{{ .Title }}</h2>
+        <section class="mt-5 text-xl text-gray-400 space-y-6">{{ .Content }}</section>
+    </div>
+</div>
 
 {{ end }}
