@@ -1,7 +1,7 @@
 ---
 title: "Headless screenshot of a chart in Laravel with Browsershot and S3 upload"
 author: "Ally"
-summary: "Generate and save a `Chart.js` chart in Laravel with Browsershot and upload it to S3"
+summary: "Generate and save a blade component containing a `Chart.js` chart in Laravel (without controller bloat) using Browsershot, and then upload it to S3."
 publishDate: 2022-08-25T15:00:07+0100
 tags: ['laravel','chartjs','browsershot']
 cover: https://ac93.uk/img/articles/laravel-chartjs-browsershot/chart_example_for_blog.png

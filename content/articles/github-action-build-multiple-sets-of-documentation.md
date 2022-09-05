@@ -1,7 +1,7 @@
 ---
-title: "Setting up CI to build and release multiple sets of documentation for a project"
+title: "Setting up CI to build and release multiple sets of documentation from an OpenAPI spec"
 author: "Ally"
-summary: "Learn how to set up GitHub action to build documentation (PHP, OpenAPI) from multiple generators and consolidate them all into a single `gh-pages` branch"
+summary: "Learn how to set up a GitHub workflow to build documentation for a generated PHP SDK from multiple generators, and consolidate them all into a single `gh-pages` branch."
 publishDate: 2022-08-26T18:06:53+0100
 tags: ['github','php','openapi','apigen','doctum','doxygen','phpdoc','taskfile']
 cover: https://ac93.uk/img/articles/github-action-build-multiple-sets-of-documentation/doc_apigen.png
@@ -513,6 +513,8 @@ It is currently just set up to run manually, but you can specify on tag, branch,
 ```
 
 This will create a branch for each of the documentation generators. These can be cloned and checked out to the branch if desired.
+
+**Note** an alternative method to creating a branch could be to create an [artifact](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts) instead.
 
 Another job to consolidate the branches into a single branch:
 

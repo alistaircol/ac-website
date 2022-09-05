@@ -1,7 +1,7 @@
 ---
 title: "Consume raw SQS messages from another application with Laravel's queue"
 author: "Ally"
-summary: "Easily consume arbitrary raw AWS SQS messages by another application in your Laravel application's queue with a `Job` and `queue` configuration."
+summary: "Easily consume arbitrary raw AWS SQS messages produced by another application in your Laravel application's queue with a `Job` and `queue` configuration."
 publishDate: 2022-08-27T13:37:44+0100
 tags: ['laravel','aws','sqs']
 cover: https://ac93.uk/img/articles/laravel-consume-raw-sqs-messages/consumer.png

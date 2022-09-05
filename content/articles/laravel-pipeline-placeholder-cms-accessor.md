@@ -1,7 +1,7 @@
 ---
-title: "Laravel pipeline to replace CMS content placeholders with values"
+title: "Using Laravel's pipeline to replace CMS content placeholders with values"
 author: "Ally"
-summary: "Use Laravel `Pipeline` with many `Pipe`s to replace arbitrary placeholders in DOM with computed values using a `Model`'s accessor"
+summary: "Use the Laravel `Pipeline` component with many `Pipe`s to replace arbitrary placeholders in DOM with computed values using a `Model`'s accessor"
 publishDate: 2022-08-25T13:13:51+0100
 tags: ['laravel','pipeline']
 ---

@@ -1,7 +1,7 @@
 ---
 title: "Tailwind CSS Breakpoints in Google Chrome Device Toolbar"
 author: "Ally"
-summary: "Testing Tailwind breakpoints by adding custom devices in Google Chrome's device toolbar"
+summary: "Setting up the Tailwind breakpoints by adding custom devices in Google Chrome's device toolbar for easier testing."
 publishDate: 2022-05-27T18:53:26+0100
 tags: [tailwind,tailwindcss]
 draft: false

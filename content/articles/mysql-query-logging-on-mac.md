@@ -1,7 +1,7 @@
 ---
 title: "MySQL query logging on Mac"
 author: "Ally"
-summary: "Enabling MySQL query logging on Mac (without Docker)"
+summary: "Enabling MySQL query logging on Mac (without Docker)."
 publishDate: 2021-05-17T17:54:18+0100
 tags: ['mysql']
 draft: false

@@ -1,7 +1,7 @@
 ---
 title: "Using Terraform to provision & configure infrastructure - AWS S3 website bucket hosting & Cloudflare DNS updates"
 author: "Ally"
-summary: "Create an AWS S3 and corresponding CNAME in Cloudflare for static site hosting using 'infrastructure as code' using Terraform"
+summary: "Create an AWS S3 and corresponding CNAME in Cloudflare for static site hosting using 'infrastructure as code' using Terraform."
 publishDate: 2020-12-15T00:00:00+01:00
 tags: ['aws', 's3', 'terraform', 'cloudflare']
 draft: false

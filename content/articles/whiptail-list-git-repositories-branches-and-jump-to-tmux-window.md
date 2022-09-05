@@ -1,7 +1,7 @@
 ---
 title: "Using whiptail to show the active git branch for a set of git repositories"
 author: "Ally"
-summary: "List the active `git branch` for a set of `git` repositories in `whiptail`, then jump to the repository's `tmux` window"
+summary: "List the active `git branch` for a set of `git` repositories in `whiptail`, then jump to the selected repository's `tmux` window"
 publishDate: 2022-06-06T20:18:44+0100
 tags: ['git', 'tmux', 'whiptail']
 cover: https://ac93.uk/img/articles/whiptail-git-branches-tmux/whiptail-tmux-list.png

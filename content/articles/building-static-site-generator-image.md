@@ -1,7 +1,7 @@
 ---
 title: "Building an image for static site generator output"
 author: "Ally"
-summary: "Bundling the generated output from a static site generator into a simple static file server for testing"
+summary: "Bundling the generated output from a static site generator (e.g. `hugo`) into a simple static file server (e.g. `caddy`) for testing the build."
 publishDate: 2021-07-12T21:01:31+0100
 tags: ['hugo', 'docker', 'caddy']
 draft: false

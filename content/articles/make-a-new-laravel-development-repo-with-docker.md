@@ -1,7 +1,7 @@
 ---
 title: "Creating a fresh Laravel installation with Docker"
 author: "Ally"
-summary: "A command I've used a few times to install a fresh Laravel project into the cwd's src/ folder, leaving the cwd for your own README, Docker, Terraform, etc. files"
+summary: "A command I've used a few times to install a fresh Laravel project into the cwd's src/ folder, leaving the cwd for your own README, Docker, Terraform, etc. files."
 publishDate: 2021-05-14T19:28:30+01:00
 tags: ['laravel', 'docker', 'php', 'composer']
 ---
@@ -40,4 +40,3 @@ This `composer` image comes with PHP 8 - if that's a problem, I've used `thecodi
 Bonus aside: I finally got around to making a helper to make a blog post. 
 
 ![make article](/img/articles/make-article.png)
-

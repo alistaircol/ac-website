@@ -1,7 +1,7 @@
 ---
 title: "Send a templated WhatsApp message through Twilio in Laravel"
 author: "Ally"
-summary: "Send a message template containing emoji from Twilio in Laravel"
+summary: "Send a message template containing emoji from Twilio in Laravel."
 publishDate: 2022-08-30T16:58:02+0100
 tags: ['laravel','whatsapp','twilio']
 cover: https://ac93.uk/img/unsplash/dimitri-karastelev-ynJaWgrwSlM-unsplash.jpg

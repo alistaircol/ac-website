@@ -1,7 +1,7 @@
 ---
 title: "Building and hosting a full CI & CD containerised Laravel application"
 author: "Ally"
-summary: "I've hosted many apps. I've set up CI to build containers. But I've never figured out the continuous deployment part, until now."
+summary: "I've hosted many apps. I've set up CI to build containers. But I've never figured out the continuous deployment part, until now. I will use `watchtower` in a GitHub workflow to trigger the image update and restart the container."
 publishDate: 2021-12-04T12:00:00+01:00
 tags: ['github', 'ci', 'cd', 'traefik', 'watchtower']
 draft: false

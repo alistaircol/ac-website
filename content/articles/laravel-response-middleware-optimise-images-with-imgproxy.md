@@ -1,7 +1,7 @@
 ---
 title: "A Laravel middleware to optimise images with imgproxy on arbitrary markup"
 author: "Ally"
-summary: "Laravel middleware to parse the response DOM and update `img`'s `src` to be routed through `imgproxy`."
+summary: "Create a Laravel middleware to parse the response DOM and update a set of `img`'s `src` to be routed through `imgproxy`."
 publishDate: 2022-08-25T12:22:31+0100
 tags: ['laravel','imgproxy']
 draft: false

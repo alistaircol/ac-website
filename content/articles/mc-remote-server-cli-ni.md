@@ -1,7 +1,7 @@
 ---
 title: "Connecting to a remote server with mc"
 author: "Ally"
-summary: "Connect to a remote server with mc from command line (non-interactive)"
+summary: "Connect to a remote server with mc from command line (non-interactive)."
 publishDate: 2021-05-18T17:26:58+0100
 tags: ['mc']
 draft: false

@@ -1,7 +1,7 @@
 ---
 title: "Building a database as private Docker image with structure and data for CI"
 author: "Ally"
-summary: "Building a private Docker image with custom structure and data, for a legacy app for a slightly easier CI pipeline"
+summary: "Building a private Docker image with custom structure and data, for a legacy app for a slightly easier CI pipeline."
 publishDate: 2020-12-08T12:00:00+01:00
 tags: ['mysql', 'docker', 'ci']
 draft: false

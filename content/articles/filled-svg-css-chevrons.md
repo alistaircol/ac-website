@@ -1,7 +1,7 @@
 ---
 title: "Making filled triangle SVG with CSS"
 author: "Ally"
-summary: "Understanding basic SVG path and viewbox for a simple filled triangle"
+summary: "Understanding basic SVG `path` and `viewbox` for a simple filled triangle."
 publishDate: 2021-05-18T22:00:56+0100
 tags: ['css', 'svg']
 draft: false
