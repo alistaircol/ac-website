@@ -7,161 +7,169 @@ html {
 }
 
 body {
-    @apply container mx-auto border border-white text-white px-8 pb-8 mb-16;
+    @apply container mx-auto text-white border-white border-l border-r border-b mb-16;
+}
+
+main {
+    @apply block px-8 pb-8;
 }
 
 .to-top {
     @apply bg-ac-background z-50 fixed bottom-8 right-0 sm:right-8 border-2 border-white rounded-full h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center;
 }
 
-h1 {
-    @apply font-bold text-3xl pb-4 underline underline-offset-8 decoration-blue-300;
-}
+/*h1 {*/
+/*    @apply font-bold text-3xl pb-4 underline underline-offset-8 decoration-blue-300;*/
+/*}*/
 
-h2 {
-    @apply font-semibold text-2xl pb-4 underline underline-offset-4 decoration-blue-300;
-}
+/*h2 {*/
+/*    @apply font-semibold text-2xl pb-4 underline underline-offset-4 decoration-blue-300;*/
+/*}*/
 
-h3 {
-    @apply font-medium text-xl pb-4 underline underline-offset-2 decoration-blue-300;
-}
+/*h3 {*/
+/*    @apply font-medium text-xl pb-4 underline underline-offset-2 decoration-blue-300;*/
+/*}*/
 
-h4 {
-    @apply text-lg pb-4 underline underline-offset-1 decoration-blue-300;
-}
+/*h4 {*/
+/*    @apply text-lg pb-4 underline underline-offset-1 decoration-blue-300;*/
+/*}*/
 
-h5 {
-    @apply text-base pb-4 underline underline-offset-0 decoration-blue-300;
-}
+/*h5 {*/
+/*    @apply text-base pb-4 underline underline-offset-0 decoration-blue-300;*/
+/*}*/
 
-p {
-    @apply text-xl mb-2 leading-5;
-}
+/*p {*/
+/*    @apply text-xl mb-2 leading-5;*/
+/*}*/
 
-a {
-    @apply text-white underline decoration-blue-300 decoration-dotted;
-}
+/*a {*/
+/*    @apply text-white underline decoration-blue-300 decoration-dotted;*/
+/*}*/
 
-.tags {
-    @apply flex flex-row space-x-2 py-4;
-}
+/*.tags {*/
+/*    @apply flex flex-row space-x-2 py-4;*/
+/*}*/
 
-.tags a {
-    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2 border-2 border-blue-300 border-t-0 border-l-0;
-}
+/*.tags a {*/
+/*    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2 border-2 border-blue-300 border-t-0 border-l-0;*/
+/*}*/
 
-.tags a .badge {
-    @apply text-white;
-}
+/*.tags a .badge {*/
+/*    @apply text-white;*/
+/*}*/
 
-code {
-    @apply text-blue-300 text-lg bg-ac-pre-background py-0.5 px-1;
-}
+/*code {*/
+/*    @apply text-blue-300 text-lg bg-ac-pre-background py-0.5 px-1;*/
+/*}*/
 
-.highlight {
-    @apply my-8;
-}
+/*.highlight {*/
+/*    @apply my-8;*/
+/*}*/
 
-.highlight pre {
-    @apply m-0 p-4 overflow-auto;
-}
+/*.highlight pre {*/
+/*    @apply m-0 p-4 overflow-auto;*/
+/*}*/
 
-.highlight pre code {
-    @apply m-0 p-0 text-lg text-white bg-ac-pre-background;
-}
+/*.highlight pre code {*/
+/*    @apply m-0 p-0 text-lg text-white bg-ac-pre-background;*/
+/*}*/
 
-hr {
-    @apply mx-auto w-full border border-dashed border-blue-300 my-4;
-}
+/*hr {*/
+/*    @apply mx-auto w-full border border-dashed border-blue-300 my-4;*/
+/*}*/
 
-ul {
-    @apply text-xl leading-5 py-4 list-inside list-disc;
-}
+/*ul {*/
+/*    @apply text-xl leading-5 py-4 list-inside list-disc;*/
+/*}*/
 
-ol {
-    @apply text-xl leading-5 py-4 list-inside list-decimal;
-}
+/*ol {*/
+/*    @apply text-xl leading-5 py-4 list-inside list-decimal;*/
+/*}*/
 
-ul ul {
-    @apply py-0 mx-6;
-}
+/*ul ul {*/
+/*    @apply py-0 mx-6;*/
+/*}*/
 
-.toc {
-    @apply p-4 mb-8;
-}
+/*.toc {*/
+/*    @apply p-4 mb-8;*/
+/*}*/
 
-.toc ol {
-    @apply py-0;
-}
+/*.toc ol {*/
+/*    @apply py-0;*/
+/*}*/
 
-.toc li {
-    @apply py-0 px-2;
-}
+/*.toc li {*/
+/*    @apply py-0 px-2;*/
+/*}*/
 
-main p img {
-    @apply object-contain pb-4;
-}
+/*main p img {*/
+/*    @apply object-contain pb-4;*/
+/*}*/
 
-dl {
-    @apply flex flex-col;
-}
+/*dl {*/
+/*    @apply flex flex-col;*/
+/*}*/
 
-dt {
-    @apply font-semibold text-2xl underline underline-offset-4 decoration-blue-300 pb-2;
-}
+/*dt {*/
+/*    @apply tracking-tighter font-light text-2xl underline underline-offset-4 decoration-blue-300 pb-2;*/
+/*}*/
 
-dd {
-    @apply pb-4;
-}
+/*dd {*/
+/*    @apply pb-4;*/
+/*}*/
 
-section.terms {
-    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 pt-4;
-}
+/*li {*/
+/*    @apply tracking-tighter font-light;*/
+/*}*/
 
-section.terms div.term {
-    @apply flex flex-row space-x-4 items-center;
-}
+/*section.terms {*/
+/*    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 pt-4;*/
+/*}*/
 
-section.terms a {
-    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2 border-2 border-blue-300 border-t-0 border-l-0;
-}
+/*section.terms div.term {*/
+/*    @apply flex flex-row space-x-4 items-center;*/
+/*}*/
 
-div.image {
-    @apply flex justify-center;
-}
+/*section.terms a {*/
+/*    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2 border-2 border-blue-300 border-t-0 border-l-0;*/
+/*}*/
 
-nav {
-    @apply flex flex-wrap justify-between my-8 px-4 items-center space-x-4;
-}
+/*div.image {*/
+/*    @apply flex justify-center;*/
+/*}*/
 
-nav div.nav-brand {
-    @apply flex items-center font-bold text-3xl underline underline-offset-8 decoration-blue-300;
-}
+/*nav {*/
+/*    @apply flex flex-wrap justify-between my-8 px-4 items-center space-x-4;*/
+/*}*/
 
-nav div.collapsible {
-    @apply flex flex-grow justify-end;
-}
+/*nav div.nav-brand {*/
+/*    @apply flex items-center font-bold text-3xl underline underline-offset-8 decoration-blue-300;*/
+/*}*/
 
-nav ul {
-    @apply list-none;
-}
+/*nav div.collapsible {*/
+/*    @apply flex flex-grow justify-end;*/
+/*}*/
 
-nav a {
-    @apply font-bold text-3xl underline underline-offset-8 decoration-blue-300;
-}
+/*nav ul {*/
+/*    @apply list-none;*/
+/*}*/
 
-div.highlight td {
-    @apply max-w-4xl;
-}
+/*nav a {*/
+/*    @apply font-bold text-3xl underline underline-offset-8 decoration-blue-300;*/
+/*}*/
 
-.post-tags {
-    @apply flex flex-row space-x-2 pb-4;
-}
+/*div.highlight td {*/
+/*    @apply max-w-4xl;*/
+/*}*/
 
-.post-tags a {
-    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2;
-}
+/*.post-tags {*/
+/*    @apply flex flex-row space-x-2 pb-4;*/
+/*}*/
 
-.post-tags a .badge {
-    @apply text-white;
-}
+/*.post-tags a {*/
+/*    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2;*/
+/*}*/
+
+/*.post-tags a .badge {*/
+/*    @apply text-white;*/
+/*}*/
