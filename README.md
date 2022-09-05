@@ -2,6 +2,15 @@
 
 Site built with `hugo` and a tailwind theme, based from the [papercss](https://themes.gohugo.io/theme/papercss-hugo-theme/) theme.
 
+## Colors
+
+| Function | Class | Color |
+|-|-|
+| text | `gray-400` | `#9ca3af` |
+| link, titles | `white` | `#ffffff` |
+| accent | `gray-800` | `#1f2937` |
+| code | `sky-500` | `#0ba5e9` |
+
 Everything below here needs reworked.
 
 ## Build/Develop

@@ -1,49 +1,50 @@
 {{ define "main" }}
 
-<h1>{{ .Title }}</h1>
+<h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl mb-3">{{ .Title }}</h1>
+
 {{ .Content }}
 
-<div class="space-y-3 divide-y-2 divide-white">
+<div class="space-y-3 divide-dashed divide-y-2 divide-gray-800">
     {{ $pages := .Pages }}
     {{ range $pages.ByPublishDate.Reverse }}
 
-    <div class="">
-        <a href="{{ .Permalink }}" class="no-underline block {{ if ne .Params.show_summary false }}summary{{ end }}">
-            <div class="py-4">
-                <div class="flex items-center justify-between">
-                    <h2 class="">{{ .Title }}</h2>
+    <div class="py-4">
+        <div class="flex items-center justify-between">
+            <a href="{{ .Permalink }}" class="no-underline block {{ if ne .Params.show_summary false }}summary{{ end }}">
+                <h2 class="text-xl underline">{{ .Title }}</h2>
+            </a>
+        </div>
+        <div class="flex space-x-4 text-gray-400">
+            <div class="flex-grow space-y-3">
+                {{ if ne .Params.show_summary false }}
+                <div class="flex-grow justify-start no-underline list-summary">
+                    {{ .Summary }}
                 </div>
-                <div class="flex flex-grow space-x-4">
-                    {{ if ne .Params.show_summary false }}
-                    <div class="flex flex-grow justify-start no-underline">
-                        {{ .Summary }}
-                    </div>
-                    {{ end }}
+                {{ end }}
 
-                    <div class="flex-shrink-0 flex items-center justify-end text-sm text-gray-500">
-                        <!-- Heroicon name: mini/calendar -->
-                        <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
-                        </svg>
-                        <div>
-                            Published
-                            <time datetime="{{ .PublishDate.Format "2006-01-02 15:04" }}">{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04" }}</time>
-                        </div>
-                    </div>
-                </div>
                 {{ with .Params.tags }}
                 <div class="flex space-x-0 gap-x-3 px-0 mx-0">
                     {{ range . }}
-                    <div>
-                        <a class="block no-underline" href="{{ "tags/" | absURL }}{{ . | urlize }}">
-                            <span class="inline-flex items-center rounded-md bg-indigo-100 px-2.5 py-0.5 text-sm font-medium text-indigo-800">{{ . }}</span>
-                        </a>
-                    </div>
+                    <span class="inline-flex items-center rounded-md bg-gray-800 px-2.5 py-0.5 text-sm font-medium text-gray-800">
+                        <a class="text-white block no-underline" href="{{ "tags/" | absURL }}{{ . | urlize }}">{{ . }}</a>
+                    </span>
                     {{ end }}
                 </div>
                 {{ end }}
             </div>
-        </a>
+
+            <div class="flex-shrink-0 flex items-center justify-end text-sm text-white">
+                <!-- Heroicon name: mini/calendar -->
+                <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
+                </svg>
+                <div>
+                    Published
+                    <time datetime="{{ .PublishDate.Format "2006-01-02 15:04" }}">{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04" }}</time>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     {{ end }}

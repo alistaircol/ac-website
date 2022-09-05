@@ -78,17 +78,29 @@ main {
 /*    @apply mx-auto w-full border border-dashed border-blue-300 my-4;*/
 /*}*/
 
-/*ul {*/
-/*    @apply text-xl leading-5 py-4 list-inside list-disc;*/
-/*}*/
+main ul {
+    @apply leading-5 py-4 list-inside list-disc;
+}
 
-/*ol {*/
-/*    @apply text-xl leading-5 py-4 list-inside list-decimal;*/
-/*}*/
+main ol {
+    @apply leading-5 py-4 list-inside list-decimal;
+}
 
-/*ul ul {*/
-/*    @apply py-0 mx-6;*/
-/*}*/
+main ul ul {
+    @apply py-0 mx-6;
+}
+
+main {
+    @apply text-gray-400;
+}
+
+main a {
+    @apply text-white underline;
+}
+
+.list-summary code {
+    @apply text-sky-500;
+}
 
 /*.toc {*/
 /*    @apply p-4 mb-8;*/
