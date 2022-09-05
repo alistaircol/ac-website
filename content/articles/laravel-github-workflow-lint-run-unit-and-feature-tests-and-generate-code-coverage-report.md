@@ -10,7 +10,7 @@ draft: false
 
 ## Overview
 
-I will summarise how I set up a workflow containing, with some optimisations to:
+I will summarise how I set up a workflow, with some optimisations to:
 
 * `lint`: run QA checks, and then
 * `test`: run test suite in a Laravel app
