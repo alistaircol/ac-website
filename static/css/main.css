@@ -589,10 +589,6 @@ Ensure the default browser behavior of the `hidden` attribute.
   margin-bottom: 1rem;
 }
 
-.mb-6 {
-  margin-bottom: 1.5rem;
-}
-
 .block {
   display: block;
 }
@@ -1137,6 +1133,8 @@ main {
   padding-left: 2rem;
   padding-right: 2rem;
   padding-bottom: 2rem;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
 .to-top {
@@ -1231,23 +1229,31 @@ main {
 
 /*}*/
 
-/*.highlight {*/
+.highlight {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
 
-/*    @apply my-8;*/
+.highlight pre {
+  margin: 0px;
+  overflow: auto;
+  padding: 1rem;
+}
 
-/*}*/
+.highlight pre code {
+  margin: 0px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(39 40 34 / var(--tw-bg-opacity));
+  padding: 0px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
 
-/*.highlight pre {*/
-
-/*    @apply m-0 p-4 overflow-auto;*/
-
-/*}*/
-
-/*.highlight pre code {*/
-
-/*    @apply m-0 p-0 text-lg text-white bg-ac-pre-background;*/
-
-/*}*/
+div.highlight td {
+  max-width: 56rem;
+}
 
 hr {
   margin-left: auto;
@@ -1264,16 +1270,12 @@ hr {
 main ul {
   list-style-position: inside;
   list-style-type: disc;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
   line-height: 1.25rem;
 }
 
 main ol {
   list-style-position: inside;
   list-style-type: decimal;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
   line-height: 1.25rem;
 }
 
@@ -1403,12 +1405,6 @@ main a {
 
 /*}*/
 
-/*div.highlight td {*/
-
-/*    @apply max-w-4xl;*/
-
-/*}*/
-
 /*.post-tags {*/
 
 /*    @apply flex flex-row space-x-2 pb-4;*/
@@ -1427,9 +1423,84 @@ main a {
 
 /*}*/
 
+/*article content headers*/
+
 article h2 {
+  display: flex;
+  align-items: center;
+}
+
+article h2 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+  margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
+article h2 {
+  padding-bottom: 1rem;
+  padding-top: 1.5rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
+
+/*article content header pilcrow*/
+
+article h2 a.hanchor {
+  margin-left: 0.5rem;
+  display: inline-block;
+  --tw-text-opacity: 1;
+  color: rgb(14 165 233 / var(--tw-text-opacity));
+}
+
+/*some spacing between article nodes*/
+
+article p, article ul {
+  margin-bottom: 0.5rem;
+}
+
+/*inline links have default styling*/
+
+article a {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  -webkit-text-decoration-line: underline;
+          text-decoration-line: underline;
+}
+
+/*inline code has similar style to tags*/
+
+article code {
+  border-radius: 0.375rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+/*inline code with link*/
+
+/*TODO: if this has code then change the underline color*/
+
+article a code {
+  border-radius: 0.375rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+  --tw-text-opacity: 1;
+  color: rgb(14 165 233 / var(--tw-text-opacity));
+  -webkit-text-decoration-line: none;
+          text-decoration-line: none;
 }
 
 .focus-within\:ring-2:focus-within {

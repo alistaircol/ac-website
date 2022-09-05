@@ -4,6 +4,8 @@
 
 {{ .Content }}
 
+<hr />
+
 <div class="space-y-3 divide-dashed divide-y-2 divide-gray-800">
     {{ $pages := .Pages }}
     {{ range $pages.ByPublishDate.Reverse }}
