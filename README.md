@@ -94,3 +94,9 @@ docker run --rm --interactive --tty --user=$(id -u) --volume="$(pwd):/src" klake
 
 Total in 58 ms
 ```
+
+Sane WebStorm/PHP committing:
+
+`Preferences > Version Control > Commit`
+
+* Check `Use non-modal commit interface`
