@@ -10,12 +10,10 @@ draft: false
 
 ## Overview
 
-I will summarise how I set up a workflow containing 2 jobs, containing some optimisations.
+I will summarise how I set up a workflow containing, with some optimisations to:
 
-The two jobs are:
-
-* `lint`
-* `test`
+* `lint`: run QA checks, and then
+* `test`: run test suite in a Laravel app
 
 In my scenario I run the following steps for each job:
 
@@ -23,10 +21,10 @@ In my scenario I run the following steps for each job:
   * [`overtrue/phplint`](https://github.com/overtrue/phplint): lints `php` files in parallel
   * [`squizlabs/php_codesniffer`](https://github.com/squizlabs/PHP_CodeSniffer): detects coding standard violations
 * `test`:
-  * `php artisan test`
-  * `XDEBUG_MODE=coverage composer exec phpunit`
+  * `php artisan test`: run test suite
+  * `XDEBUG_MODE=coverage composer exec phpunit`: generate code test coverage report
 
-I will not go into detail on the configuration for `lint`, however for `test` there are some things I will mention regarding:
+I will not go into detail on the configuration for `lint` steps, however for `test` there are some things I will mention regarding:
 
 * `phpunit.xml`
 * environment file
@@ -73,9 +71,9 @@ jobs:
     runs-on: ubuntu-latest
 ```
 
-### Optional: composer auth for pulling in a private package
+## Optional: composer auth for pulling in a private package
 
-This is a Laravel project and in it, I am using a private package, i.e.
+In my project I am using a private package (an API SDK to be precise, you can read more about that [here](https://ac93.uk/articles/github-action-build-multiple-sets-of-documentation/)):
 
 `composer.json`:
 
@@ -122,7 +120,7 @@ Please make sure you have the correct access rights
 and the repository exists.
 ```
 
-## Job to Lint continued
+## Job to lint... continued
 
 ```yaml {linenos=true, linenostart=17, hl_lines=[11,14,15,16,17]}
     steps:
@@ -266,6 +264,56 @@ APP_URL=https://pet-store.ac93.uk
 
 DB_CONNECTION=sqlite
 ```
+
+## Optional: note on migrations
+
+You might run into some issues when running an `alter table` query.
+
+I was adding a new column to a table which was implicitly not nullable `nullable(false)`, but didn't have an explicit `default`.
+
+This works just fine for `mysql`, and for me in `sqlite` it worked, however in `sqlite` in the github worker, it didn't!
+
+I found a solution in this stackoverflow [thread](https://stackoverflow.com/questions/20822159/laravel-migration-with-sqlite-cannot-add-a-not-null-column-with-default-value-n):
+
+`database/migrations/whatever.php`:
+
+```php {linenos=true, hl_lines=[12,13,14,17,18]}
+<?php
+
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    public function up()
+    {
+        $driver = Schema::connection($this->getConnection())
+            ->getConnection()
+            ->getDriverName();
+
+        Schema::table('pets', function (Blueprint $table) use ($driver) {
+            if ($driver === 'sqlite') {
+                $table->uuid('uuid')->default('');
+            } else {
+                $table->uuid('uuid')->unique()->after('id');
+            }
+        });
+    }
+
+    public function down()
+    {
+        Schema::table('pets', function (Blueprint $table) {
+            $table->dropColumn('uuid');
+        });
+    }
+}
+```
+
+There is likely some more elegant solution, but this is good enough for me, for now.
+
+## Job to test... continued
 
 These commands will get the test suite ready:
 
