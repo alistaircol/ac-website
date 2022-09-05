@@ -217,3 +217,7 @@ article code {
 article a code {
     @apply bg-gray-800 px-2.5 py-0.5 text-sky-500 no-underline rounded-md;
 }
+
+th {
+    @apply text-sky-500 underline;
+}

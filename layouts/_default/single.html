@@ -1,6 +1,31 @@
 {{ define "main" }}
 
-<h1>{{ .Title }}</h1>
+<h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl mb-3">{{ .Title }}</h1>
+
+<div class="my-4">
+    {{ $dateFormat := $.Site.Params.dateFormat | default "Jan 2, 2006" }}
+    <div class="flex items-center text-white">
+        <!-- Heroicon name: mini/calendar -->
+        <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
+        </svg>
+        <div>Published: <time datetime="{{ .PublishDate.Format "2006-01-02 15:04" }}">{{ .PublishDate.Format $dateFormat }}</time></div>
+    </div>
+
+    <div class="flex items-center text-white">
+        <!-- Heroicon name: outline/pencil -->
+        <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+        </svg>
+
+        <div>Author: {{ .Params.author }}</div>
+    </div>
+</div>
+
+{{ if ne .Params.toc false }}
+{{ partial "toc.html" . }}
+{{ end }}
+
 {{ .Content }}
 
 {{ end }}
