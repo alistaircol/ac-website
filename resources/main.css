@@ -74,9 +74,9 @@ main {
 /*    @apply m-0 p-0 text-lg text-white bg-ac-pre-background;*/
 /*}*/
 
-/*hr {*/
-/*    @apply mx-auto w-full border border-dashed border-blue-300 my-4;*/
-/*}*/
+hr {
+    @apply mx-auto w-full border border-dashed border-sky-500 my-4;
+}
 
 main ul {
     @apply leading-5 py-4 list-inside list-disc;
@@ -185,3 +185,7 @@ main a {
 /*.post-tags a .badge {*/
 /*    @apply text-white;*/
 /*}*/
+
+article h2 {
+    @apply text-white;
+}
