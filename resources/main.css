@@ -79,7 +79,7 @@ div.highlight td {
 }
 
 hr {
-    @apply mx-auto w-full border border-dashed border-sky-500 my-4;
+    @apply mx-auto w-full border border-dashed border-gray-800 my-4;
 }
 
 main ul {
