@@ -6,6 +6,10 @@ cover: https://ac93.uk/img/unsplash/mohammad-rahmani-cY1SvvEfRwk-unsplash.jpg
 
 [Ally](https://github.com/alistaircol) is a capable full stack web developer, favouring back-end development with many years of PHP experience with Laravel, CakePHP, and various PHP packages. Keen on dev-ops and automation; also comfortable with Linux, Docker, Terraform, Ansible, and core AWS services.
 
-Always keen to improve and learn new things. A full list of familiar concepts/methodologies/technologies/frameworks/packages are listed below:
+Always keen to improve and learn new things.
 
-<img alt="Skills" src="https://static.ac93.uk/resume/skills.png" />
+A full list of familiar concepts/methodologies/technologies/frameworks/packages are listed below (feel free to scroll).
+
+<div class="w-full max-h-96 border border-gray-400 border-dashed overflow-scroll">
+  <img class="object-none" alt="Skills" src="https://static.ac93.uk/resume/skills.png" />
+</div>
