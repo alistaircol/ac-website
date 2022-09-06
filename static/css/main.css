@@ -729,6 +729,10 @@ Ensure the default browser behavior of the `hidden` attribute.
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
 
+.grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 .flex-row {
   flex-direction: row;
 }
@@ -768,6 +772,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 .gap-x-3 {
   -moz-column-gap: 0.75rem;
        column-gap: 0.75rem;
+}
+
+.gap-y-2 {
+  row-gap: 0.5rem;
 }
 
 .space-y-6 > :not([hidden]) ~ :not([hidden]) {
@@ -980,6 +988,10 @@ Ensure the default browser behavior of the `hidden` attribute.
 
 .text-left {
   text-align: left;
+}
+
+.text-center {
+  text-align: center;
 }
 
 .text-4xl {
@@ -1604,6 +1616,10 @@ th {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .sm\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
   .sm\:items-stretch {
     align-items: stretch;
   }
@@ -1649,12 +1665,30 @@ th {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
+  .md\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
   .md\:items-center {
     align-items: center;
   }
 
+  .md\:justify-end {
+    justify-content: flex-end;
+  }
+
   .md\:justify-between {
     justify-content: space-between;
+  }
+
+  .md\:space-x-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(1rem * var(--tw-space-x-reverse));
+    margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  .md\:text-left {
+    text-align: left;
   }
 }
 
@@ -1671,8 +1705,36 @@ th {
     display: none;
   }
 
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .lg\:flex-row {
+    flex-direction: row;
+  }
+
+  .lg\:flex-col {
+    flex-direction: column;
+  }
+
+  .lg\:justify-end {
+    justify-content: flex-end;
+  }
+
   .lg\:justify-between {
     justify-content: space-between;
+  }
+
+  .lg\:space-x-4 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-x-reverse: 0;
+    margin-right: calc(1rem * var(--tw-space-x-reverse));
+    margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+  }
+
+  .lg\:space-y-0 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: calc(0px * calc(1 - var(--tw-space-y-reverse)));
+    margin-bottom: calc(0px * var(--tw-space-y-reverse));
   }
 
   .lg\:px-8 {
