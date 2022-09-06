@@ -1,21 +1,28 @@
 {{ $headings := findRE "<h2.*?>(.|\n])+?</h2>" .Content }}
 {{ if ge (len $headings) 2 }}
-<div class="child-borders">
-    <div class="toc border" aria-labelledby="toc-heading">
-        <h2 id="toc-heading">Table of contents</h2>
-        <ol>
-        {{ range $headings }}
-            <li>
-                {{ $id := findRE "id=\".*\"" . }}
-                {{ $id = index $id 0 }}
-                {{ $id = strings.TrimPrefix "id=\"" $id }}
-                {{ $id = strings.TrimSuffix "\"" $id }}
-                <a href="#{{ $id }}">
-                    {{ . | htmlUnescape | plainify }}
-                </a>
-            </li>
-        {{ end }}
-        </ol>
+<div id="table-of-contents" class="border border-gray-400 border-dashed py-2 px-4 mb-6" aria-labelledby="toc-heading">
+    <div class="flex space-x-2">
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-white">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+            </svg>
+        </div>
+        <div class="flex items-center">
+            <p class="text-2xl text-white">Table of Contents</p>
+        </div>
     </div>
+    <ol>
+    {{ range $headings }}
+        <li class="text-white">
+            {{ $id := findRE "id=\".*\"" . }}
+            {{ $id = index $id 0 }}
+            {{ $id = strings.TrimPrefix "id=\"" $id }}
+            {{ $id = strings.TrimSuffix "\"" $id }}
+            <a href="#{{ $id }}">
+                {{ . | htmlUnescape | plainify }}
+            </a>
+        </li>
+    {{ end }}
+    </ol>
 </div>
 {{ end }}
