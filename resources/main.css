@@ -7,56 +7,60 @@ html {
 }
 
 body {
-    @apply container mx-auto border border-white text-white px-8 pb-8 mb-16;
+    @apply container mx-auto text-white border-white border-l border-r border-b;
+}
+
+main {
+    @apply block px-8 pb-8 text-lg;
 }
 
 .to-top {
     @apply bg-ac-background z-50 fixed bottom-8 right-0 sm:right-8 border-2 border-white rounded-full h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center;
 }
 
-h1 {
-    @apply font-bold text-3xl pb-4 underline underline-offset-8 decoration-blue-300;
-}
+/*h1 {*/
+/*    @apply font-bold text-3xl pb-4 underline underline-offset-8 decoration-blue-300;*/
+/*}*/
 
-h2 {
-    @apply font-semibold text-2xl pb-4 underline underline-offset-4 decoration-blue-300;
-}
+/*h2 {*/
+/*    @apply font-semibold text-2xl pb-4 underline underline-offset-4 decoration-blue-300;*/
+/*}*/
 
-h3 {
-    @apply font-medium text-xl pb-4 underline underline-offset-2 decoration-blue-300;
-}
+/*h3 {*/
+/*    @apply font-medium text-xl pb-4 underline underline-offset-2 decoration-blue-300;*/
+/*}*/
 
-h4 {
-    @apply text-lg pb-4 underline underline-offset-1 decoration-blue-300;
-}
+/*h4 {*/
+/*    @apply text-lg pb-4 underline underline-offset-1 decoration-blue-300;*/
+/*}*/
 
-h5 {
-    @apply text-base pb-4 underline underline-offset-0 decoration-blue-300;
-}
+/*h5 {*/
+/*    @apply text-base pb-4 underline underline-offset-0 decoration-blue-300;*/
+/*}*/
 
-p {
-    @apply text-xl mb-2 leading-5;
-}
+/*p {*/
+/*    @apply text-xl mb-2 leading-5;*/
+/*}*/
 
-a {
-    @apply text-white underline decoration-blue-300 decoration-dotted;
-}
+/*a {*/
+/*    @apply text-white underline decoration-blue-300 decoration-dotted;*/
+/*}*/
 
-.tags {
-    @apply flex flex-row space-x-2 py-4;
-}
+/*.tags {*/
+/*    @apply flex flex-row space-x-2 py-4;*/
+/*}*/
 
-.tags a {
-    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2 border-2 border-blue-300 border-t-0 border-l-0;
-}
+/*.tags a {*/
+/*    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2 border-2 border-blue-300 border-t-0 border-l-0;*/
+/*}*/
 
-.tags a .badge {
-    @apply text-white;
-}
+/*.tags a .badge {*/
+/*    @apply text-white;*/
+/*}*/
 
-code {
-    @apply text-blue-300 text-lg bg-ac-pre-background py-0.5 px-1;
-}
+/*code {*/
+/*    @apply text-blue-300 text-lg bg-ac-pre-background py-0.5 px-1;*/
+/*}*/
 
 .highlight {
     @apply my-8;
@@ -67,101 +71,153 @@ code {
 }
 
 .highlight pre code {
-    @apply m-0 p-0 text-lg text-white bg-ac-pre-background;
-}
-
-hr {
-    @apply mx-auto w-full border border-dashed border-blue-300 my-4;
-}
-
-ul {
-    @apply text-xl leading-5 py-4 list-inside list-disc;
-}
-
-ol {
-    @apply text-xl leading-5 py-4 list-inside list-decimal;
-}
-
-ul ul {
-    @apply py-0 mx-6;
-}
-
-.toc {
-    @apply p-4 mb-8;
-}
-
-.toc ol {
-    @apply py-0;
-}
-
-.toc li {
-    @apply py-0 px-2;
-}
-
-main p img {
-    @apply object-contain pb-4;
-}
-
-dl {
-    @apply flex flex-col;
-}
-
-dt {
-    @apply font-semibold text-2xl underline underline-offset-4 decoration-blue-300 pb-2;
-}
-
-dd {
-    @apply pb-4;
-}
-
-section.terms {
-    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 pt-4;
-}
-
-section.terms div.term {
-    @apply flex flex-row space-x-4 items-center;
-}
-
-section.terms a {
-    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2 border-2 border-blue-300 border-t-0 border-l-0;
-}
-
-div.image {
-    @apply flex justify-center;
-}
-
-nav {
-    @apply flex flex-wrap justify-between my-8 px-4 items-center space-x-4;
-}
-
-nav div.nav-brand {
-    @apply flex items-center font-bold text-3xl underline underline-offset-8 decoration-blue-300;
-}
-
-nav div.collapsible {
-    @apply flex flex-grow justify-end;
-}
-
-nav ul {
-    @apply list-none;
-}
-
-nav a {
-    @apply font-bold text-3xl underline underline-offset-8 decoration-blue-300;
+    @apply m-0 p-0 text-base text-white bg-ac-pre-background;
 }
 
 div.highlight td {
     @apply max-w-4xl;
 }
 
-.post-tags {
-    @apply flex flex-row space-x-2 pb-4;
+hr {
+    @apply mx-auto w-full border border-dashed border-sky-500 my-4;
 }
 
-.post-tags a {
-    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2;
+main ul {
+    @apply leading-5 list-inside list-disc;
 }
 
-.post-tags a .badge {
-    @apply text-white;
+main ol {
+    @apply leading-5 list-inside list-decimal;
+}
+
+main ul ul {
+    @apply py-0 mx-6;
+}
+
+main {
+    @apply text-gray-400;
+}
+
+main a {
+    @apply text-white underline;
+}
+
+.list-summary code {
+    @apply text-sky-500;
+}
+
+/*.toc {*/
+/*    @apply p-4 mb-8;*/
+/*}*/
+
+/*.toc ol {*/
+/*    @apply py-0;*/
+/*}*/
+
+/*.toc li {*/
+/*    @apply py-0 px-2;*/
+/*}*/
+
+/*main p img {*/
+/*    @apply object-contain pb-4;*/
+/*}*/
+
+/*dl {*/
+/*    @apply flex flex-col;*/
+/*}*/
+
+/*dt {*/
+/*    @apply tracking-tighter font-light text-2xl underline underline-offset-4 decoration-blue-300 pb-2;*/
+/*}*/
+
+/*dd {*/
+/*    @apply pb-4;*/
+/*}*/
+
+/*li {*/
+/*    @apply tracking-tighter font-light;*/
+/*}*/
+
+/*section.terms {*/
+/*    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 pt-4;*/
+/*}*/
+
+/*section.terms div.term {*/
+/*    @apply flex flex-row space-x-4 items-center;*/
+/*}*/
+
+/*section.terms a {*/
+/*    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2 border-2 border-blue-300 border-t-0 border-l-0;*/
+/*}*/
+
+/*div.image {*/
+/*    @apply flex justify-center;*/
+/*}*/
+
+/*nav {*/
+/*    @apply flex flex-wrap justify-between my-8 px-4 items-center space-x-4;*/
+/*}*/
+
+/*nav div.nav-brand {*/
+/*    @apply flex items-center font-bold text-3xl underline underline-offset-8 decoration-blue-300;*/
+/*}*/
+
+/*nav div.collapsible {*/
+/*    @apply flex flex-grow justify-end;*/
+/*}*/
+
+/*nav ul {*/
+/*    @apply list-none;*/
+/*}*/
+
+/*nav a {*/
+/*    @apply font-bold text-3xl underline underline-offset-8 decoration-blue-300;*/
+/*}*/
+
+/*.post-tags {*/
+/*    @apply flex flex-row space-x-2 pb-4;*/
+/*}*/
+
+/*.post-tags a {*/
+/*    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2;*/
+/*}*/
+
+/*.post-tags a .badge {*/
+/*    @apply text-white;*/
+/*}*/
+
+/*article content headers*/
+article h2 {
+    @apply text-white underline text-2xl flex space-x-2 items-center pb-4 pt-6;
+}
+
+/*article content header pilcrow*/
+article h2 a.hanchor {
+    @apply text-sky-500 inline-block ml-2;
+}
+
+/*some spacing between article nodes*/
+article p,
+article ul {
+    @apply mb-2;
+}
+
+/*inline links have default styling*/
+article a {
+    @apply text-white underline;
+}
+
+/*inline code has similar style to tags*/
+article code {
+    @apply bg-gray-800 px-1 py-0.5 text-white rounded-md;
+}
+
+/*inline code with link*/
+/*TODO: if this has code then change the underline color*/
+article a code {
+    @apply bg-gray-800 px-2.5 py-0.5 text-sky-500 no-underline rounded-md;
+}
+
+th {
+    @apply text-sky-500 underline;
 }

@@ -1,16 +1,24 @@
 {{ define "main" }}
 
-<h1>{{ .Title }}</h1>
+<h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl mb-3">{{ .Title }}</h1>
 
-<section class="terms">
-{{ range .Data.Terms.Alphabetical }}
-    <div class="term">
-        <div>
-            <a href="{{ .Page.RelPermalink }}">{{ .Page.Title }}</a>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 pt-4">
+    {{ range .Data.Terms.Alphabetical }}
+    <div class="relative flex items-center space-x-3 rounded-lg border border-gray-400 border-dashed bg-ac-background px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400">
+        <div class="flex-shrink-0">
+            <span class="sr-only">Tag</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-sky-500">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 8.25h15m-16.5 7.5h15m-1.8-13.5l-3.9 19.5m-2.1-19.5l-3.9 19.5" />
+            </svg>
         </div>
-        <div>{{ .Count }} item(s)</div>
+        <div class="min-w-0 flex-1">
+            <a href="{{ .Page.RelPermalink }}" class="no-underline">
+                <span class="absolute inset-0" aria-hidden="true"></span>
+                <p class="font-medium text-white underline">{{ .Page.Title }}</p>
+                <p class="text-gray-500">{{ .Count }} item{{ if gt .Count 1 }}s{{ end }}</p>
+            </a>
+        </div>
     </div>
-{{ end }}
-</section>
-
+    {{ end }}
+</div>
 {{ end }}
