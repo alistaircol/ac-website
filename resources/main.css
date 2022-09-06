@@ -7,7 +7,7 @@ html {
 }
 
 body {
-    @apply container mx-auto text-white border-white border-l border-r border-b mb-16;
+    @apply container mx-auto text-white border-white border-l border-r border-b;
 }
 
 main {

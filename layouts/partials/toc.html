@@ -1,6 +1,6 @@
 {{ $headings := findRE "<h2.*?>(.|\n])+?</h2>" .Content }}
 {{ if ge (len $headings) 2 }}
-<div id="table-of-contents" class="border border-gray-400 border-dashed py-2 px-4" aria-labelledby="toc-heading">
+<div id="table-of-contents" class="border border-gray-400 border-dashed py-2 px-4 mb-6" aria-labelledby="toc-heading">
     <div class="flex space-x-2">
         <div>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-white">
