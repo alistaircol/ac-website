@@ -6,7 +6,7 @@
     function searchState() {
         return {
             manifest: '{{ "articles/index.json" | absURL }}',
-            query: 'github',
+            query: '',
             fuseOptions: {
                 shouldSort: true,
                 includeMatches: true,
@@ -38,7 +38,8 @@
             searched: false,
             searchResults: [],
             init() {
-                this.search();
+                // this.query = 'laravel';
+                // this.search();
             },
             search() {
                 fetch(this.manifest)
