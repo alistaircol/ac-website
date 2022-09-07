@@ -19,7 +19,9 @@
         "permalink" .Permalink
         "content" .Plain
         "canonical_tags" ($.Scratch.Get "canonical_tags")
-    ) -}}
+        "date_published" (.PublishDate.Format "Mon, 02 Jan 2006 15:04")
+        "date_published_machine" (.PublishDate.Format "2006-01-02 15:04")
+) -}}
 {{- end -}}
 
 {{- $.Scratch.Get "index" | jsonify -}}
