@@ -1,0 +1,243 @@
+{{ define "main" }}
+
+<h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl mb-3">{{ .Title }}</h1>
+
+{{ .Content }}
+
+<script>
+    function searchState() {
+        return {
+            manifest: '{{ "articles/index.json" | absURL }}?q={{ now.Unix }}',
+            query: '',
+            fuseOptions: {
+                keys: [
+                    {
+                        name: "title",
+                        weight: 0.8
+                    },
+                    {
+                        name: "content",
+                        weight: 2
+                    },
+                    {
+                        name: "tags",
+                        weight: 0.5
+                    }
+                ],
+                // Default: 0.6
+                // At what point does the match algorithm give up.
+                // A threshold of 0.0 requires a perfect match (of both letters and location), a threshold of 1.0 would match anything.
+                threshold: 0.3,
+                // doesn't matter where in the content it is found
+                ignoreLocation: true,
+            },
+            toastr: null,
+            searched: false,
+            searchResults: [],
+            init() {
+                // this.query = 'laravel';
+                // this.search();
+            },
+            search() {
+                fetch(this.manifest)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        let fuse = new Fuse(data, this.fuseOptions);
+                        let results = fuse.search(this.query);
+
+                        console.log(results);
+                        this.searched = true;
+                        this.searchResults = results;
+
+                        if (results.length === 0) {
+                            window.toastr.error(
+                                `There were no search results for ${this.query}.`,
+                                'No search results!',
+                                {
+                                    debug: false,
+                                    newestOnTop: false,
+                                    progressBar: true,
+                                    positionClass: 'toast-bottom-full-width',
+                                    preventDuplicates: false,
+                                    closeButton: true,
+                                }
+                            );
+                        } else {
+                            window.toastr.success(
+                                `There were ${this.searchResults.length} search results for ${this.query}.`,
+                                'Search results found!',
+                                {
+                                    debug: false,
+                                    newestOnTop: false,
+                                    progressBar: true,
+                                    positionClass: 'toast-bottom-full-width',
+                                    preventDuplicates: false,
+                                    closeButton: true,
+                                }
+                            );
+                        }
+                    });
+            }
+        };
+    }
+</script>
+
+<section id="search" x-data="searchState()" class="my-6">
+    <form action="{{ .Permalink }}" x-on:submit.prevent="search">
+        <div class="relative">
+            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                <svg aria-hidden="true" class="w-5 h-5 text-gray-400 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            <input
+                type="search"
+                id="default-search"
+                placeholder="Search term..."
+                required=""
+                x-model="query"
+                class="block p-4 pl-10 w-full text-base text-white bg-gray-800 rounded-sm border border-gray-400 focus:ring-blue-500 focus:border-blue-500 placeholder-gray-400">
+            <button
+                type="submit"
+                class="text-white absolute right-2.5 bottom-2.5 bg-ac-background border border-gray-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+        </div>
+    </form>
+
+    <div style="display: none;" x-show="searchResults.length > 0" class="my-6 bg-ac-background text-white divide-y divide-gray-800 overflow-hidden rounded-lg shadow border border-gray-400">
+        <div class="px-4 py-5 sm:px-6 text-4xl font-bold tracking-tight">
+            <span x-text="searchResults.length"></span> search result<span x-show="searchResults.length > 1">s</span>
+        </div>
+        <div class="px-4 py-5 sm:p-6 max-h-96 overflow-y-auto">
+            <div class="space-y-3 divide-dashed divide-y-2 divide-gray-800">
+                <template x-for="result in searchResults" :key="result.item.title">
+                    <div class="py-4 space-y-2">
+                        <a target="_blank" x-bind:href="result.item.permalink" class="flex no-underline space-x-2 items-center">
+                            <div>
+                                <span class="sr-only">Opens in a new tab</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-sky-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                                </svg>
+                            </div>
+                            <h2 class="text-xl underline inline-block" x-text="result.item.title"></h2>
+                        </a>
+                        <div class="flex flex-col lg:flex-row space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 text-gray-400">
+                            <div class="flex-grow space-y-3">
+                                <div class="flex-grow justify-start no-underline list-summary" x-html="result.item.summary"></div>
+                                <div class="flex space-x-2 items-center text-sm">
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                    <div class="font-mono">
+                                        <span x-text="result.item.reading_time"></span>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-0 space-y-0 gap-y-0 gap-x-2 gap-y-1 px-0 mx-0 flex-wrap text-sm">
+                                    <template x-for="tag in result.item.canonical_tags || []">
+                                        <span class="inline-flex items-center rounded-md bg-gray-800 px-2.5 py-0.5 text-sm font-medium text-gray-800">
+                                            <a class="text-white block no-underline" x-bind:href="tag.url" x-text="tag.name"></a>
+                                        </span>
+                                    </template>
+                                </div>
+                            </div>
+
+                            <div class="flex-shrink-0 flex items-center space-x-0 justify-start lg:justify-end text-sm text-white">
+                                <!-- Heroicon name: mini/calendar -->
+                                <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
+                                </svg>
+                                <div>
+                                    Published
+                                    <time x-bind:datetime="result.item.date_published_machine" x-html="result.item.date_published"></time>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="space-y-3 divide-dashed divide-y-2 divide-gray-800">
+    {{ $pages := .Pages }}
+    {{ range $pages.ByPublishDate.Reverse }}
+
+    <div class="py-4 space-y-2">
+        <div class="flex items-center justify-between">
+            <a href="{{ .Permalink }}" class="no-underline block {{ if ne .Params.show_summary false }}summary{{ end }}">
+                <h2 class="text-xl underline">{{ .Title }}</h2>
+            </a>
+        </div>
+        <div class="flex flex-col lg:flex-row space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 text-gray-400">
+            <div class="flex-grow space-y-3">
+                {{ if ne .Params.show_summary false }}
+                <div class="flex-grow justify-start no-underline list-summary">
+                    {{ .Summary }}
+                </div>
+                {{ end }}
+
+                <div class="flex flex-col space-x-0 space-y-0 gap-y-0 gap-x-2 gap-y-1 px-0 mx-0 flex-wrap text-sm">
+                    <div class="flex space-x-2">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div class="font-mono">
+                            ~{{ .ReadingTime }} minute{{ if gt .ReadingTime 1 }}s{{ end }}
+                        </div>
+                    </div>
+                    {{ with .Params.tags }}
+                    <div class="flex space-x-0 space-y-0 gap-y-0 gap-x-2 gap-y-1 px-0 mx-0 flex-wrap">
+                        {{ range . }}
+                            <span class="inline-flex items-center rounded-md bg-gray-800 px-2.5 py-0.5 text-sm font-medium text-gray-800">
+                                <a class="text-white block no-underline" href="{{ "tags/" | absURL }}{{ . | urlize }}">{{ . }}</a>
+                            </span>
+                        {{ end }}
+                    </div>
+                {{ end }}
+                </div>
+            </div>
+
+            <div class="flex-shrink-0 flex items-center space-x-0 justify-start lg:justify-end text-sm text-white">
+                <!-- Heroicon name: mini/calendar -->
+                <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
+                </svg>
+                <div>
+                    Published
+                    <time datetime="{{ .PublishDate.Format "2006-01-02 15:04" }}">{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04" }}</time>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {{ end }}
+</div>
+{{ end }}
+
+
+{{ define "scripts" }}
+<!--TODO: maybe bundle this-->
+
+<!-- alpine for initiating search and templating -->
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<!-- fuse for searching -->
+<script derfer src="https://cdn.jsdelivr.net/npm/fuse.js@6.6.2"></script>
+
+<!-- jquery needed for toastr -->
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-compat/3.0.0-alpha1/jquery.min.js" integrity="sha512-4GsgvzFFry8SXj8c/VcCjjEZ+du9RZp/627AEQRVLatx6d60AUnUYXg0lGn538p44cgRs5E2GXq+8IOetJ+6ow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" integrity="sha512-oe8OpYjBaDWPt2VmSFR+qYOdnTjeV9QPLJUeqZyprDEQvQLJ9C5PCFclxwNuvb/GQgQngdCXzKSFltuHD3eCxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<style>
+    .toast {
+        opacity: 1 !important;
+    }
+
+    #toast-container > div {
+        opacity: 1 !important;
+    }
+</style>
+{{ end }}
