@@ -6,7 +6,7 @@
     function searchState() {
         return {
             manifest: '{{ "articles/index.json" | absURL }}',
-            query: 'laravel',
+            query: 'twilio',
             fuseOptions: {
                 shouldSort: true,
                 includeMatches: true,
@@ -104,40 +104,54 @@
         </div>
     </form>
 
-<!--    <div style="display: none;" x-if="searchResults.length > 0" class="space-y-3 divide-dashed divide-y-2 divide-gray-800">-->
-<!--        <template class="py-4 space-y-2" x-for="result in searchResults">-->
-<!--            <div class="flex items-center justify-between">-->
-<!--                <a x-bind:href="result.item.link" class="no-underline block">-->
-<!--                    <h2 class="text-xl underline">{{ .Title }}</h2>-->
-<!--                </a>-->
-<!--            </div>-->
-<!--            <div class="flex flex-col lg:flex-row space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 text-gray-400">-->
-<!--                <div class="flex-grow space-y-3">-->
-<!--                    <div class="flex-grow justify-start no-underline list-summary" x-text="result.item.summary"></div>-->
+    <!-- This example requires Tailwind CSS v2.0+ -->
+    <div style="display: none;" x-show="searchResults.length > 0" class="my-6 bg-ac-background text-white divide-y divide-gray-800 overflow-hidden rounded-lg shadow border border-gray-400">
+        <div class="px-4 py-5 sm:px-6 text-4xl font-bold tracking-tight">
+            <span x-text="searchResults.length"></span> search result<span x-show="searchResults.length > 1">s</span>
+        </div>
+        <div class="px-4 py-5 sm:p-6 max-h-96 overflow-y-auto">
+            <div class="space-y-3 divide-dashed divide-y-2 divide-gray-800">
+                <template x-for="result in searchResults" :key="result.item.title">
+                    <div class="py-4 space-y-2"
+                         :x-ref="result.item.title"
+                         x-bind:canonical-tags="JSON.stringify(result.item.canonical_tags)">
+                        <div class="flex items-center justify-between">
+                            <a x-bind:href="result.item.permalink || '#'" class="no-underline block">
+                                <h2 class="text-xl underline" x-text="result.item.title || 'TBD'"></h2>
+                            </a>
+                        </div>
+                        <div class="flex flex-col lg:flex-row space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 text-gray-400">
+                            <div class="flex-grow space-y-3">
+                                <div class="flex-grow justify-start no-underline list-summary" x-html="result.item.summary || 'TBD'"></div>
+                                <div class="flex space-x-0 space-y-0 gap-y-0 gap-x-2 gap-y-1 px-0 mx-0 flex-wrap">
+                                    <!-- no key appends all tags to all subsequent -->
+                                    <!-- having a key breaks it -->
+                                    <div x-data="{ tags: result.item.canonical_tags }" :key="result.item.title + tag.name">
+                                        <template x-for="tag in tags">
+                                            <span class="inline-flex items-center rounded-md bg-gray-800 px-2.5 py-0.5 text-sm font-medium text-gray-800">
+                                                <a class="text-white block no-underline" x-bind:href="tag.url" x-text="tag.name"></a>
+                                            </span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </div>
 
-<!--                    <div class="flex space-x-0 space-y-0 gap-y-0 gap-x-2 gap-y-1 px-0 mx-0 flex-wrap">-->
-<!--                        <span class="inline-flex items-center rounded-md bg-gray-800 px-2.5 py-0.5 text-sm font-medium text-gray-800">-->
-<!--                            <a class="text-white block no-underline" href="#" x-text="result.item.tag"></a>-->
-<!--                        </span>-->
-<!--                    </div>-->
-<!--                </div>-->
-
-<!--                <div class="flex-shrink-0 flex items-center space-x-0 justify-start lg:justify-end text-sm text-white">-->
-<!--                    &lt;!&ndash; Heroicon name: mini/calendar &ndash;&gt;-->
-<!--                    <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">-->
-<!--                        <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />-->
-<!--                    </svg>-->
-<!--                    <div>-->
-<!--                        Published-->
-<!--                        <time datetime="{{ .PublishDate.Format "2006-01-02 15:04" }}">{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04" }}</time>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-
-<!--        </template>-->
-<!--    </div>-->
-
-
+                            <div class="flex-shrink-0 flex items-center space-x-0 justify-start lg:justify-end text-sm text-white">
+                                <!-- Heroicon name: mini/calendar -->
+                                <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                    <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
+                                </svg>
+                                <div>
+                                    Published
+                                    <time x-bind:datetime="result.item.date_published_machine" x-html="result.item.date_published"></time>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
 </section>
 
 {{ .Content }}
