@@ -2,6 +2,8 @@
 
 <h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl mb-3">{{ .Title }}</h1>
 
+{{ .Content }}
+
 <script>
     function searchState() {
         return {
@@ -80,7 +82,7 @@
     }
 </script>
 
-<section id="search" x-data="searchState()" class="mb-6">
+<section id="search" x-data="searchState()" class="my-6">
     <form action="{{ .Permalink }}" x-on:submit.prevent="search">
         <div class="relative">
             <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
@@ -119,7 +121,17 @@
                         <div class="flex flex-col lg:flex-row space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 text-gray-400">
                             <div class="flex-grow space-y-3">
                                 <div class="flex-grow justify-start no-underline list-summary" x-html="result.item.summary"></div>
-                                <div class="flex space-x-0 space-y-0 gap-y-0 gap-x-2 gap-y-1 px-0 mx-0 flex-wrap">
+                                <div class="flex space-x-2 items-center text-sm">
+                                    <div>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-4">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                    </div>
+                                    <div class="font-mono">
+                                        <span x-text="result.item.reading_time"></span>
+                                    </div>
+                                </div>
+                                <div class="flex space-x-0 space-y-0 gap-y-0 gap-x-2 gap-y-1 px-0 mx-0 flex-wrap text-sm">
                                     <template x-for="tag in result.item.canonical_tags || []">
                                         <span class="inline-flex items-center rounded-md bg-gray-800 px-2.5 py-0.5 text-sm font-medium text-gray-800">
                                             <a class="text-white block no-underline" x-bind:href="tag.url" x-text="tag.name"></a>
@@ -145,10 +157,6 @@
         </div>
     </div>
 </section>
-
-{{ .Content }}
-
-<hr />
 
 <div class="space-y-3 divide-dashed divide-y-2 divide-gray-800">
     {{ $pages := .Pages }}
