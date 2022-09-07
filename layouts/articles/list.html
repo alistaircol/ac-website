@@ -16,10 +16,11 @@
                 distance: 100,
                 maxPatternLength: 32,
                 minMatchCharLength: 1,
-                keys: [{
-                    name: "title",
-                    weight: 0.8
-                },
+                keys: [
+                    {
+                        name: "title",
+                        weight: 0.8
+                    },
                     {
                         name: "content",
                         weight: 0.5
@@ -38,8 +39,8 @@
             searched: false,
             searchResults: [],
             init() {
-                // this.query = 'laravel';
-                // this.search();
+                this.query = 'laravel';
+                this.search();
             },
             search() {
                 fetch(this.manifest)
@@ -113,11 +114,15 @@
             <div class="space-y-3 divide-dashed divide-y-2 divide-gray-800">
                 <template x-for="result in searchResults" :key="result.item.title">
                     <div class="py-4 space-y-2">
-                        <div class="flex items-center justify-between">
-                            <a x-bind:href="result.item.permalink" class="no-underline block">
-                                <h2 class="text-xl underline" x-text="result.item.title"></h2>
-                            </a>
-                        </div>
+                        <a target="_blank" x-bind:href="result.item.permalink" class="flex no-underline space-x-2 items-center">
+                            <div>
+                                <span class="sr-only">Opens in a new tab</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-sky-500">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                                </svg>
+                            </div>
+                            <h2 class="text-xl underline inline-block" x-text="result.item.title"></h2>
+                        </a>
                         <div class="flex flex-col lg:flex-row space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 text-gray-400">
                             <div class="flex-grow space-y-3">
                                 <div class="flex-grow justify-start no-underline list-summary" x-html="result.item.summary"></div>
