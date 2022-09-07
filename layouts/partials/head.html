@@ -44,8 +44,8 @@
     <link rel="preconnect" href="{{ "" | absURL }}">
     <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap" rel="stylesheet">
 
-    <link media="all" rel="stylesheet" type="text/css" href="{{ "css/main.css" | absURL }}">
-    <link rel="stylesheet" type="text/css" href="{{ "css/gist.css" | absURL }}">
+    <link media="all" rel="stylesheet" type="text/css" href="{{ "css/main.css" | absURL }}?q={{ now.Unix }}">
+    <link rel="stylesheet" type="text/css" href="{{ "css/gist.css" | absURL }}?q={{ now.Unix }}">
 
     {{ $title := print .Title " | " .Site.Title }}
     {{ if .IsHome }}
