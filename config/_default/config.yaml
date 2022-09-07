@@ -5,6 +5,12 @@ baseURL: https://ac93.uk
 author:
   name: Ally
 
+outputs:
+  section:
+  - HTML
+  - RSS
+  - JSON
+
 params:
   name: Alistair Collins
   homeMetaContent: Ally is a full-stack software engineer.

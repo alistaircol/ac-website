@@ -1,0 +1,212 @@
+{{ define "main" }}
+
+<h1 class="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl mb-3">{{ .Title }}</h1>
+
+<script>
+    function searchState() {
+        return {
+            manifest: '{{ "articles/index.json" | absURL }}',
+            query: 'laravel',
+            fuseOptions: {
+                shouldSort: true,
+                includeMatches: true,
+                threshold: 0.3, // for parsing diacritics
+                tokenize: true,
+                location: 0,
+                distance: 100,
+                maxPatternLength: 32,
+                minMatchCharLength: 1,
+                keys: [{
+                    name: "title",
+                    weight: 0.8
+                },
+                    {
+                        name: "content",
+                        weight: 0.5
+                    },
+                    {
+                        name: "tags",
+                        weight: 0.3
+                    },
+                    {
+                        name: "categories",
+                        weight: 0.3
+                    }
+                ]
+            },
+            toastr: null,
+            searched: false,
+            searchResults: [],
+            init() {
+                //this.toastr = window.toastr;
+            },
+            search() {
+                fetch(this.manifest)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        let fuse = new Fuse(data, this.fuseOptions);
+                        let results = fuse.search(this.query);
+
+                        console.log(results);
+                        this.searched = true;
+                        this.searchResults = results;
+
+                        if (results.length === 0) {
+                            window.toastr.error(
+                                `There were no search results for ${this.query}.`,
+                                'No search results!',
+                                {
+                                    debug: false,
+                                    newestOnTop: false,
+                                    progressBar: true,
+                                    positionClass: 'toast-bottom-full-width',
+                                    preventDuplicates: false,
+                                    closeButton: true,
+                                }
+                            );
+                        } else {
+                            window.toastr.success(
+                                `There were ${this.searchResults.length} search results for ${this.query}.`,
+                                'Search results found!',
+                                {
+                                    debug: false,
+                                    newestOnTop: false,
+                                    progressBar: true,
+                                    positionClass: 'toast-bottom-full-width',
+                                    preventDuplicates: false,
+                                    closeButton: true,
+                                }
+                            );
+                        }
+                    });
+            }
+        };
+    }
+</script>
+
+<section id="search" x-data="searchState()" class="mb-6">
+    <form action="{{ .Permalink }}" x-on:submit.prevent="search">
+        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only0">Search</label>
+        <div class="relative">
+            <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+                <svg aria-hidden="true" class="w-5 h-5 text-gray-400 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            </div>
+            <input
+                type="search"
+                id="default-search"
+                placeholder="Search..."
+                required=""
+                x-model="query"
+                class="block p-4 pl-10 w-full text-base text-white bg-gray-800 rounded-lg border border-gray-400 focus:ring-blue-500 focus:border-blue-500placeholder-gray-400">
+            <button
+                type="submit"
+                class="text-white absolute right-2.5 bottom-2.5 bg-sky-500 border border-gray-400 hover:bg-sky-400 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2">Search</button>
+        </div>
+    </form>
+
+<!--    <div style="display: none;" x-if="searchResults.length > 0" class="space-y-3 divide-dashed divide-y-2 divide-gray-800">-->
+<!--        <template class="py-4 space-y-2" x-for="result in searchResults">-->
+<!--            <div class="flex items-center justify-between">-->
+<!--                <a x-bind:href="result.item.link" class="no-underline block">-->
+<!--                    <h2 class="text-xl underline">{{ .Title }}</h2>-->
+<!--                </a>-->
+<!--            </div>-->
+<!--            <div class="flex flex-col lg:flex-row space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 text-gray-400">-->
+<!--                <div class="flex-grow space-y-3">-->
+<!--                    <div class="flex-grow justify-start no-underline list-summary" x-text="result.item.summary"></div>-->
+
+<!--                    <div class="flex space-x-0 space-y-0 gap-y-0 gap-x-2 gap-y-1 px-0 mx-0 flex-wrap">-->
+<!--                        <span class="inline-flex items-center rounded-md bg-gray-800 px-2.5 py-0.5 text-sm font-medium text-gray-800">-->
+<!--                            <a class="text-white block no-underline" href="#" x-text="result.item.tag"></a>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                </div>-->
+
+<!--                <div class="flex-shrink-0 flex items-center space-x-0 justify-start lg:justify-end text-sm text-white">-->
+<!--                    &lt;!&ndash; Heroicon name: mini/calendar &ndash;&gt;-->
+<!--                    <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">-->
+<!--                        <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />-->
+<!--                    </svg>-->
+<!--                    <div>-->
+<!--                        Published-->
+<!--                        <time datetime="{{ .PublishDate.Format "2006-01-02 15:04" }}">{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04" }}</time>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--        </template>-->
+<!--    </div>-->
+
+
+</section>
+
+{{ .Content }}
+
+<hr />
+
+<div class="space-y-3 divide-dashed divide-y-2 divide-gray-800">
+    {{ $pages := .Pages }}
+    {{ range $pages.ByPublishDate.Reverse }}
+
+    <div class="py-4 space-y-2">
+        <div class="flex items-center justify-between">
+            <a href="{{ .Permalink }}" class="no-underline block {{ if ne .Params.show_summary false }}summary{{ end }}">
+                <h2 class="text-xl underline">{{ .Title }}</h2>
+            </a>
+        </div>
+        <div class="flex flex-col lg:flex-row space-x-0 space-y-4 lg:space-y-0 lg:space-x-4 text-gray-400">
+            <div class="flex-grow space-y-3">
+                {{ if ne .Params.show_summary false }}
+                <div class="flex-grow justify-start no-underline list-summary">
+                    {{ .Summary }}
+                </div>
+                {{ end }}
+
+                {{ with .Params.tags }}
+                <div class="flex space-x-0 space-y-0 gap-y-0 gap-x-2 gap-y-1 px-0 mx-0 flex-wrap">
+                    {{ range . }}
+                    <span class="inline-flex items-center rounded-md bg-gray-800 px-2.5 py-0.5 text-sm font-medium text-gray-800">
+                        <a class="text-white block no-underline" href="{{ "tags/" | absURL }}{{ . | urlize }}">{{ . }}</a>
+                    </span>
+                    {{ end }}
+                </div>
+                {{ end }}
+            </div>
+
+            <div class="flex-shrink-0 flex items-center space-x-0 justify-start lg:justify-end text-sm text-white">
+                <!-- Heroicon name: mini/calendar -->
+                <svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
+                </svg>
+                <div>
+                    Published
+                    <time datetime="{{ .PublishDate.Format "2006-01-02 15:04" }}">{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04" }}</time>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    {{ end }}
+</div>
+{{ end }}
+
+
+{{ define "scripts" }}
+<!--TODO: maybe bundle this-->
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.4.5/fuse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-compat/3.0.0-alpha1/jquery.min.js" integrity="sha512-4GsgvzFFry8SXj8c/VcCjjEZ+du9RZp/627AEQRVLatx6d60AUnUYXg0lGn538p44cgRs5E2GXq+8IOetJ+6ow==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.css" integrity="sha512-oe8OpYjBaDWPt2VmSFR+qYOdnTjeV9QPLJUeqZyprDEQvQLJ9C5PCFclxwNuvb/GQgQngdCXzKSFltuHD3eCxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<style>
+    .toast {
+        opacity: 1 !important;
+    }
+
+    #toast-container > div {
+        opacity: 1 !important;
+    }
+</style>
+{{ end }}

@@ -1,0 +1,25 @@
+{{- $.Scratch.Add "index" slice -}}
+{{ $pages := .Pages }}
+{{ range $pages.ByPublishDate.Reverse }}
+
+    {{- $.Scratch.Add "canonical_tags" slice -}}
+    {{ $tags := .Params.tags }}
+    {{ range $tags }}
+        {{- $.Scratch.Add "canonical_tags" (dict
+            "url" ((printf "tags/%s" . | urlize) | absURL)
+            "name" .
+        ) -}}
+    {{- end -}}
+
+    {{- $.Scratch.Add "index" (dict
+        "title" .Title
+        "tags" .Params.tags
+        "categories" .Params.categories
+        "summary" .Summary
+        "permalink" .Permalink
+        "content" .Plain
+        "canonical_tags" ($.Scratch.Get "canonical_tags")
+    ) -}}
+{{- end -}}
+
+{{- $.Scratch.Get "index" | jsonify -}}
