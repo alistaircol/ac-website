@@ -9,6 +9,7 @@ Features:
 * Asynchronous search with [`fuse`](https://fusejs.io/) and [`Alpine.js`](https://alpinejs.dev/).
 * Comment integration with [`utteranc.es`](https://utteranc.es/).
 * Some SEO, and good Lighthouse audit score.
+* Hosted on Cloudflare Pages.
 
 Mostly a tech blog for my own reference.
 
