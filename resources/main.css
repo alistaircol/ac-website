@@ -34,8 +34,13 @@ main {
     @apply m-0 p-0 text-base text-white bg-ac-pre-background;
 }
 
+/*highlighting with line numbers*/
+div.highlight > div {
+    @apply overflow-auto;
+}
+
 div.highlight td {
-    @apply max-w-4xl;
+    /*@apply max-w-4xl;*/
 }
 
 hr {
