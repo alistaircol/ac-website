@@ -10,6 +10,7 @@ Features:
 * Comment integration with [`utteranc.es`](https://utteranc.es/).
 * Some SEO, and good Lighthouse audit score.
 * Hosted on Cloudflare Pages.
+* Staging hosted on [netlify](https://ac-website.netlify.app/)
 
 Mostly a tech blog for my own reference.
 
