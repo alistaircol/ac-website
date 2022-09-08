@@ -212,26 +212,26 @@ I change the [`threshold`](https://fusejs.io/api/options.html#threshold) - the p
 
 A threshold of `0.0` requires a perfect match (of both letters and location), a threshold of `1.0` would match anything. The default is `0.6`.
 
-```js {linenos=true, linenostart=18}
+```js {linenos=true, linenostart=20}
             threshold: 0.3,
 ```
 
 I change the [`ignoreLocation`](https://fusejs.io/api/options.html#ignorelocation) from its default `false` to `true`. This means it will search the entire content.
 
-```js {linenos=true, linenostart=19}
+```js {linenos=true, linenostart=21}
             ignoreLocation: true,
         },
 ```
 
 I will save the search results from fuse here, so we can render them later.
 
-```js {linenos=true, linenostart=21}
+```js {linenos=true, linenostart=23}
         searchResults: [],
 ```
 
 When there are search results, I render a link with the search query in, e.g. `articles/?s=laravel`, meaning a search result page can be shared.
 
-```js {linenos=true, linenostart=22}
+```js {linenos=true, linenostart=24}
         init() {
             this.query = new URLSearchParams(location.search).get('s') || '';
             if (this.query.length > 0) {
@@ -242,7 +242,7 @@ When there are search results, I render a link with the search query in, e.g. `a
 
 Fairly simple search function which gets run on form submit.
 
-```js {linenos=true, linenostart=28}
+```js {linenos=true, linenostart=30}
         search() {
             fetch(this.manifest)
                 .then((response) => response.json())
