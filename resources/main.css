@@ -221,3 +221,15 @@ article a code {
 th {
     @apply text-sky-500 underline;
 }
+
+
+h3, h4, h5, h6 {
+    @apply text-white underline flex;
+}
+
+h3 a.hanchor,
+h4 a.hanchor,
+h5 a.hanchor,
+h6 a.hanchor {
+    @apply ml-2 text-sky-500;
+}
