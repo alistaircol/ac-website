@@ -49,7 +49,8 @@ server:
 		--port 1313 \
 		--noHTTPCache \
 		--baseURL=http://localhost \
-		--buildFuture
+		--buildFuture \
+		--buildDrafts
 
 shell:
 	${docker_run} --entrypoint="sh" ${image_name}
