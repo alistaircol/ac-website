@@ -18,6 +18,10 @@ main {
     @apply bg-ac-background z-50 fixed bottom-8 right-0 sm:right-8 border-2 border-white rounded-full h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center;
 }
 
+.to-bottom {
+    @apply bg-ac-background z-50 fixed bottom-8 left-0 sm:left-8 border-2 border-white rounded-full h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center;
+}
+
 .highlight {
     @apply my-8;
 }
