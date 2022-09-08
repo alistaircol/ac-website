@@ -18,56 +18,12 @@ main {
     @apply bg-ac-background z-50 fixed bottom-8 right-0 sm:right-8 border-2 border-white rounded-full h-10 w-10 sm:h-12 sm:w-12 flex items-center justify-center;
 }
 
-/*h1 {*/
-/*    @apply font-bold text-3xl pb-4 underline underline-offset-8 decoration-blue-300;*/
-/*}*/
-
-/*h2 {*/
-/*    @apply font-semibold text-2xl pb-4 underline underline-offset-4 decoration-blue-300;*/
-/*}*/
-
-/*h3 {*/
-/*    @apply font-medium text-xl pb-4 underline underline-offset-2 decoration-blue-300;*/
-/*}*/
-
-/*h4 {*/
-/*    @apply text-lg pb-4 underline underline-offset-1 decoration-blue-300;*/
-/*}*/
-
-/*h5 {*/
-/*    @apply text-base pb-4 underline underline-offset-0 decoration-blue-300;*/
-/*}*/
-
-/*p {*/
-/*    @apply text-xl mb-2 leading-5;*/
-/*}*/
-
-/*a {*/
-/*    @apply text-white underline decoration-blue-300 decoration-dotted;*/
-/*}*/
-
-/*.tags {*/
-/*    @apply flex flex-row space-x-2 py-4;*/
-/*}*/
-
-/*.tags a {*/
-/*    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2 border-2 border-blue-300 border-t-0 border-l-0;*/
-/*}*/
-
-/*.tags a .badge {*/
-/*    @apply text-white;*/
-/*}*/
-
-/*code {*/
-/*    @apply text-blue-300 text-lg bg-ac-pre-background py-0.5 px-1;*/
-/*}*/
-
 .highlight {
     @apply my-8;
 }
 
 .highlight pre {
-    @apply m-0 p-4 overflow-auto;
+    @apply m-0 p-4 text-base overflow-auto;
 }
 
 .highlight pre code {
@@ -105,86 +61,6 @@ main a {
 .list-summary code {
     @apply text-sky-500;
 }
-
-/*.toc {*/
-/*    @apply p-4 mb-8;*/
-/*}*/
-
-/*.toc ol {*/
-/*    @apply py-0;*/
-/*}*/
-
-/*.toc li {*/
-/*    @apply py-0 px-2;*/
-/*}*/
-
-/*main p img {*/
-/*    @apply object-contain pb-4;*/
-/*}*/
-
-/*dl {*/
-/*    @apply flex flex-col;*/
-/*}*/
-
-/*dt {*/
-/*    @apply tracking-tighter font-light text-2xl underline underline-offset-4 decoration-blue-300 pb-2;*/
-/*}*/
-
-/*dd {*/
-/*    @apply pb-4;*/
-/*}*/
-
-/*li {*/
-/*    @apply tracking-tighter font-light;*/
-/*}*/
-
-/*section.terms {*/
-/*    @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-y-4 pt-4;*/
-/*}*/
-
-/*section.terms div.term {*/
-/*    @apply flex flex-row space-x-4 items-center;*/
-/*}*/
-
-/*section.terms a {*/
-/*    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2 border-2 border-blue-300 border-t-0 border-l-0;*/
-/*}*/
-
-/*div.image {*/
-/*    @apply flex justify-center;*/
-/*}*/
-
-/*nav {*/
-/*    @apply flex flex-wrap justify-between my-8 px-4 items-center space-x-4;*/
-/*}*/
-
-/*nav div.nav-brand {*/
-/*    @apply flex items-center font-bold text-3xl underline underline-offset-8 decoration-blue-300;*/
-/*}*/
-
-/*nav div.collapsible {*/
-/*    @apply flex flex-grow justify-end;*/
-/*}*/
-
-/*nav ul {*/
-/*    @apply list-none;*/
-/*}*/
-
-/*nav a {*/
-/*    @apply font-bold text-3xl underline underline-offset-8 decoration-blue-300;*/
-/*}*/
-
-/*.post-tags {*/
-/*    @apply flex flex-row space-x-2 pb-4;*/
-/*}*/
-
-/*.post-tags a {*/
-/*    @apply inline-flex text-lg bg-ac-pre-background py-0.5 px-2;*/
-/*}*/
-
-/*.post-tags a .badge {*/
-/*    @apply text-white;*/
-/*}*/
 
 /*article content headers*/
 article h2 {
