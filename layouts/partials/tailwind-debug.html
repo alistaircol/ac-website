@@ -1,0 +1,43 @@
+{{ if ne hugo.IsProduction true }}
+<!--https://codepen.io/alistaircol/pen/qBmNGvm-->
+<script>
+    let w = () => {
+        document.querySelectorAll('.debug-width-container').forEach((element) => {
+            element.textContent = window.innerWidth + 'px';
+        });
+    };
+
+    window.onresize = w;
+    window.onload = w;
+</script>
+<div class="relative fixed left-0 w-full p-1.5 flex flex-grow items-center bg-blue-500 sm:bg-pink-400 md:bg-yellow-300 lg:bg-red-400 xl:bg-green-300 2xl:bg-blue-200 font-mono text-gray-700 text-center">
+    <div class="flex flex-row flex-grow hidden sm:hidden md:hidden lg:hidden xl:hidden 2xl:visible 2xl:block">
+        <div><span class="debug-width-container mr-2"></span>2XL</div>
+        <div class="text-sm">min-width: 1536px</div>
+    </div>
+    <div class="flex flex-row flex-grow hidden sm:hidden md:hidden lg:hidden xl:visible xl:block 2xl:hidden">
+        <div><span class="debug-width-container mr-2"></span>XL</div>
+        <div class="text-sm">min-width: 1280px</div>
+        <div class="text-sm">max-width: 1536px</div>
+    </div>
+    <div class="flex flex-row flex-grow hidden sm:hidden md:hidden lg:visible lg:block xl:hidden 2xl:hidden">
+        <div><span class="debug-width-container mr-2"></span>LG</div>
+        <div class="text-sm">min-width: 1024px</div>
+        <div class="text-sm">max-width: 1280px</div>
+    </div>
+    <div class="flex flex-row flex-grow hidden sm:hidden  md:visible md:block lg:hidden xl:hidden 2xl:hidden">
+        <div><span class="debug-width-container mr-2"></span>MD</div>
+        <div class="text-sm">min-width: 768px</div>
+        <div class="text-sm">max-width: 1024px</div>
+    </div>
+    <div class="flex flex-row flex-grow hidden sm:visible sm:block md:hidden lg:hidden xl:hidden 2xl:hidden">
+        <div><span class="debug-width-container mr-2"></span>SM</div>
+        <div class="text-sm">min-width: 640px</div>
+        <div class="text-sm">max-width: 768px</div>
+    </div>
+    <div class="flex-grow visible block sm:hidden md:hidden lg:hidden xl:hidden 2xl:hidden">
+        <div><span class="debug-width-container mr-2"></span>&lt; SM</div>
+        <div class="text-sm">max-width: 640px</div>
+    </div>
+</div>
+{{ end }}
