@@ -1,7 +1,7 @@
 ---
 title: "Adding asynchronous search to a hugo blog"
 author: "Ally"
-summary: "Learn how to add asynchronous search to a hugo blog with alpine and fuse"
+summary: "Learn how to add asynchronous search to a `hugo` blog with `alpine.js` and `fuse`."
 publishDate: 2022-09-08T19:24:50+0100
 tags: ['hugo','alpine','fuse']
 cover: https://ac93.uk/img/articles/hugo-search-fuse-alpine/search-results.png
