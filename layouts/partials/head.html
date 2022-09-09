@@ -39,6 +39,8 @@
     <meta property="article:author" content="Ally">
     <meta name="twitter:label1" content="Written by" />
     <meta name="twitter:data1" content="Ally" />
+    <meta name="twitter:label2" content="Estimated reading time" />
+    <meta name="twitter:data2" content="~{{ .ReadingTime }} minute{{ if gt .ReadingTime 1 }}s{{ end }}" />
     <meta property="article:published_time" content="{{ .Page.PublishDate }}">
     {{ range .Page.Params.tags }}
     <meta property="article:tag" content="{{ . }}">
