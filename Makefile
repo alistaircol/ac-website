@@ -12,7 +12,7 @@ BLUE         := $(shell tput -Txterm setaf 6)
 WHITE        := $(shell tput -Txterm setaf 7)
 RESET        := $(shell tput -Txterm sgr0)
 
-image_name = klakegg/hugo:0.95.0-ext
+image_name = klakegg/hugo:0.101.0-ext
 lint_image_name = cytopia/yamllint:latest
 
 docker_run = docker run \
