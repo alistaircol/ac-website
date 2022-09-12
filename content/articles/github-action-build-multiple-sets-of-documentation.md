@@ -496,7 +496,7 @@ It is currently just set up to run manually, but you can specify on tag, branch,
       with:
         php-version: 7.4
       if: >-
-        ${{ matrix.affix }} == 'doctum'
+    ${{ matrix.affix }} == 'doctum'
 ```
 
 ```yaml
@@ -514,7 +514,7 @@ It is currently just set up to run manually, but you can specify on tag, branch,
 
 This will create a branch for each of the documentation generators. These can be cloned and checked out to the branch if desired.
 
-**Note** an alternative method to creating a branch could be to create an [artifact](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts) instead.
+**Note**: an alternative method to creating a branch could be to create an [artifact](https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts) instead.
 
 Another job to consolidate the branches into a single branch:
 
@@ -579,7 +579,11 @@ The last step will consolidate all the documentation we have just checked out in
         clean: false
 ```
 
-I add a custom landing page (`index.html`) into the consolidated `gh-pages` branch. Afterwards you should have no need to touch it again.
+I add a custom landing page (`index.html`) into the consolidated `gh-pages` branch, i.e.
+
+![Landing Page](/img/articles/github-action-build-multiple-sets-of-documentation/index.png)
+
+Afterwards you should have no need to touch this branch again.
 
 ![Branches](/img/articles/github-action-build-multiple-sets-of-documentation/branches.png)
 
@@ -612,5 +616,10 @@ git clone \
   git@github.com:alistaircol/pet-store-api-sdk.git \
   pet-store-api-sdk-docs
 cd pet-store-api-sdk-docs
+```
+
+If you're using [valet](https://laravel.com/docs/9.x/valet), you might want to run this command to 'host' the documentation and add (`pet-store-api-sdk-docs.ac93.test`) to a dashboard/bookmark:
+
+```bash
 valet link --secure pet-store-api-sdk-docs.ac93
 ```
