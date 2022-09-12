@@ -2,7 +2,8 @@
 title: "Building my CV"
 author: "Ally"
 kind: page
-description: Ally is a capable full stack web developer with many years of PHP experience with Laravel. Keen on dev-ops and automation, especially Linux, Docker, Terraform, Ansible, and AWS.
+description: A full stack web developer, keen on dev-ops and automation. This is how I build my CV/resume.
+cover: https://ac93.uk/img/articles/resume/preview.png
 ---
 
 ## Overview

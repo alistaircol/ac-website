@@ -4,31 +4,47 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     {{ hugo.Generator }}
+    <!-- https://webcode.tools/generators/open-graph/article -->
     <link rel="canonical" href="{{ .Permalink }}">
 
-    <!-- https://webcode.tools/generators/open-graph/article -->
-    <!-- https://og-image.xyz/ -->
-
-    <meta name="description" content="{{ .Page.Title }} | {{ .Site.Title }}">
-    <meta property="og:site_name" content="{{ .Site.Params.name }}" />
-    <meta property="og:title" content="{{ .Page.Title }} | {{ .Site.Title }}" />
-    <meta property="og:url" content="{{ .Permalink }}" />
-    <meta property="og:description" content="{{ index $.Page.Description | default $.Page.Summary }}" />
-
     {{ $cover := index .Page.Params "Cover" | default .Site.Params.Cover }}
-    <meta property="og:image" content="{{ $cover }}" />
-
     {{ if .IsHome }}
-    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ally's Website" />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ .Site.Title }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:image" content="{{ $cover }}">
+    <meta property="og:description" content="{{ index $.Page.Description | default $.Page.Summary }}">
     {{ else if eq .Kind "taxonomy" }}
-    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ally's Website" />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ .Site.Title }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:image" content="{{ $cover }}">
+    <meta property="og:description" content="List of {{ .Data.Plural }}.">
     {{ else if and (eq .Kind "section") (eq .Page.File.Path "articles/_index.md") }}
-    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Ally's Blog" />
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ .Site.Title }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:image" content="{{ $cover }}">
+    <meta property="og:description" content="{{ index $.Page.Description | default $.Page.Summary }}">
     {{ else }}
-    <meta property="og:type" content="article" />
-    {{ $dateFormat := $.Site.Params.dateFormat | default "Jan 2, 2006" }}
-    <meta property="article:published_time" content="{{ .Page.PublishDate.Format $dateFormat }}" />
-    <meta property="article:author" content="Ally" />
+    <meta property="og:site_name" content="Ally's Blog" />
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="{{ .Page.Title }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:image" content="{{ $cover }}">
+    <meta property="og:description" content="{{ .Page.Summary | plainify }}">
+    <meta property="article:author" content="Ally">
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Ally" />
+    <meta name="twitter:label2" content="Estimated reading time" />
+    <meta name="twitter:data2" content="~{{ .ReadingTime }} minute{{ if gt .ReadingTime 1 }}s{{ end }}" />
+    <meta property="article:published_time" content="{{ .Page.PublishDate }}">
+    {{ range .Page.Params.tags }}
+    <meta property="article:tag" content="{{ . }}">
+    {{- end -}}
     {{ end }}
 
     <link rel="apple-touch-icon" sizes="180x180" href="{{ "apple-touch-icon.png" | absURL }}">
@@ -38,18 +54,15 @@
     <link rel="mask-icon" href="{{ "safari-pinned-tab.svg" | absURL }}" color="#000000">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="theme-color" content="#ffffff">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="{{ "" | absURL }}">
     <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap" rel="stylesheet">
-
     <link media="all" rel="stylesheet" type="text/css" href="{{ "css/main.css" | absURL }}?q={{ now.Unix }}">
     <link rel="stylesheet" type="text/css" href="{{ "css/gist.css" | absURL }}?q={{ now.Unix }}">
-
-    {{ $title := print .Title " | " .Site.Title }}
-    {{ if .IsHome }}
-        {{ $title = .Site.Title }}
+    {{- $title := print .Title " | " .Site.Title -}}
+    {{- if .IsHome -}}
+        {{- $title = .Site.Title -}}
     {{ end }}
     <title>{{ $title }}</title>
 </head>
