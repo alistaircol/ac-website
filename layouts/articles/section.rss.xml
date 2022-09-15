@@ -30,7 +30,7 @@
     <copyright>{{.}}</copyright>
     {{end}}
     {{ if not .Date.IsZero }}
-    <lastBuildDate>{{ .Date.Format "Mon, 02 Jan 2006 15:04:05" | safeHTML }}</lastBuildDate>
+    <lastBuildDate>{{ .Date.Format "02 Jan 06 15:04 -0700" | safeHTML }}</lastBuildDate>
     {{ end }}
 
     {{- with .OutputFormats.Get "RSS" -}}
@@ -41,7 +41,7 @@
     <item>
       <title>{{ .Title }}</title>
       <link>{{ .Permalink }}</link>
-      <pubDate>{{ .PublishDate.Format "Mon, Jan 2 2006"  }}</pubDate>
+      <pubDate>{{ .PublishDate.Format "02 Jan 06 15:04 -0700"  }}</pubDate>
       {{ with .Site.Author.email }}
       <author>{{.}}{{ with $.Site.Author.name }} ({{.}}){{end}}</author>
       {{end}}
