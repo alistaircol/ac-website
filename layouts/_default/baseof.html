@@ -6,9 +6,7 @@
         <main>
             {{ block "main" . }}{{ end }}
         </main>
-        {{ partial "google-analytics-async.html" . }}
 
-        <!-- This example requires Tailwind CSS v2.0+ -->
         <footer id="bottom" class="bg-gray-800">
             <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:px-8">
                 <p class="text-2xl text-white mb-8 text-center md:text-left">&copy; 2022 Alistair Collins.</p>
@@ -155,19 +153,13 @@
                 <span class="sr-only">To top</span>
                 <svg
                     xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                    stroke-width="2"
-                >
+                    stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
                 </svg>
             </a>
         </div>
     </body>
 
-    <script
-        async
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-        src="https://unpkg.com/flowbite@1.5.3/dist/flowbite.js"></script>
-
+    {{ partial "scripts.html" . }}
     {{ block "scripts" . }}{{ end }}
 </html>
