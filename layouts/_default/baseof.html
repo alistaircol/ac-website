@@ -3,9 +3,7 @@
     {{ partial "head.html" . }}
     <body id="top">
         {{ partial "nav.html" . }}
-        <main>
-            {{ block "main" . }}{{ end }}
-        </main>
+        <main>{{ block "main" . }} {{ end }}</main>
 
         <footer id="bottom" class="bg-gray-800">
             <div class="mx-auto max-w-7xl py-12 px-4 sm:px-6 lg:px-8">
