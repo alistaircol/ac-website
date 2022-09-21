@@ -133,3 +133,11 @@ li {
 strong {
     @apply underline;
 }
+
+details.accordion summary {
+    @apply text-white;
+}
+
+details.accordion div {
+    @apply mt-4;
+}
