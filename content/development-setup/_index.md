@@ -3,9 +3,11 @@ title: Dev Setup
 cover: https://ac93.uk/img/unsplash/glenn-carstens-peters-npxXWgQ33ZQ-unsplash.jpg
 ---
 
-Some lists/notes of:
+Full-stack engineer, and keen on dev-ops.
 
-* browser extensions,
-* software
+* ✅ Linux
+* ✅ Mac
+* ✅ Docker
+* ❌ Windows
 
-I use, and possibly some cheat sheet/keyboard shortcut references.
+Some details on the following tools I use, and possibly some cheat sheets or opinionated keyboard shortcut references.

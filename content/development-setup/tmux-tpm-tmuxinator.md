@@ -3,6 +3,7 @@ title: "tmux, tpm, and tmuxinator"
 author: "Ally"
 summary: "Some notes on `tmux`, `tpm` and `tmuxinator`"
 publishDate: 2022-09-21T19:24:50+0100
+draft: true
 ---
 
 Some notes on `tmux`, `tpm`, `tmuxinator`.
