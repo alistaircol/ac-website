@@ -2,8 +2,7 @@
 title: "tmux, tpm, and tmuxinator"
 author: "Ally"
 summary: "Some notes on `tmux`, `tpm` and `tmuxinator`"
-publishDate: 2022-09-08T19:24:50+0100
-cover: https://ac93.uk/img/articles/hugo-search-fuse-alpine/search-results.png
+publishDate: 2022-09-21T19:24:50+0100
 ---
 
 Some notes on `tmux`, `tpm`, `tmuxinator`.

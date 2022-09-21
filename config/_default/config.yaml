@@ -1,6 +1,8 @@
+---
 languageCode: en
 title: alistaircol
 baseURL: https://ac93.uk
+enableGitInfo: true
 
 author:
   name: Ally
@@ -19,9 +21,12 @@ params:
 
 menu:
   nav:
+#  - name: Development
+#    url: /development-setup/
+#    weight: 1
   - name: Articles
     url: /articles/
-    weight: 1
+    weight: 2
 
 markup:
   goldmark:
