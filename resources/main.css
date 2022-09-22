@@ -134,6 +134,10 @@ strong {
     @apply underline;
 }
 
+details.accordion {
+    @apply mb-2;
+}
+
 details.accordion summary {
     @apply text-white;
 }
