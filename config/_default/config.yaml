@@ -21,12 +21,9 @@ params:
 
 menu:
   nav:
-#  - name: Development
-#    url: /development-setup/
-#    weight: 1
   - name: Articles
     url: /articles/
-    weight: 2
+    weight: 1
 
 markup:
   goldmark:
