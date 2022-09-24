@@ -4,7 +4,7 @@ author: "Ally"
 summary: "A relatively basic Laravel integration with an Amazon Cognito user pool with two clients. The first client for web users will be used to initiate (from Laravel) login/logout on Cognito's hosted UI with email/password. The second client will be for system users, which will generate tokens with email/password through API instead of hosted UI. Finally, a simple console command to decode/verify web and system users' JTWs from the user pool's JWKS."
 publishDate: 2022-09-24T09:09:32+01:00
 tags: ['laravel','cognito','terraform']
-draft: true
+draft: false
 ---
 
 GitHub repo [here](https://github.com/alistaircol/cognito-laravel-integration)
@@ -189,6 +189,8 @@ resource "aws_cognito_user_pool_ui_customization" "example" {
 
 ## Cognito User Pool: Client for Users
 
+Set up a client for users to authenticate using the hosted UI.
+
 `resources.tf`:
 
 ```hcl {linenos=true, linenostart=38}
@@ -233,6 +235,8 @@ resource "aws_cognito_user_pool_client" "web" {
 ```
 
 ## Cognito User Pool: Client for Systems
+
+Set up a client for users to authenticate as admin using the API.
 
 `resources.tf`:
 
@@ -381,6 +385,15 @@ There's no easy way within `terraform` to get the AWS secret access key. The eas
 
 ```bash
 aws --profile=${var.aws_profile} configure get aws_secret_access_key
+```
+
+Finally, get `terraform` to create the infrastructure.
+
+```bash
+terraform init
+terraform fmt
+terraform plan
+terraform apply
 ```
 
 ## Integration Pre-requisites
@@ -1253,7 +1266,7 @@ We will canonicalise the AWS `Result` to a HTTP response which we have used earl
 
 Just a simple console command to decode a given token.
 
-You will need to download the `JWKS.json` and place it in the `base_path`, i.e. root, of the laravel integration.
+You will need to download the `jwks.json` and place it in the `base_path`, i.e. root, of the laravel integration.
 
 e.g.
 
@@ -1393,5 +1406,7 @@ Examples:
 }
 ```
 {{</accordion>}}
+
+Good luck understanding Cognito! I certainly don't...
 
 GitHub repo [here](https://github.com/alistaircol/cognito-laravel-integration)
