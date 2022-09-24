@@ -8,10 +8,10 @@ draft: false
 ---
 
 {{<admonitions/info>}}
-Disclaimer: I'm not very experienced with Cognito, while I have gone to great effort to implement a realistic scenario it may not be optimal, so take this with a grain of salt.
+Disclaimer: I'm not very experienced with Cognito, while I have gone to great effort to implement a realistic scenario, it may not be optimal, so take this with a grain of salt.
 {{</admonitions/info>}}
 
-GitHub repo [here](https://github.com/alistaircol/cognito-laravel-integration)
+{{<github-repository url="https://github.com/alistaircol/cognito-laravel-integration" repository="alistaircol/cognito-laravel-integration" title="Explore full repository">}}
 
 ![Hosted Login](/img/articles/laravel-cognito/login.png)
 
@@ -1443,4 +1443,4 @@ Examples:
 
 Good luck understanding Cognito! I certainly don't...
 
-GitHub repo [here](https://github.com/alistaircol/cognito-laravel-integration)
+{{<github-repository url="https://github.com/alistaircol/cognito-laravel-integration" repository="alistaircol/cognito-laravel-integration" title="Explore full repository">}}
