@@ -524,6 +524,36 @@ return new class extends Migration
 ```
 {{</accordion>}}
 
+There's also a seeder, since we have some user details in our database:
+
+`database/seeders/UsersSeeder.php`:
+
+```php
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+
+class UsersSeeder extends Seeder
+{
+    public function run()
+    {
+        DB::table('users')->insert([
+            'name' => 'ally',
+            'email' => 'ally@dafedteam.com',
+            'password' => '',
+        ]);
+    }
+}
+```
+
+```bash
+php artisan db:seed
+```
+
 ## Integration Model
 
 I have created a new trait that the `User` model will use, this is to reduce clutter in the model if you decide to no longer use Cognito.
