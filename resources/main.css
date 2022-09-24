@@ -67,7 +67,8 @@ main a {
     @apply text-white underline;
 }
 
-.list-summary code {
+.list-summary code,
+div.summary code {
     @apply text-sky-500;
 }
 
