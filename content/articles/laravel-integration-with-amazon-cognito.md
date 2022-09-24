@@ -7,6 +7,8 @@ tags: ['laravel','cognito','terraform']
 draft: true
 ---
 
+GitHub repo [here](https://github.com/alistaircol/cognito-laravel-integration)
+
 ![Hosted Login](/img/articles/laravel-cognito/login.png)
 
 ## Scenario
@@ -1391,3 +1393,5 @@ Examples:
 }
 ```
 {{</accordion>}}
+
+GitHub repo [here](https://github.com/alistaircol/cognito-laravel-integration)
