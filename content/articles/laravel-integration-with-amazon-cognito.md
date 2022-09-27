@@ -892,6 +892,138 @@ class IndexController extends Controller
 
 ![Home: Unauthenticated](/img/articles/laravel-cognito/home-unauthenticated.png)
 
+## Integration: Registering a User
+
+![Carbon](/img/articles/laravel-cognito/carbon.png)
+
+You might not always want to use terraform to add a new user.
+
+We will make a console command to:
+
+* add a user in the pool using the SDK, and 
+* add the user in our database, setting their `sub` (`User.Username`) from the pool in some field on the `users`
+  * In the example below I set on the `password` because I'm too lazy to create a migration for this
+
+```php {linenos=true, hl_lines=["34-47"]}
+<?php
+
+namespace App\Console\Commands;
+
+use App\Models\User;
+use Aws\CognitoIdentityProvider\CognitoIdentityProviderClient;
+use Aws\Credentials\Credentials;
+use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+
+class RegisterUserInCognito extends Command
+{
+    protected $signature = <<<SIGNATURE
+    user:create
+    {email : The email address of the user }
+    {name : The name of the user }
+    SIGNATURE;
+
+    protected $description = 'Create a user and register them in Cognito.';
+
+    public function handle(): int
+    {
+        $cognito = new CognitoIdentityProviderClient([
+            'region' => 'eu-west-2',
+            'version' => '2016-04-18',
+            'credentials' => new Credentials(
+                config('auth.cognito.aws_access_key'),
+                config('auth.cognito.aws_secret_access_key')
+            ),
+        ]);
+
+        DB::transaction(function () use ($cognito) {
+            $result = $cognito->adminCreateUser([
+                'UserAttributes' => [
+                    [
+                        'Name' => 'email',
+                        'Value' => $this->argument('email'),
+                    ],
+                    [
+                        'Name' => 'email_verified',
+                        'Value' => 'true',
+                    ]
+                ],
+                'UserPoolId' => config('auth.cognito.user_pool_id'),
+                'Username' => $this->argument('email'),
+            ]);
+
+            /** @var array $user */
+            $user = $result->get('User');
+
+            User::query()->create([
+                'name' => 'ally',
+                'email' => $this->argument('email'),
+                'password' => Arr::get($user, 'Username'),
+            ]);
+        });
+
+        return self::SUCCESS;
+    }
+}
+```
+
+{{<accordion title="`$result`">}}
+
+```text
+Aws\Result {#693
+  -data: array:2 [
+    "User" => array:6 [
+      "Username" => "d3e141d9-2a40-4339-b107-e66937bcccc9"
+      "Attributes" => array:2 [
+        0 => array:2 [
+          "Name" => "sub"
+          "Value" => "d3e141d9-2a40-4339-b107-e66937bcccc9"
+        ]
+        1 => array:2 [
+          "Name" => "email"
+          "Value" => "me@ac93.uk"
+        ]
+      ]
+      "UserCreateDate" => Aws\Api\DateTimeResult @1664280503 {#688
+        date: 2022-09-27 12:08:23.547 UTC (+00:00)
+      }
+      "UserLastModifiedDate" => Aws\Api\DateTimeResult @1664280503 {#689
+        date: 2022-09-27 12:08:23.547 UTC (+00:00)
+      }
+      "Enabled" => true
+      "UserStatus" => "FORCE_CHANGE_PASSWORD"
+    ]
+    "@metadata" => array:4 [
+      "statusCode" => 200
+      "effectiveUri" => "https://cognito-idp.eu-west-2.amazonaws.com"
+      "headers" => array:5 [
+        "date" => "Tue, 27 Sep 2022 12:08:23 GMT"
+        "content-type" => "application/x-amz-json-1.1"
+        "content-length" => "301"
+        "connection" => "keep-alive"
+        "x-amzn-requestid" => "c6305bc2-cf66-413d-9ca4-0d241984dbda"
+      ]
+      "transferStats" => array:1 [
+        "http" => array:1 [
+          0 => []
+        ]
+      ]
+    ]
+  ]
+  -monitoringEvents: []
+}
+```
+{{</accordion>}}
+
+![CLI user](/img/articles/laravel-cognito/cli-user.png)
+
+This will email the user with a temporary password, where they will be required to set a new password which complies with the pool's password policy.
+
+After the password has been changed, the user will be sent to the `login-success` route.
+
+![Hosted Temporary Password](/img/articles/laravel-cognito/change-temp-password.png)
+
 ## Integration: Login
 
 `app/Http/Controllers/LoginController.php`:
