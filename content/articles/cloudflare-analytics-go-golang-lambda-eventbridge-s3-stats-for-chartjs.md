@@ -9,8 +9,6 @@ draft: true
 
 {{<github-repository url="https://github.com/alistaircol/go-cloudflare-graphql-analytics" repository="alistaircol/go-cloudflare-graphql-analytics" title="Explore full repository">}}
 
-Terraform scripts for this may come later.
-
 ## Lambdas
 
 Create three lambda functions:
@@ -52,20 +50,20 @@ This will create relevant roles with policies. The Lambda will need some additio
 }
 ```
 
-Attach the CORS policy:
+Attach the CORS policy, so we can use the analytics in a page with chartjs. 
 
 ```json
 [
-  {
-    "AllowedHeaders": [],
-    "AllowedMethods": [
-      "GET"
-    ],
-    "AllowedOrigins": [
-      "*"
-    ],
-    "ExposeHeaders": []
-  }
+    {
+        "AllowedHeaders": [],
+        "AllowedMethods": [
+            "GET"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": []
+    }
 ]
 ```
 
@@ -101,7 +99,7 @@ Go to IAM and create a new user with programmatic access and attach the same S3 
 aws configure --profile=blog-analytics
 ```
 
-or just set the environment variables.
+Or just set the environment variables when running the binaries.
 
 ## Lambda Code
 
