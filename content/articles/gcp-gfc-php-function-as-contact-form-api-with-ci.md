@@ -11,7 +11,11 @@ This post will outline how I will create a serverless contact form with a PHP ru
 
 This will mainly involve three repositories:
 
-* `website`: A `hugo` site for which a contact form is required.
+* [![gcf-website](https://img.shields.io/badge/alistaircol/gcf--website-alpine.js-8BC0D0?style=flat&logo=alpine.js)](https://github.com/alistaircol/gcf-website)
+* [![gcf-contact-form](https://img.shields.io/badge/alistaircol/gcf--contact--form-php-777BB4?style=flat&logo=php)](https://github.com/alistaircol/gcf-contact-form) ![You are here](https://img.shields.io/badge/-you%20are%20here-brightgreen)
+* [![gcf-contact-form-infrastructure](https://img.shields.io/badge/alistaircol/gcf--contact--form--infrastructure-terraform-7B42BC?style=flat&logo=terraform)](https://github.com/alistaircol/gcf-contact-form-infrastructure)
+
+* `contact-form-website`: A static site for which a contact form is required.
 * `contact-form-infrastructure`: Terraform scripts to create relevant GCP infrastructure
 * `contact-form`: A relatively simple PHP script to validate form request, and send an email. Will also have CI to:
   * Create code bundle and upload to GCP function
