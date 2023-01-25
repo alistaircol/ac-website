@@ -373,7 +373,7 @@ Afterwards you can see the bucket has been created!
 
 Laravel `.env` changes - the region doesn't really matter in this simple example.
 
-``` {hl_lines=[6]}
+```dotenv {hl_lines=[6]}
 FILESYSTEM_DRIVER=s3
 AWS_ACCESS_KEY_ID=W3jV4BKyEjsnKwed
 AWS_SECRET_ACCESS_KEY=EePilp8wrzPO79MHcxRYbXuRh4OEaOA67LhJ9EQO70hkIDzDD5Igvjxwj0CT
