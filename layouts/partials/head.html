@@ -20,6 +20,7 @@
         <meta property="og:url" content="{{ .Permalink }}">
         <meta property="og:image" content="{{ $cover }}">
         <meta property="og:description" content="List of {{ .Data.Plural }}.">
+        <meta name="robots" content="noindex">
         {{- else if and (eq .Kind "section") (eq .Page.File.Path "articles/_index.md") -}}
         <meta property="og:site_name" content="Ally's Blog" />
         <meta property="og:type" content="website">
