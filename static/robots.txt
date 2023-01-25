@@ -1,0 +1,5 @@
+User-agent: *
+Disallow:
+User-agent: *
+Disallow: tags/*
+Sitemap: https://ac93.uk/sitemap.xml
