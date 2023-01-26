@@ -8,11 +8,9 @@ draft: false
 cover: https://ac93.uk/img/unsplash/jakob-soby-RjPG-_LVmiQ-unsplash.jpg
 ---
 
-**Rationale** Had an IP to debug, but it is only allowed from server IP addresses.
-
 Unfortunately Postman doesn't support SOCKS proxy, so have to find something else. No problem.
 
-**Start SOCKS proxy**
+## Tunnel/SOCKS proxy
 
 ```bash
 ssh -D 7777 -fCqN -I ~/.ssh/id_rsa my-host
@@ -27,7 +25,7 @@ ssh -D 7777 -fCqN -I ~/.ssh/id_rsa my-host
 * `~/ssh/id_rsa`: Public key to use
 * `my-host`: Entry in `~/.ssh/config`'s `Host`
 
-**Start HTTP to SOCKS proxy**
+## HTTP to SOCKS proxy
 
 Install:
 
