@@ -1,0 +1,84 @@
+---
+version: 3
+
+vars:
+  DOCKER_RUN: >-
+    docker run
+    --rm
+    --interactive
+    --tty
+    --user=$(id -u):$(id -g)
+    --mount type=bind,source=$(pwd),target=/src
+    --workdir="/src"
+  DOCKER_IMAGE_YAMLLINT: cytopia/yamllint:latest
+  DOCKER_IMAGE_HUGO: klakegg/hugo:0.101.0-ext
+  TAILWIND: >-
+    npx tailwindcss
+    --input="$(pwd)/resources/main.css"
+    --output="$(pwd)/static/css/main.css"
+    --output="$(pwd)/static/css/main.css"
+
+tasks:
+  default:
+    silent: true
+    cmds:
+    - cmd: task --list --sort=none
+
+  lint:
+    desc: Lint all yaml files
+    interactive: true
+    silent: true
+    cmds:
+    - "{{.DOCKER_RUN}} {{.DOCKER_IMAGE_YAMLLINT}} {{.CLI_ARGS}} ."
+
+  server:
+    desc: Mounts current `pwd` and runs `hugo server`
+    interactive: true
+    silent: true
+    ignore_error: true
+    cmds:
+    - >-
+      {{.DOCKER_RUN}}
+      --publish="1313:1313"
+      {{.DOCKER_IMAGE_HUGO}}
+      server
+      --appendPort
+      --port=1313
+      --noHTTPCache
+      --baseURL=http://localhost
+      --buildFuture
+      --buildDrafts
+
+  shell:
+    desc: Mounts current `pwd` and runs `sh` in a `{{.DOCKER_IMAGE_HUGO}}` image
+    silent: true
+    cmds:
+    - >-
+      {{.DOCKER_RUN}}
+      --entrypoint="sh"
+      {{.DOCKER_IMAGE_HUGO}}
+
+  build:
+    desc: Mounts current `pwd` and runs `hugo build` in a `{{.DOCKER_IMAGE_HUGO}}` image
+    silent: true
+    cmds:
+    - >-
+      {{.DOCKER_RUN}}
+      {{.DOCKER_IMAGE_HUGO}}
+
+  theme:
+    desc: Runs `npx tailwind --watch`, i.e. re-build theme assets for dev
+    silent: true
+    ignore_error: true
+    cmds:
+    - cmd: rm ./static/css/main.css
+      ignore_error: true
+    - "{{.TAILWIND}} --watch"
+
+  assets:
+    desc: Runs `npx tailwind --minify`, i.e. generate new build of theme assets for prod
+    silent: true
+    cmds:
+    - cmd: rm ./static/css/main.css
+      ignore_error: true
+    - "{{.TAILWIND}} --minify"

@@ -28,13 +28,23 @@ Favicon generated with [favicon.io](https://favicon.io/favicon-generator/); fore
 
 ## Build/Develop
 
-* `make server` runs `hugo server` in a container
-* `make shell` runs `sh` in a container
-* `make build` runs `hugo build` in a container
-* `make article` runs an interactive script to create a new `.md` file in `content/`
-* `make theme` runs `npx tailwindcss --watch` while creating changes to theme
-* `make assets` runs `npx tailwind --minify` to commit changes to `static/`
-* `make lint` runs `yamllint` in a container to verify syntax of `yaml` config files
+Use `task` over `make`. `make` remains as netlify uses this.
+
+* `task server` runs `hugo server` in a container
+* `task shell` runs `sh` in a container
+* `task build` runs `hugo build` in a container
+* `task theme` runs `npx tailwindcss --watch` while creating changes to theme
+* `task assets` runs `npx tailwind --minify` to commit changes to `static/`
+* `task lint` runs `yamllint` in a container to verify syntax of `yaml` config files
+
+### Node
+
+* Install [`nvm`](https://github.com/nvm-sh/nvm#installing-and-updating)
+* Install newest LTS `nvm install --lts`
+* Use newest LTS `nvm use --lts`
+* Install stuff `npm install`
+
+### Misc
 
 Lint yaml files on commit, shouldn't edit many yaml files after initial setup.
 
