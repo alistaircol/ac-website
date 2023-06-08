@@ -32,7 +32,7 @@ tasks:
     - "{{.DOCKER_RUN}} {{.DOCKER_IMAGE_YAMLLINT}} {{.CLI_ARGS}} ."
 
   server:
-    desc: Mounts current `pwd` and runs `hugo server`
+    desc: Mounts current `pwd` and runs `hugo server` in a container
     interactive: true
     silent: true
     ignore_error: true
@@ -50,7 +50,7 @@ tasks:
       --buildDrafts
 
   shell:
-    desc: Mounts current `pwd` and runs `sh` in a `{{.DOCKER_IMAGE_HUGO}}` image
+    desc: Mounts current `pwd` and runs `sh` in a `hugo` container
     silent: true
     cmds:
     - >-
@@ -59,7 +59,7 @@ tasks:
       {{.DOCKER_IMAGE_HUGO}}
 
   build:
-    desc: Mounts current `pwd` and runs `hugo build` in a `{{.DOCKER_IMAGE_HUGO}}` image
+    desc: Mounts current `pwd` and runs `hugo build` in a `hugo` container
     silent: true
     cmds:
     - >-
