@@ -97,6 +97,12 @@ tasks:
       {{.REGISTRY_REMOTE}}/{{.REGISTRY_REMOTE_USER}}/{{.IMAGE_NAME}}
 ```
 
+<center>
+
+![ghcr](/img/articles/grs/ghcr.png)
+
+</center>
+
 ## Running the server
 
 Create a `.env` file containing the second [PAT](https://github.com/anuraghazra/github-readme-stats/?tab=readme-ov-file#deploy-on-your-own) for fetching private contributions.
@@ -126,6 +132,12 @@ docker run \
     -p '9000:9000' \
     ghcr.io/alistaircol/github-readme-stats
 ```
+
+<center>
+
+![server](/img/articles/grs/server.png)
+
+</center>
 
 ## Appliance
 
