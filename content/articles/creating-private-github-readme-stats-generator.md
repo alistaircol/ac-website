@@ -2,7 +2,7 @@
 title: Private Github Readme Stats server and uploading to S3 with Ansible Semaphore
 author: Ally
 summary: Containerise a private Github Readme Stats server and upload stats card image to S3 using an Ansible playbook on a schedule with Semaphore
-publishDate: 2023-09-03T19:50:30+0100
+publishDate: 2024-09-03T19:50:30+0100
 tags: ['github-readme-stats','docker','ansible', 'semaphore']
 cover: https://ac93.uk/img/articles/grs/cover.png
 ---
